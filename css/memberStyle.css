@@ -1,0 +1,33 @@
+/**
+Honley CC colours
+Orange:	#e38708
+Green:	#008b31
+wing:	#CABB9E
+chest:	#945f35
+*/
+body {
+    padding-top: 0;
+}
+
+#left-label {
+    text-align: left;
+}
+
+.yes:after {
+    font-family: 'FontAwesome';
+    font-weight: lighter;
+    font-size: 8px;
+    vertical-align: super;
+    content: "  \f069";
+    color: red;
+
+}
+
+span.child {
+    color: red;
+    font-weight: bold;
+}
+
+.pagebreak {
+    page-break-before: always;
+} 

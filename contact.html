@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Honley Cricket Club website" />
+<meta name="author" content="Richard Kingston" />
+<title>Honley Cricket Club - directions & contact form</title>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="css/modern-business.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<!-- Custom Fonts -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</style>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyAHY4Q_SgSDzWSidBWLjPlDXRK9-p0WZaY"></script>
+<script type="text/javascript" src="js/directions.js"></script>
+<style>
+@media print {
+body * {
+	visibility: hidden;
+}
+#section-to-print, #section-to-print * {
+	visibility: visible;
+}
+#section-to-print {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+}
+</style>
+</head>
+<body onLoad="initialize()">
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigationbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar" href="https://www.honleycc.com/"><img src="img/logo.jpg" title="Honley Cricket Club"  width="35px" alt="Honley Cricket Club" /> <span class="gold">Honley</span> <span class="green">Cricket</span> <span class="gold"> Club</span></a> </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navigationbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://www.honleycc.com/"><i class="fa fa-home fa-2x"></i></a></li>
+        <li><a href="https://honleycc.new.clubpay.co.uk/index.php?dispatch=categories.view&category_id=423" target="_blank">Membership <i class="fa fa-external-link"></i></a></li>
+        <li><a href="https://www.honleycc.com/members/policy.html">Club policies</a></li>
+        <li><a href="https://www.honleycc.com/results.html">Results & Fixtures</a></li>
+        <li><a href="https://www.honleycc.com/index.html#follow"><i class="fa fa-facebook-square fa-2x"></i> &nbsp;
+          <i class="fa fa-twitter-square fa-2x"></i></a></li>
+        <li><a href="https://www.honleycc.com/contact.html">Contact us</a></li>
+
+      </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container -->
+</nav>
+<!-- Page Content -->
+<div class="container">
+  <!-- Page Heading/Breadcrumbs -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="page-header">Get directions &amp; contact us</h2>
+    </div>
+  </div>
+  <!-- /.row -->
+  <!-- Content Row -->
+  <div class="well">
+    <div class="row">
+      <form onSubmit="calcRoute();return false;" id="routeForm">
+        <div class="col-md-3">
+          <input type="text" id="routeStart" value="" class="form-control" placeholder="Enter your starting location">
+          <!--a href="#" class="autoLink">Use current location: <span>not found</span></a-->
+          <!--label> To: <br /-->
+          <!-- Hidden input to prevent user editing -->
+          <input type="hidden" id="routeEnd" value="53.601164, -1.789623">
+          <!--/label-->
+        </div>
+        <div class="col-md-1">
+          <label class="radio-inline">
+          <input type="radio" name="travelMode" value="DRIVING" checked />
+          Driving</label>
+        </div>
+        <div class="col-md-1">
+          <label class="radio-inline">
+          <input type="radio" name="travelMode" value="BICYCLING" />
+          Cycling</label>
+        </div>
+        <div class="col-md-1">
+          <label class="radio-inline">
+          <input type="radio" name="travelMode" value="TRANSIT" />
+          Public transport</label>
+        </div>
+        <div class="col-md-1">
+          <label class="radio-inline">
+          <input type="radio" name="travelMode" value="WALKING" />
+          Walking</label>
+        </div>
+        <div class="col-md-2">
+          <input type="submit" value="Get directions" class="btn btn-default">
+        </div>
+        <div class="col-md-1"> <a href="javascript:window.print()" title="print directions"><i class="fa fa-print fa-2x" aria-hidden="true"></i></a> </div>
+      </form>
+    </div>
+  </div>
+  <div id="section-to-print" class="well">
+    <!-- Embedded Google Map -->
+    <div class="row">
+      <!-- the map -->
+      <div id="map" class="col-md-9" style="height:400px"> </div>
+      <!-- the address -->
+      <div class="col-md-3">
+        <h3>Contact Details</h3>
+        <p>Honley Cricket Club<br>
+          Far End Lane,<br>
+          Honley<br>
+          Holmfirth<br>
+          HD9 6NS<br>
+        </p>
+        <!--p><i class="fa fa-phone"></i> <abbr title="Phone">P</abbr>: 01484 ------</p-->
+        <p><i class="fa fa-envelope-o"></i>: <a href="mailto:honleycc@gmail.com">honleycc@gmail.com</a> </p>
+        <ul class="list-unstyled list-inline list-social-icons">
+          <li><a href="https://twitter.com/honleycc" target="_blank" title="Twitter page"><i class="fa fa-twitter-square fa-2x"></i></a></li>
+          <li><a href="https://www.facebook.com/Honley-Cricket-Club-277523829083602/" target="_blank" title="Facebook page"><i class="fa fa-facebook-square fa-2x"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="directionsPanel">
+      <h4 align="center">If you get directions they will appear here for printing.</h4>
+    </div>
+  </div>
+  <hr>
+  <div class="well">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Send us a message</h3>
+        <form name="sentMessage" id="contactForm" novalidate>
+          <div class="control-group form-group">
+            <div class="controls">
+              <label>Full name:</label>
+              <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
+              <p class="help-block"></p>
+            </div>
+          </div>
+          <div class="control-group form-group">
+            <div class="controls">
+              <label>Phone number:</label>
+              <input type="tel" class="form-control" id="phone" required data-validation-required-message="Please enter your phone number.">
+            </div>
+          </div>
+          <div class="control-group form-group">
+            <div class="controls">
+              <label>Your email address:</label>
+              <input type="email" class="form-control" id="email" required data-validation-required-message="Please enter your email address.">
+            </div>
+          </div>
+          <div class="control-group form-group">
+            <div class="controls">
+              <label>Message:</label>
+              <textarea rows="10" cols="100" class="form-control" id="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
+            </div>
+          </div>
+          <div id="success"></div>
+          <!-- For success/fail messages -->
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <!-- Footer -->
+  <footer>
+    <div class="row">
+      <div class="col-lg-12">
+        <p align="center">Copyright &copy; Honley Cricket Club 2018 | Built by <a href="http://www.tellus-toolkit.com" target="_blank">TellUs Toolkit Ltd</a>.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+<!-- /.container -->
+<!-- jQuery -->
+<!--script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Contact Form JavaScript -->
+<script src="js/jqBootstrapValidation.js"></script>
+<script src="js/contact_me.js"></script>
+</body>
+</html>
