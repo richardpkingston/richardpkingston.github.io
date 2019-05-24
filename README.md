@@ -1,3 +1,3 @@
-# hcc
-Honley Cricket Club
-We pages for the crcket club
+# Honley Cricket Club
+
+Web pages for the cricket club
