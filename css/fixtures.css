@@ -2,3 +2,23 @@
 td.home { 
   font-weight: bold; 
 }
+
+tr.train {
+  background-color: #70AD47;
+}
+
+tr.9 {
+  background-color: #4472C4
+}
+
+tr.11-17 {
+  background-color: #ED7D31
+}
+
+tr.13 {
+  background-color: #FFC000;
+}
+
+tr.15 {
+  background-color: #C00000;
+}
