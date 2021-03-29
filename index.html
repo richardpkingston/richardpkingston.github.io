@@ -101,13 +101,15 @@
                                                                                                                    data-slide="next" href="#myCarousel"> <span
         class="icon-next"></span> </a>
 </header>
-<hr>
-<div class="row">
-    <div class="col-lg-12">
-        <h4 align="center">Latest Covid guidance can be found on our <a href="members/policy.html">policies</a> page.</h4>
+<div class="container">
+    <hr>
+    <div class="row">
+        <div class="col-lg-12">
+            <h4 class="text-center">Latest Covid guidance can be found on our <a href="members/policy.html">policies</a> page.</h4>
+        </div>
     </div>
+    <hr>
 </div>
-<hr>
 <!-- Page Content -->
 <div class="container">
     <div class="row">
@@ -261,8 +263,14 @@
     <footer>
         <div class="row">
             <div class="col-lg-12">
-                <p align="center">Copyright &copy; Honley Cricket Club 2019 | Built by <a href="http://www.tellus-toolkit.com" target="_blank">TellUs Toolkit
-                    Ltd</a>.</p>
+                <p class="text-center">Copyright &copy; Honley Cricket Club 2021 | Built by <a href="http://www.tellus-toolkit.com" target="_blank">TellUs
+                    Toolkit
+                    Ltd</a>.<br>
+                    <script>
+                        var date = document.lastModified;
+                        document.write("Last Modified: " + date);
+                    </script>
+                </p>
             </div>
         </div>
     </footer>
@@ -277,9 +285,7 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
     });
-</script>
-<!-- Script to Activate the Carousel -->
-<script>
+    <!-- Script to Activate the Carousel -->
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     })
