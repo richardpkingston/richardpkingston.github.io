@@ -252,8 +252,11 @@
                 <p>
                 <p class="text-center">
                     <script>
-                        var date = new Date();
-                        document.write("Last Modified: " + date);
+                        update = new Date(document.lastModified)
+                        theMonth = update.getMonth() + 1
+                        theDate = update.getDate()
+                        theYear = update.getFullYear()
+                        document.writeln("Last updated: " + theDate + "-" + theMonth + "-" + theYear + "")
                     </script>
                 </p>
             </div>
@@ -270,10 +273,6 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
     });
-    <!-- Script to Activate the Carousel -->
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
 </script>
 </body>
 </html>
