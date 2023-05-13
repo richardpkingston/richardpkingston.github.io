@@ -230,12 +230,13 @@
                     | Built by <a href="http://www.tellus-toolkit.com" target="_blank">TellUs Toolkit Ltd</a>.
                 <p>
                 <p class="text-center small">
-                    <script>
-                        var today = new Date();
-                        var date = today.getDate() + ' - ' + (today.getMonth() + 1) + ' - ' + today.getFullYear();
-                        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                        document.writeln("Last updated: " + date + " @ " + time)
-                    </script>
+                    Last updated:
+                <p id="updated"></p>
+                <script>
+                    let text = document.lastModified;
+                    document.getElementById("updated").innerHTML = text;
+                </script>
+
                 </p>
             </div>
         </div>
