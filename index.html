@@ -263,11 +263,31 @@
             <p>
             <p class="text-center small">
                 Last updated:
-            <p class="text-center small" id="updated"></p>
+            <p class="text-center small" id="lastModified"></p>
             <script>
-                let text = document.lastModified;
-                document.getElementById("updated").innerHTML = text;
-            </script>
+                // Retrieve the last modified date
+                const lastModified = document.lastModified;
+
+                // Create a new Date object
+                const modifiedDate = new Date(lastModified);
+
+                // Create an array of weekday names
+                const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+                // Get the day of the week
+                const dayOfWeek = weekdays[modifiedDate.getDay()]; // Get the weekday name
+
+                // Extract day, month, and year in UK format
+                const day = String(modifiedDate.getDate()).padStart(2, '0'); // Get day and add leading zero if needed
+                const month = String(modifiedDate.getMonth() + 1).padStart(2, '0'); // Get month and add leading zero if needed
+                const year = modifiedDate.getFullYear(); // Get year
+
+                // Combine into UK format (DD/MM/YYYY)
+                const formattedDate = `${dayOfWeek} ${day}-${month}-${year}`;
+
+                // Display the formatted date on the webpage
+                document.getElementById("lastModified").textContent = formattedDate;
+                </script>
             </p>
         </div>
     </div>
