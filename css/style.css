@@ -50,6 +50,13 @@ h3 {
 
 	font-weight: 700;
 
+	/* 
+		Ensures that page anchors to the H3 headings are not covered over by the nav bar 
+		Assumes we only have page anchors on H3's, otherwise there's probably a better approach.
+	*/
+	padding-top: 75px;
+    margin-top: -75px;
+
 }
 
 h5 {
