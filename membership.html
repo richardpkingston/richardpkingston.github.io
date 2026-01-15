@@ -38,6 +38,21 @@
         border: 0;
     }
 
+    /* Mobile fix: allow the Winter Training embedded form to scroll */
+    @media (max-width: 768px) {
+        #collapsePM-Junior-winter .panel-body {
+            max-height: 80vh; /* key: give it a height constraint */
+            overflow-y: auto; /* key: enable scrolling */
+            -webkit-overflow-scrolling: touch; /* smooth iOS scrolling */
+        }
+
+        /* ClubPay injects an iframe: ensure it fits width */
+        #collapsePM-Junior-winter iframe {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    }
+
     @media (max-width: 768px) {
         .panel-body {
             overflow-y: auto;
@@ -91,13 +106,15 @@
                     <div class="panel panel-default">
                         <div class="panel-heading" id="headingWinter" role="tab">
                             <h4 class="panel-title">
-                                <a aria-controls="collapsePM-Junior" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                                <a aria-controls="collapsePM-Junior" aria-expanded="true" class="collapsed"
+                                   data-parent="#accordion"
                                    data-toggle="collapse" href="#collapsePM-Junior-winter"
                                    role="button">Junior Winter Training (u11s, 13s &amp; 15s -
                                     £35)</a>
                             </h4>
                         </div>
-                        <div aria-labelledby="headingWinter" class="panel-collapse collapse" id="collapsePM-Junior-winter"
+                        <div aria-labelledby="headingWinter" class="panel-collapse collapse"
+                             id="collapsePM-Junior-winter"
                              role="tabpanel">
                             <div class="panel-body">
                                 <div data-formheight="2296"
@@ -124,7 +141,8 @@
                     <div class="panel panel-default">
                         <div class="panel-heading" id="headingOne" role="tab">
                             <h4 class="panel-title">
-                                <a aria-controls="collapsePM-Junior" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                                <a aria-controls="collapsePM-Junior" aria-expanded="true" class="collapsed"
+                                   data-parent="#accordion"
                                    data-toggle="collapse" href="#collapsePM-Junior"
                                    role="button">Junior Playing Members (u7s &amp; u9s - £60. u11s -
                                     u17
@@ -161,7 +179,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingTwo" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapseAge-Table" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                            <a aria-controls="collapseAge-Table" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
                                data-toggle="collapse" href="#collapseAge-Table"
                                role="button">Junior Player School Ages</a>
                         </h4>
@@ -270,7 +289,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingTrousers" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapseAge-Table" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                            <a aria-controls="collapseAge-Table" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
                                data-toggle="collapse" href="#collapse-Trousers"
                                role="button">Junior Player extra trousers order (£25 per pair)</a>
                         </h4>
@@ -301,7 +321,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingThree" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapsePM-Senior" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                            <a aria-controls="collapsePM-Senior" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
                                data-toggle="collapse" href="#collapsePM-Senior"
                                role="button">Senior Playing Membership - £155 / £50</a>
                         </h4>
@@ -331,7 +352,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingFour" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-PM-Life" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                            <a aria-controls="collapse-PM-Life" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
                                data-toggle="collapse" href="#collapse-PM-Life"
                                role="button">Player Life Member (match fees only) XI Senior -
                                 £105 /
@@ -363,7 +385,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingFive" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Social" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                            <a aria-controls="collapse-Social" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
                                data-toggle="collapse" href="#collapse-Social"
                                role="button">Social Membership Single (non-player) - £25</a>
                         </h4>
@@ -392,7 +415,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingSix" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Senior" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                            <a aria-controls="collapse-Senior" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
                                data-toggle="collapse" href="#collapse-Senior"
                                role="button">Senior Citizen Membership - £20</a>
                         </h4>
@@ -422,7 +446,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingSeven" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Family-Life" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                            <a aria-controls="collapse-Family-Life" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
                                data-toggle="collapse" href="#collapse-Family-Life"
                                role="button">Family Life Membership - £550</a>
                         </h4>
@@ -448,7 +473,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingEight" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Single-Life" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                            <a aria-controls="collapse-Single-Life" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
                                data-toggle="collapse" href="#collapse-Single-Life"
                                role="button">Single Life Membership - £300</a>
                         </h4>
@@ -475,7 +501,8 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingNine" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Senior-Life" aria-expanded="true" class="collapsed" data-parent="#accordion"
+                            <a aria-controls="collapse-Senior-Life" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
                                data-toggle="collapse" href="#collapse-Senior-Life"
                                role="button">Senior Citizen Life Membership - £175</a>
                         </h4>
