@@ -4,46 +4,34 @@
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-    <meta content="Honley Cricket Club website" name="description">
-    <meta content="Richard Kingston" name="author">
+    <meta content="Honley Cricket Club website" name="description"/>
+    <meta content="Richard Kingston" name="author"/>
     <title>Honley Cricket Club - Membership Registration</title>
-
-    <link href="favicon.png" rel="shortcut icon" type="image/x-icon">
-
+    <link href="favicon.png" rel="shortcut icon" type="image/x-icon"/>
     <!-- Bootstrap Core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="css/modern-business.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/form.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
+    <link href="css/form.css" rel="stylesheet">    <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <!--[if lt IE 9]>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>    <![endif]-->
+    <!--script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script-->
     <style>
-        /* Optional: helps very long embedded forms feel smoother on phones */
-        @media (max-width: 768px) {
-            .panel-body {
-                -webkit-overflow-scrolling: touch;
-            }
-        }
+    /* ClubPay iframe embeds */
+    .clubpay-frame { width: 100%; }
+    .clubpay-iframe { width: 100%; max-width: 100%; border: 0; }
 
-        /* Optional: keep embedded iframe responsive width */
-        .panel-body iframe {
-            max-width: 100% !important;
-        }
-    </style>
+    /* Optional: smoother scrolling on iOS inside long pages */
+    @media (max-width: 768px) {
+        body { -webkit-overflow-scrolling: touch; }
+    }
+</style>
 </head>
-
 <body>
-
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
@@ -55,117 +43,122 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">
-                <img alt="Honley Cricket Club" height="35" src="img/logo.jpg" title="Honley Cricket Club">
-            </a>
+            <a class="navbar-brand" href="/"><img alt="Honley Cricket Club" height="35px" src="img/logo.jpg"
+                                                  title="Honley Cricket Club"></a>
         </div>
-
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li><a href="/"><i class="fa fa-home fa-2x"></i></a></li>
                 <li><a href="membership.html">Membership</a></li>
                 <li><a href="/members/policy.html">Club policies</a></li>
-                <li><a href="results.html">Results &amp; Fixtures</a></li>
+                <li><a href="results.html">Results & Fixtures</a></li>
                 <li><a href="juniors">Juniors Section</a></li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#follow">
-                        <i class="fa fa-facebook-square fa-2x"></i> &nbsp;
-                        <i class="fa fa-twitter-square fa-2x"></i>
-                    </a>
-                </li>
+                <li><a href="#follow"><i class="fa fa-facebook-square fa-2x"></i> &nbsp; <i
+                        class="fa fa-twitter-square fa-2x"></i></a></li>
                 <li><a href="contact.html">Contact us</a></li>
             </ul>
-        </div>
-    </div>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
 </nav>
-
 <!-- Page Content -->
 <div class="container" style="margin-top:70px">
+    <!-- Page Heading/Breadcrumbs -->
     <div class="row">
-        <div class="col-lg-12">
-
-            <h2 class="page-header">Membership</h2>
-            <h4>Please select your 2025 membership type, fill in your details and pay online.</h4>
+        <div class="col-lg-12"><h2 class="page-header">Membership</h2>
+            <h4>Please select your membership type, fill in your details and pay online.</h4>
             <p>Once registered and payment is received you will get an emailed copy of your membership details.</p>
-
-            <div aria-multiselectable="true" class="panel-group" id="accordion" role="tablist">
+            <div class="panel-group" id="accordion" role="tablist">
                 <h5>Junior player memberships:</h5>
 
-                <!-- Junior Winter Training -->
                 <div class="panel panel-default">
-                    <div class="panel-heading" id="headingWinter" role="tab">
-                        <h4 class="panel-title">
-                            <a aria-controls="collapsePM-Junior-winter" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapsePM-Junior-winter"
-                               role="button">
-                                Junior Winter Training (u11s, 13s &amp; 15s - £35)
-                            </a>
-                        </h4>
-                    </div>
-                    <div aria-labelledby="headingWinter" class="panel-collapse collapse" id="collapsePM-Junior-winter"
-                         role="tabpanel">
-                        <div class="panel-body">
-                            <div data-formheight="3250"
-                                 data-formtitle="Junior winter training - £35 for all sessions"
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=1489838"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_winter"></div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="headingWinter" role="tab">
+                            <h4 class="panel-title">
+                                <a aria-controls="collapsePM-Junior" aria-expanded="true" class="collapsed"
+                                   data-parent="#accordion"
+                                   data-toggle="collapse" href="#collapsePM-Junior-winter"
+                                   role="button">Junior Winter Training (u11s, 13s &amp; 15s -
+                                    £35)</a>
+                            </h4>
+                        </div>
+                        <div aria-labelledby="headingWinter" class="panel-collapse collapse"
+                             id="collapsePM-Junior-winter"
+                             role="tabpanel">
+                            <div class="panel-body">
+                                <p>If you have any trouble viewing the embedded form, you can also open it directly: <a href="https://www.clubpay.co.uk/forms/view.php?id=1489838" target="_blank" rel="noopener">open Junior Winter Training form in a new tab</a>.</p>
+                                <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Junior winter training - £35 for all sessions"
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=1489838"
+                                        width="100%"
+                                        height="2296"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Junior Playing Members -->
                 <div class="panel panel-default">
-                    <div class="panel-heading" id="headingOne" role="tab">
-                        <h4 class="panel-title">
-                            <a aria-controls="collapsePM-Junior" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapsePM-Junior" role="button">
-                                Junior Playing Members (u7s &amp; u9s - £60. u11s - u17 £85)
-                            </a>
-                        </h4>
-                    </div>
-                    <div aria-labelledby="headingOne" class="panel-collapse collapse" id="collapsePM-Junior"
-                         role="tabpanel">
-                        <div class="panel-body">
-                            <!--
-                            <p>We have identified a problem with this form on phone screens not scrolling, if you
-                              are trying to register using your phone please use this
-                              <a href="https://www.clubpay.co.uk/forms/view.php?id=1535014">direct link</a>
-                              to the payment form while we find a solution.</p>
-                            -->
-                            <div data-formheight="3898"
-                                 data-formtitle="Junior Playing Member (u11s to 17 yrs old) with HCC black cricket..."
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=1535014"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_junior_playing"></div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" id="headingOne" role="tab">
+                            <h4 class="panel-title">
+                                <a aria-controls="collapsePM-Junior" aria-expanded="true" class="collapsed"
+                                   data-parent="#accordion"
+                                   data-toggle="collapse" href="#collapsePM-Junior"
+                                   role="button">Junior Playing Members (u7s &amp; u9s - £60. u11s -
+                                    u17
+                                    £85)</a>
+                            </h4>
+                        </div>
+                        <div aria-labelledby="headingOne" class="panel-collapse collapse" id="collapsePM-Junior"
+                             role="tabpanel">
+                            <div class="panel-body">
+                                <!--p>We have identified a problem with this form on phone screens not scrolling, if you
+                                    are trying to register using your phone please use this <a
+                                            href="https://www.clubpay.co.uk/forms/view.php?id=1535014">direct link</a>
+                                    to the payment form while we find a solution.</p-->
+                                <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Junior Playing Member (u11s to 17 yrs old) with HCC black cricket..."
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=1535014"
+                                        width="100%"
+                                        height="3898"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Junior Player School Ages -->
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingTwo" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapseAge-Table" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapseAge-Table" role="button">
-                                Junior Player School Ages
-                            </a>
+                            <a aria-controls="collapseAge-Table" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
+                               data-toggle="collapse" href="#collapseAge-Table"
+                               role="button">Junior Player School Ages</a>
                         </h4>
                     </div>
                     <div aria-labelledby="headingTwo" class="panel-collapse collapse" id="collapseAge-Table"
                          role="tabpanel">
+                        <div class="panel-title">Unsure on which cricket group your child is in?</div>
                         <div class="panel-body">
-                            <div class="panel-title">Unsure on which cricket group your child is in?</div>
-
-                            <table class="table table-striped table-condensed">
+                            <table class=" table table-striped table-condensed">
                                 <thead>
                                 <tr>
-                                    <td><strong>Year Group</strong></td>
-                                    <td><strong>Date of Birth Range</strong></td>
-                                    <td><strong>Age During School Year</strong></td>
+                                    <td><strong>Year Group</strong>
+                                    </td>
+                                    <td><strong>Date of Birth Range</strong>
+                                    </td>
+                                    <td><strong>Age During School Year</strong>
+                                    </td>
                                     <td><strong>Cricket age group</strong></td>
                                 </tr>
                                 </thead>
@@ -254,271 +247,231 @@
                     </div>
                 </div>
 
-                <!-- Junior trousers -->
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingTrousers" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Trousers" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapse-Trousers" role="button">
-                                Junior Player extra trousers order (£25 per pair)
-                            </a>
+                            <a aria-controls="collapseAge-Table" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
+                               data-toggle="collapse" href="#collapse-Trousers"
+                               role="button">Junior Player extra trousers order (£25 per pair)</a>
                         </h4>
                     </div>
                     <div aria-labelledby="headingTrousers" class="panel-collapse collapse" id="collapse-Trousers"
                          role="tabpanel">
                         <div class="panel-body">
-                            <div data-formheight="1514"
-                                 data-formtitle="Junior Player extra trousers"
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=1540418"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_trousers"></div>
+                            <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Junior Player extra trousers"
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=1540418"
+                                        width="100%"
+                                        height="1514"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <h5>Senior player memberships:</h5>
-
-                <!-- Senior Playing Membership -->
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingThree" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapsePM-Senior" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapsePM-Senior" role="button">
-                                Senior Playing Membership - £155 / £50
-                            </a>
+                            <a aria-controls="collapsePM-Senior" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
+                               data-toggle="collapse" href="#collapsePM-Senior"
+                               role="button">Senior Playing Membership - £155 / £50</a>
                         </h4>
                     </div>
                     <div aria-labelledby="headingThree" class="panel-collapse collapse" id="collapsePM-Senior"
                          role="tabpanel">
                         <div class="panel-body">
-                            <div data-formheight="3250"
-                                 data-formtitle="Senior Playing Membership"
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=564259"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_senior_playing"></div>
+                            <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Senior Playing Membership"
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=564259"
+                                        width="100%"
+                                        height="3250"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Player Life Member -->
+                <!--h5>Life Player memberships</h5-->
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingFour" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-PM-Life" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapse-PM-Life" role="button">
-                                Player Life Member (match fees only) XI Senior - £105 / Junior - £52.50 | XII Senior -
-                                £95 / Junior - £47.50
-                            </a>
+                            <a aria-controls="collapse-PM-Life" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
+                               data-toggle="collapse" href="#collapse-PM-Life"
+                               role="button">Player Life Member (match fees only) XI Senior -
+                                £105 /
+                                Junior - £52.50 | XII Senior - £95 / Junior - £47.50</a>
                         </h4>
                     </div>
                     <div aria-labelledby="headingFour" class="panel-collapse collapse" id="collapse-PM-Life"
                          role="tabpanel">
                         <div class="panel-body">
-                            <div data-formheight="3250"
-                                 data-formtitle="Player Life Membership (fees only)"
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=631276"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_player_life"></div>
+                            <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Player Life Membership (fees only)"
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=631276"
+                                        width="100%"
+                                        height="3250"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <h5>Social memberships:</h5>
-
-                <!-- Social Membership Single -->
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingFive" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Social" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapse-Social" role="button">
-                                Social Membership Single (non-player) - £25
-                            </a>
+                            <a aria-controls="collapse-Social" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
+                               data-toggle="collapse" href="#collapse-Social"
+                               role="button">Social Membership Single (non-player) - £25</a>
                         </h4>
                     </div>
                     <div aria-labelledby="headingFive" class="panel-collapse collapse" id="collapse-Social"
                          role="tabpanel">
                         <div class="panel-body">
-                            <div data-formheight="1458"
-                                 data-formtitle="Social Membership Single (non-player)"
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=567197"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_social_single"></div>
+                            <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Social Membership Single (non-player)"
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=567197"
+                                        width="100%"
+                                        height="1458"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Senior Citizen Membership -->
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingSix" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Senior" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapse-Senior" role="button">
-                                Senior Citizen Membership - £20
-                            </a>
+                            <a aria-controls="collapse-Senior" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
+                               data-toggle="collapse" href="#collapse-Senior"
+                               role="button">Senior Citizen Membership - £20</a>
                         </h4>
                     </div>
                     <div aria-labelledby="headingSix" class="panel-collapse collapse" id="collapse-Senior"
                          role="tabpanel">
                         <div class="panel-body">
-                            <div data-formheight="1458"
-                                 data-formtitle="Senior Citizen Membership Single (non-player)"
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=568054"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_senior_citizen"></div>
+                            <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Senior Citizen Membership Single (non-player)"
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=568054"
+                                        width="100%"
+                                        height="1458"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
-
                 <h5>Life memberships (non-players):</h5>
-
-                <!-- Family Life Membership -->
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingSeven" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Family-Life" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapse-Family-Life"
-                               role="button">
-                                Family Life Membership - £550
-                            </a>
+                            <a aria-controls="collapse-Family-Life" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
+                               data-toggle="collapse" href="#collapse-Family-Life"
+                               role="button">Family Life Membership - £550</a>
                         </h4>
                     </div>
                     <div aria-labelledby="headingSeven" class="panel-collapse collapse" id="collapse-Family-Life"
                          role="tabpanel">
                         <div class="panel-body">
-                            <div data-formheight="3250"
-                                 data-formtitle="Family Life Membership"
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=571585"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_family_life"></div>
+                            <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Family Life Membership"
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=571585"
+                                        width="100%"
+                                        height="3250"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Single Life Membership -->
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingEight" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Single-Life" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapse-Single-Life"
-                               role="button">
-                                Single Life Membership - £300
-                            </a>
+                            <a aria-controls="collapse-Single-Life" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
+                               data-toggle="collapse" href="#collapse-Single-Life"
+                               role="button">Single Life Membership - £300</a>
                         </h4>
                     </div>
                     <div aria-labelledby="headingEight" class="panel-collapse collapse" id="collapse-Single-Life"
                          role="tabpanel">
                         <div class="panel-body">
-                            <div data-formheight="1198"
-                                 data-formtitle="Single Life Membership (player / non-player)"
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=570586"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_single_life"></div>
+                            <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Single Life Membership (player / non-player)"
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=570586"
+                                        width="100%"
+                                        height="1198"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Senior Citizen Life Membership -->
                 <div class="panel panel-default">
                     <div class="panel-heading" id="headingNine" role="tab">
                         <h4 class="panel-title">
-                            <a aria-controls="collapse-Senior-Life" aria-expanded="false" class="collapsed"
-                               data-parent="#accordion" data-toggle="collapse" href="#collapse-Senior-Life"
-                               role="button">
-                                Senior Citizen Life Membership - £175
-                            </a>
+                            <a aria-controls="collapse-Senior-Life" aria-expanded="true" class="collapsed"
+                               data-parent="#accordion"
+                               data-toggle="collapse" href="#collapse-Senior-Life"
+                               role="button">Senior Citizen Life Membership - £175</a>
                         </h4>
                     </div>
                     <div aria-labelledby="headingNine" class="panel-collapse collapse" id="collapse-Senior-Life"
                          role="tabpanel">
                         <div class="panel-body">
-                            <div data-formheight="1116"
-                                 data-formtitle="Senior Citizen Life Membership (non-player)"
-                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=568963"
-                                 data-paddingbottom="10"
-                                 id="mf_placeholder_senior_life"></div>
+                            <div class="clubpay-frame">
+                                <iframe class="clubpay-iframe"
+                                        title="Senior Citizen Life Membership (non-player)"
+                                        src="https://www.clubpay.co.uk/forms/embed.php?id=568963"
+                                        width="100%"
+                                        height="1116"
+                                        frameborder="0"
+                                        scrolling="yes"
+                                        style="border:0; display:block;"></iframe>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-            </div><!-- /.panel-group -->
+            </div>
         </div>
-    </div><!-- /.row -->
-
+    </div>    <!-- /.row -->
     <hr>
-
     <!-- Footer -->
     <footer>
         <div class="row">
             <div class="col-lg-12">
-                <p class="text-center">
-                    Copyright &copy; Honley Cricket Club
+                <p class="text-center">Copyright &copy; Honley Cricket Club
                     <script>document.write(new Date().getFullYear());</script>
-                    | Built by <a href="http://www.tellus-toolkit.com" rel="noopener" target="_blank">TellUs Toolkit
-                    Ltd</a>.
+                    | Built by <a href="http://www.tellus-toolkit.com" target="_blank">TellUs Toolkit Ltd</a>.
                 </p>
             </div>
         </div>
     </footer>
-
 </div><!-- /.container -->
-
 <!-- Bootstrap Core JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!-- ClubPay: single bottom loader that initialises the embed for the panel you open -->
-<script>
-    (function () {
-
-        function loadClubPayFor(panelEl) {
-            // Find the placeholder inside this panel
-            var holder = panelEl.querySelector('div[id^="mf_placeholder_"][data-formurl]');
-            if (!holder) return;
-
-            // Don't load twice
-            if (holder.getAttribute('data-loaded') === '1') return;
-
-            // Ensure there is ONLY ONE element with id="mf_placeholder" when mf.js runs
-            var existing = document.getElementById('mf_placeholder');
-            if (existing && existing !== holder) {
-                existing.removeAttribute('id');
-            }
-
-            // Temporarily rename this placeholder to what mf.js expects
-            var originalId = holder.id;
-            holder.id = 'mf_placeholder';
-
-            // Load mf.js with a cache-buster so it executes for THIS placeholder
-            var s = document.createElement('script');
-            s.async = true;
-            s.src = '//www.clubpay.co.uk/forms/js/mf.js?v=' + Date.now();
-
-            s.onload = function () {
-                holder.setAttribute('data-loaded', '1');
-                holder.id = originalId; // restore
-            };
-
-            s.onerror = function () {
-                holder.id = originalId; // restore so you can retry
-            };
-
-            holder.parentNode.insertBefore(s, holder);
-        }
-
-        // Load when a panel opens
-        $(document).on('shown.bs.collapse', '.panel-collapse', function () {
-            loadClubPayFor(this);
-        });
-
-        // If any panel is already open on load, initialise it too
-        $(function () {
-            document.querySelectorAll('.panel-collapse.in').forEach(function (el) {
-                loadClubPayFor(el);
-            });
-        });
-
-    })();
-</script>
-
 </body>
 </html>
