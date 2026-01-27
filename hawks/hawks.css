@@ -97,7 +97,7 @@ body {
 }
 
 .btn-hawks-alt {
-    background: transparent;
+    background: var(--hcc-hot-pink-214c); /*transparent;*/
     border: 2px solid var(--hcc-mid-pink-211c);
     color: #fff;
     font-weight: 600;
@@ -168,3 +168,4 @@ footer a:hover {
     color: var(--hcc-hot-pink-214c);
     font-weight: 700;
 }
+
