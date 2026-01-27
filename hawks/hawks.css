@@ -1,0 +1,170 @@
+/* Honley Hawks palette (Pantone refs from kit mock-up; hex are screen approximations) */
+:root {
+    --hcc-teal-321c: #009B77;
+    --hcc-mid-pink-211c: #F5A4BE;
+    --hcc-hot-pink-214c: #EC008C;
+    --hcc-black: #000000;
+    --hcc-white: #FFFFFF;
+    --hcc-gold: #D6A22B; /* optional: for crest-like edging */
+}
+
+/* Layout similar to typical Bootstrap 3 club templates */
+body {
+    padding-top: 70px;
+    background: #f6f7f8;
+    color: #222;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-inverse {
+    background: #111;
+    border-color: #111;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #eee;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: var(--hcc-mid-pink-211c);
+}
+
+.navbar-brand {
+    padding: 10px 15px;
+}
+
+.brand-mark {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--hcc-teal-321c);
+    margin-right: 8px;
+    position: relative;
+    top: -1px;
+    box-shadow: 12px 0 0 var(--hcc-mid-pink-211c), 24px 0 0 var(--hcc-hot-pink-214c);
+}
+
+/* Hero */
+.hawks-hero {
+    background: radial-gradient(circle at 20% 0%, rgba(236, 0, 140, .18), transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(245, 164, 190, .18), transparent 45%),
+    linear-gradient(135deg, #0a0a0a 0%, #121212 55%, #0b0b0b 100%);
+    color: #fff;
+    border-bottom: 4px solid var(--hcc-teal-321c);
+    margin-bottom: 25px;
+}
+
+.hawks-hero .jumbotron {
+    background: transparent;
+    margin: 0;
+    padding: 35px 0 30px;
+}
+
+.hawks-badge {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+    border: 3px solid rgba(214, 162, 43, .65);
+}
+
+.hawks-kicker {
+    display: inline-block;
+    padding: 6px 10px;
+    border-left: 4px solid var(--hcc-hot-pink-214c);
+    background: rgba(0, 155, 119, .14);
+    border-radius: 3px;
+    margin-top: 10px;
+    color: #f2f2f2;
+}
+
+.btn-hawks {
+    background: var(--hcc-teal-321c);
+    border-color: var(--hcc-teal-321c);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-hawks:hover {
+    background: #008a6a;
+    border-color: #008a6a;
+    color: #fff;
+}
+
+.btn-hawks-alt {
+    background: transparent;
+    border: 2px solid var(--hcc-mid-pink-211c);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-hawks-alt:hover {
+    background: var(--hcc-mid-pink-211c);
+    border-color: var(--hcc-mid-pink-211c);
+    color: #111;
+}
+
+/* Sections / cards */
+.section-title {
+    margin: 0 0 15px;
+    border-left: 5px solid var(--hcc-hot-pink-214c);
+    padding-left: 12px;
+}
+
+.panel-hawks {
+    border-top: 4px solid var(--hcc-teal-321c);
+}
+
+.panel-hawks .panel-heading {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+}
+
+.label-hawks {
+    background: var(--hcc-hot-pink-214c);
+}
+
+.hawks-hr {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--hcc-teal-321c), var(--hcc-mid-pink-211c), var(--hcc-hot-pink-214c));
+    margin: 25px 0;
+}
+
+/* Footer consistent with site attribution */
+footer {
+    margin-top: 30px;
+    padding: 20px 0;
+    background: #111;
+    color: #ddd;
+    border-top: 4px solid var(--hcc-hot-pink-214c);
+}
+
+footer a {
+    color: var(--hcc-mid-pink-211c);
+}
+
+footer a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Small polish */
+.muted {
+    color: #666;
+}
+
+.list-tight li {
+    margin-bottom: 6px;
+}
+
+.highlight {
+    color: var(--hcc-hot-pink-214c);
+    font-weight: 700;
+}
