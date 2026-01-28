@@ -22,25 +22,40 @@
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// --><!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
+    <style>
+        /* Honley girls– hot pink button */
+        .btn-hotpink {
+            background-color: var(--hcc-mid-pink-211c, #F5A4BE);
+            border-color: var(--hcc-teal-321c, #009B77);
+            color: #fff;
+        }
+
+        .btn-hotpink:hover,
+        .btn-hotpink:focus {
+            background-color: #d6007d; /* slightly darker for hover */
+            border-color: #009B77;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 
 <div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v16.0"
-        nonce="wkbROybP"></script>
+<script async crossorigin="anonymous" defer nonce="wkbROybP"
+        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v16.0"></script>
 <!-- Navigation -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
+            <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar"
+                    data-toggle="collapse" type="button">
                 <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span> <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img alt="Honley Cricket Club" src="img/logo.jpg" height="35px"
+            <a class="navbar-brand" href="/"><img alt="Honley Cricket Club" height="35px" src="img/logo.jpg"
                                                   title="Honley Cricket Club"></a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li><a href="/"><i class="fa fa-home fa-2x"></i></a></li>
                 <li><a href="membership.html">Membership</a></li>
@@ -65,9 +80,13 @@
             <br /><br />
         <a href="#LiveStream" class="btn btn-lg btn-success">
             You can now watch our home games live.</a></p-->
-        <p style="padding-top: 30px"><a href="membership.html" class="btn btn-lg btn-success">
+        <p style="padding-top: 30px"><a class="btn btn-lg btn-success" href="membership.html">
             Junior winter training sessions</a>
-    </p>
+        </p>
+        <p style="padding-top: 30px"><a class="btn btn-lg btn-hotpink" href="#women_girls">
+            Women's &amp girls' cricket<br>
+            Launch evening<br>
+            Wednesday 25th February @ 6:30pm</a>
     </div>
 </div>
 <!-- Page Content -->
@@ -79,12 +98,12 @@
                     <h4><i class="fa fa-bar-chart"></i> Live scores today</h4>
                 </div>
                 <div style="text-align: center; margin: 1em 0;">
-                    <a href="https://honleycc.play-cricket.com/" target="_blank" class="btn btn-lg btn-success">
+                    <a class="btn btn-lg btn-success" href="https://honleycc.play-cricket.com/" target="_blank">
                         View fixtures &amp; results on Play-Cricket</a>
                 </div>
-                <a style="display:none;" class="lsw"
-                   href="https://www.play-cricket.com/embed_widget/live_scorer_widgets?club_id=3463&days=0"
-                   id="lsw_link_1526534855798"></a>
+                <a class="lsw" href="https://www.play-cricket.com/embed_widget/live_scorer_widgets?club_id=3463&days=0"
+                   id="lsw_link_1526534855798"
+                   style="display:none;"></a>
 
                 <div class="lsw-col-12 lsw_tile panel-body" id="lsw_container_1526534855798">
                     <h4>Scores appear here on match days.</h4></div>
@@ -119,9 +138,21 @@
                     <h4><i class="fa fa-fw fa-newspaper-o"></i> News - the latest updates below</h4>
                 </div>
                 <div class="panel-body">
+                    <h4>Junior indoor winter training and cricket nets for u11s (yrs 5-6), u13s (yrs 7-8) and u15s (yrs
+                        9-10) is:</h4>
+                    <ul>
+                        <li class="standard">When: Friday 30th January to Friday 27th March 7-8pm.</li>
+                        <li class="standard">Where: Honley High School sports hall.</li>
+                    </ul>
+                    <h4>Could you please fill in this <a href="https://forms.gle/GDepsfoZWmGV4huCA">form</a> so we can
+                        gauge numbers and plan accordingly.</h4>
+                    <h4>We will charge a single flat fee of £35 per child for the training sessions, this can be paid
+                        <a href="https://www.honleycc.com/membership.html">online here</a> so we don’t have to spend
+                        time collecting money at the start of each weekly session.</h4>
+
                     <h4>Junior outdoor training runs every <b>Friday evening</b> as follows:</h4>
-                    <h4>Reception and Year 1 - 5:45 - 6:30. (<b>starts Friday 25th April</b>)</h4>
-                    <h4>Year 2 - 6:45 - 7:30. (<b>starts Friday 25th April</b>)</h4>
+                    <h4>Reception and Year 1 - 5:45 - 6:30. <!--(<b>starts Friday 25th April</b>)--></h4>
+                    <h4>Year 2 - 6:45 - 7:30. <!--(<b>starts Friday 25th April</b>)--></h4>
                     <h4>u9s, u11s and u13s 6 - 7:30pm.</h4>
                     <h4>u15s and u17s train on Thursday's 6:30 - 7:45pm.</h4>
                     <!--h4>The <strong>junior</strong> end of season presentation evening will take place on Friday 6th September.</h4>
@@ -174,9 +205,10 @@
                     <h4>Order official Honley CC club kit from</h4>
                     <div style="text-align: center;"><a href="https://teamwear.nxt-sports.com/shop/honley-cc"
                                                         target="_blank"> <img
+                            height="50px"
                             src="https://teamwear.nxt-sports.com/bundles/kalibazarecommerce/images/nxt-sports-logo.svg"
-                            width="87px" height="50px"
-                            style="background-color: #fed308; padding: 5px;"/></a></div>
+                            style="background-color: #fed308; padding: 5px;"
+                            width="87px"/></a></div>
                 </div>
             </div>
         </div>
@@ -215,24 +247,39 @@
                 </div>
             </div>
         </div>
-        <!-- div class="col-md-4">
+        <div class="col-md-4" id="women_girls">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <a class="twitter-timeline" data-height="600" data-lang="en" href="https://twitter.com/honleycc">Tweets
-                        by honleycc</a>
-                    <script async charset="utf-8" src="//platform.twitter.com/widgets.js"></script>
+                    <h4><i class="fa fa-fw fa-child"></i> Women's &amp; Girl's Cricket</h4>
+                </div>
+                <div class="panel-body">
+                    <h4>New for 2026 - women’s and girls’ cricket pathway at Honley Cricket Club.</h4>
+                    <p>Built for confidence, skills, and enjoyment. Whether you’re completely new to cricket or
+                        returning to the game, there’s a place for you. From 2026 we will be running:</p>
+                    <ul>
+                        <li class="standard">U11s - Dynamos girls softball team</li>
+                        <li class="standard">U15s - hardball girls team</li>
+                        <li class="standard">Women's softball team</li>
+                    </ul>
+                    <p>Launch evening Wednesday 25th February, 6:30pm at Honley Cricket Club.</p>
+                    <p>Guest speakers from Yorkshire County Cricket Club.</p>
+                    <p>Meet your new coaches.</p>
+                    <p>Bar open, raffle and quiz</p>
+                    <p style="padding-top: 30px"><a class="btn btn-hotpink" href="https://forms.gle/UFSp5rZ2uaj4efYy8" target="_blank">
+                        Register your interest</a>
                 </div>
             </div>
-        </div -->
+        </div>
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4><i class="fa fa-fw fa-facebook"></i> Facebook updates</h4>
                 </div>
                 <div class="panel-body">
-                    <div class="fb-page" data-href="https://www.facebook.com/honleycc/" data-show-posts="true"
-                         data-width="" data-height="600" data-small-header="false" data-adapt-container-width="true"
-                         data-hide-cover="false" data-show-facepile="true">
+                    <div class="fb-page" data-adapt-container-width="true" data-height="600"
+                         data-hide-cover="false" data-href="https://www.facebook.com/honleycc/"
+                         data-show-facepile="true" data-show-posts="true"
+                         data-small-header="false" data-width="">
                         <blockquote cite="https://www.facebook.com/honleycc/" class="fb-xfbml-parse-ignore"><a
                                 href="https://www.facebook.com/honleycc/">Honley Cricket Club</a></blockquote>
                     </div>
@@ -250,10 +297,10 @@
                 </div>
                 <div class="panel-body">
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item"
+                        <iframe allow="accelerometer; autoplay; allowfullscreen"
+                                class="embed-responsive-item"
                                 src="https://www.youtube.com/embed/live_stream?channel=UCEY81pC3tG4_0OaV-svjkwA"
-                                title="Honley CC YouTube video player"
-                                allow="accelerometer; autoplay; allowfullscreen"></iframe>
+                                title="Honley CC YouTube video player"></iframe>
                     </div>
                 </div>
             </div>
