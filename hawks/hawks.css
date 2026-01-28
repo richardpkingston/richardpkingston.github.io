@@ -54,6 +54,7 @@ body {
     radial-gradient(circle at 80% 20%, rgba(245, 164, 190, .18), transparent 45%),
     linear-gradient(135deg, #0a0a0a 0%, #121212 55%, #0b0b0b 100%);
     color: #fff;
+    border-top: 4px solid var(--hcc-hot-pink-214c);
     border-bottom: 4px solid var(--hcc-teal-321c);
     margin-bottom: 25px;
 }
@@ -69,8 +70,8 @@ body {
     width: 100%;
     height: auto;
     border-radius: 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
-    border: 3px solid rgba(214, 162, 43, .65);
+    /*box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+    border: 3px solid rgba(214, 162, 43, .65);*/
 }
 
 .hawks-kicker {
@@ -168,4 +169,3 @@ footer a:hover {
     color: var(--hcc-hot-pink-214c);
     font-weight: 700;
 }
-
