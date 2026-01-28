@@ -138,6 +138,26 @@ body {
     margin: 25px 0;
 }
 
+/* Honley Hawks – mid pink list bullets */
+.hcc-list-pink {
+    list-style: none;
+    padding-left: 1.2em;
+}
+
+.hcc-list-pink li {
+    position: relative;
+    margin-bottom: 6px;
+}
+
+.hcc-list-pink li::before {
+    content: "•";
+    position: absolute;
+    left: -1em;
+    color: var(--hcc-mid-pink-211c, #F5A4BE);
+    font-size: 1.4em;
+    line-height: 1;
+}
+
 /* Footer consistent with site attribution */
 footer {
     margin-top: 30px;
