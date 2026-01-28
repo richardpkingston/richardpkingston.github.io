@@ -84,29 +84,42 @@ body {
     color: #f2f2f2;
 }
 
-.btn-hawks {
+.btn-hawks-green {
     background: var(--hcc-teal-321c);
     border-color: var(--hcc-teal-321c);
     color: #fff;
     font-weight: 600;
 }
 
-.btn-hawks:hover {
+.btn-hawks-green:hover {
     background: #008a6a;
     border-color: #008a6a;
     color: #fff;
 }
 
-.btn-hawks-alt {
+.btn-hawks-hotpink {
     background: var(--hcc-hot-pink-214c); /*transparent;*/
     border: 2px solid var(--hcc-mid-pink-211c);
     color: #fff;
     font-weight: 600;
 }
 
-.btn-hawks-alt:hover {
+.btn-hawks-hotpink:hover {
     background: var(--hcc-mid-pink-211c);
     border-color: var(--hcc-mid-pink-211c);
+    color: #111;
+}
+
+.btn-hawks-pink {
+    background: var(--hcc-mid-pink-211c); /*transparent;*/
+    border: 2px solid var(--hcc-hot-pink-214c);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-hawks-pink:hover {
+    background: var(--hcc-hot-pink-214c);
+    border-color: var(--hcc-hot-pink-214c);
     color: #111;
 }
 
@@ -189,4 +202,3 @@ footer a:hover {
     color: var(--hcc-hot-pink-214c);
     font-weight: 700;
 }
-
