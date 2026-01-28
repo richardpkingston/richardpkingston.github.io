@@ -152,7 +152,7 @@ body {
 .hcc-list-pink li::before {
     content: "•";
     position: absolute;
-    left: -1em;
+    left: -0.75em;
     color: var(--hcc-mid-pink-211c, #F5A4BE);
     font-size: 1.4em;
     line-height: 1;
@@ -189,3 +189,4 @@ footer a:hover {
     color: var(--hcc-hot-pink-214c);
     font-weight: 700;
 }
+
