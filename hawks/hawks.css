@@ -153,6 +153,19 @@ body {
     color: #111;
 }
 
+.btn-hawks-gold {
+    background: var(--hcc-gold); /*transparent;*/
+    border: 2px solid var(--hcc-gold);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-hawks-gold:hover {
+    background: var(--hcc-gold);
+    border-color: var(--hcc-gold);
+    color: #111;
+}
+
 /* Sections / cards */
 .section-title {
     margin: 0 0 15px;
@@ -231,4 +244,5 @@ footer a:hover {
 .highlight {
     color: var(--hcc-hot-pink-214c);
     font-weight: 700;
+
 }
