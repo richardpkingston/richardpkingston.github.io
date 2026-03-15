@@ -1,0 +1,248 @@
+/* Honley Hawks palette (Pantone refs from kit mock-up; hex are screen approximations) */
+:root {
+    --hcc-teal-321c: #009B77;
+    --hcc-mid-pink-211c: #F5A4BE;
+    --hcc-hot-pink-214c: #EC008C;
+    --hcc-black: #000000;
+    --hcc-white: #FFFFFF;
+    --hcc-gold: #D6A22B; /* optional: for crest-like edging */
+}
+
+/* Layout similar to typical Bootstrap 3 club templates */
+body {
+    padding-top: 70px;
+    background: #f6f7f8;
+    color: #222;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.navbar-inverse {
+    background: #111;
+    border-color: #111;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #eee;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    color: var(--hcc-mid-pink-211c);
+}
+
+.navbar-brand {
+    padding: 10px 15px;
+}
+
+.brand-mark {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background: var(--hcc-teal-321c);
+    margin-right: 8px;
+    position: relative;
+    top: -1px;
+    box-shadow: 12px 0 0 var(--hcc-mid-pink-211c), 24px 0 0 var(--hcc-hot-pink-214c);
+}
+
+/* Hero */
+.hawks-hero {
+    background: radial-gradient(circle at 20% 0%, rgba(236, 0, 140, .18), transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(245, 164, 190, .18), transparent 45%),
+    linear-gradient(135deg, #0a0a0a 0%, #121212 55%, #0b0b0b 100%);
+    color: #fff;
+    border-top: 4px solid var(--hcc-hot-pink-214c);
+    border-bottom: 4px solid var(--hcc-teal-321c);
+    margin-bottom: 25px;
+}
+
+.hawks-hero .jumbotron {
+    /*background: transparent;*/
+    margin: 0;
+    padding: 35px 0 30px;
+}
+
+/* Jumbotron with background image */
+.jumbotron-bg {
+    background-image: url("./hawks_background.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
+    color: #fff; /* or whatever text color you want */
+    padding: 4rem 2rem;
+}
+
+/* Optional semi-transparent overlay if you want contrast */
+.jumbotron-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* Change opacity/color as desired */
+    pointer-events: none;
+}
+
+/* Ensure text sits above overlay */
+.jumbotron-bg .container,
+.jumbotron-bg * {
+    position: relative;
+    z-index: 1;
+}
+
+.hawks-badge {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    /*box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+    border: 3px solid rgba(214, 162, 43, .65);*/
+}
+
+.hawks-kicker {
+    display: inline-block;
+    padding: 6px 10px;
+    border-left: 4px solid var(--hcc-hot-pink-214c);
+    background: rgba(0, 155, 119, .44);
+    border-radius: 3px;
+    margin-top: 10px;
+    color: #f2f2f2;
+}
+
+.btn-hawks-green {
+    background: var(--hcc-teal-321c);
+    border-color: var(--hcc-teal-321c);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-hawks-green:hover {
+    background: #008a6a;
+    border-color: #008a6a;
+    color: #fff;
+}
+
+.btn-hawks-hotpink {
+    background: var(--hcc-hot-pink-214c); /*transparent;*/
+    border: 2px solid var(--hcc-mid-pink-211c);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-hawks-hotpink:hover {
+    background: var(--hcc-mid-pink-211c);
+    border-color: var(--hcc-mid-pink-211c);
+    color: #111;
+}
+
+.btn-hawks-pink {
+    background: var(--hcc-mid-pink-211c); /*transparent;*/
+    border: 2px solid var(--hcc-hot-pink-214c);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-hawks-pink:hover {
+    background: var(--hcc-hot-pink-214c);
+    border-color: var(--hcc-hot-pink-214c);
+    color: #111;
+}
+
+.btn-hawks-gold {
+    background: var(--hcc-gold); /*transparent;*/
+    border: 2px solid var(--hcc-gold);
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-hawks-gold:hover {
+    background: var(--hcc-gold);
+    border-color: var(--hcc-gold);
+    color: #111;
+}
+
+/* Sections / cards */
+.section-title {
+    margin: 0 0 15px;
+    border-left: 5px solid var(--hcc-hot-pink-214c);
+    padding-left: 12px;
+}
+
+.panel-hawks {
+    border-top: 4px solid var(--hcc-teal-321c);
+}
+
+.panel-hawks .panel-heading {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-weight: 700;
+}
+
+.label-hawks {
+    background: var(--hcc-hot-pink-214c);
+}
+
+.hawks-hr {
+    border: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--hcc-teal-321c), var(--hcc-mid-pink-211c), var(--hcc-hot-pink-214c));
+    margin: 25px 0;
+}
+
+/* Honley Hawks – mid pink list bullets */
+.hcc-list-pink {
+    list-style: none;
+    padding-left: 1.2em;
+}
+
+.hcc-list-pink li {
+    position: relative;
+    margin-bottom: 6px;
+}
+
+.hcc-list-pink li::before {
+    content: "•";
+    position: absolute;
+    left: -0.75em;
+    color: var(--hcc-mid-pink-211c, #F5A4BE);
+    font-size: 1.4em;
+    line-height: 1;
+}
+
+/* Footer consistent with site attribution */
+footer {
+    margin-top: 30px;
+    padding: 20px 0;
+    background: #111;
+    color: #ddd;
+    border-top: 4px solid var(--hcc-hot-pink-214c);
+}
+
+footer a {
+    color: var(--hcc-mid-pink-211c);
+}
+
+footer a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Small polish */
+.muted {
+    color: #666;
+}
+
+.list-tight li {
+    margin-bottom: 6px;
+}
+
+.highlight {
+    color: var(--hcc-hot-pink-214c);
+    font-weight: 700;
+
+}
