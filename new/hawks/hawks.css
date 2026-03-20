@@ -260,6 +260,10 @@
         padding-bottom: 4px;
     }
 }
+.hawks-hero-badge img {
+    transition: transform 0.2s ease;
+}
+
 .hawks-hero-badge img:hover {
     transform: scale(1.05);
 }

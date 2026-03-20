@@ -2,67 +2,31 @@
    Honley Cricket Club - Site JavaScript
    ---------------------------------------------------------
    Handles:
-   1. Footer last-modified date
-   2. Play-Cricket widget loader
-   3. Homepage match summary (next + latest)
-   4. Fixtures/results page feeds
-   5. Membership page accordion shortcuts
-   6. YouTube livestream embed
+   1. Shared UI helpers and accessibility enhancements
+   2. Play-Cricket data loading and rendering
+   3. Homepage match summary and ticker
+   4. Results page feed
+   5. Hawks fixtures/results and Hawks ticker
+   6. Membership page accordion shortcuts
+   7. YouTube livestream embed
    ========================================================= */
 
 (function () {
     "use strict";
 
-    /* ==========================================
-       Utility: Last modified footer
-    ========================================== */
+    var SITE_ID = 3463;
+    var API_TOKEN = "e3dc2fd497532bd833fd0a96b2697680";
+    var season = new Date().getFullYear();
 
-    var lastModifiedEl = document.getElementById("lastModified");
+    var TEAM_IDS = {
+        women: "407977",
+        u15Girls: "407978"
+    };
 
-    if (lastModifiedEl) {
-        var modifiedDate = new Date(document.lastModified);
-
-        lastModifiedEl.textContent = new Intl.DateTimeFormat("en-GB", {
-            weekday: "long",
-            day: "2-digit",
-            month: "long",
-            year: "numeric"
-        }).format(modifiedDate);
-    }
-
-    /* ==========================================
-       Utility: Date helpers
-    ========================================== */
-
-    function formatDate(value) {
-        if (!value) return "Date TBC";
-
-        var parts = String(value).split("/");
-
-        if (parts.length === 3) {
-            var dt = new Date(parts[2], parts[1] - 1, parts[0]);
-
-            if (!isNaN(dt.getTime())) {
-                return dt.toLocaleDateString("en-GB", {
-                    weekday: "short",
-                    day: "numeric",
-                    month: "short"
-                });
-            }
-        }
-
-        var parsed = new Date(value);
-
-        if (!isNaN(parsed.getTime())) {
-            return parsed.toLocaleDateString("en-GB", {
-                weekday: "short",
-                day: "numeric",
-                month: "short"
-            });
-        }
-
-        return value;
-    }
+    var TEAM_URLS = {
+        women: "https://honleycc.play-cricket.com/Teams/407977",
+        u15Girls: "https://honleycc.play-cricket.com/Teams/407978"
+    };
 
     function parseDate(value) {
         if (!value) return null;
@@ -70,10 +34,23 @@
         var parts = String(value).split("/");
 
         if (parts.length === 3) {
-            return new Date(parts[2], parts[1] - 1, parts[0]);
+            var fromParts = new Date(parts[2], parts[1] - 1, parts[0]);
+            return isNaN(fromParts.getTime()) ? null : fromParts;
         }
 
-        return new Date(value);
+        var parsed = new Date(value);
+        return isNaN(parsed.getTime()) ? null : parsed;
+    }
+
+    function formatDate(value, options) {
+        var parsed = parseDate(value);
+        if (!parsed) return value || "Date TBC";
+
+        return parsed.toLocaleDateString("en-GB", options || {
+            weekday: "short",
+            day: "numeric",
+            month: "short"
+        });
     }
 
     function escapeHtml(value) {
@@ -83,6 +60,100 @@
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#39;");
+    }
+
+    function asArray(value, key) {
+        if (!value) return [];
+        if (Array.isArray(value)) return value;
+        if (Array.isArray(value[key])) return value[key];
+        return [];
+    }
+
+    function byId(id) {
+        return document.getElementById(id);
+    }
+
+    function setLastModified() {
+        var element = byId("lastModified");
+        if (!element) return;
+
+        var modifiedDate = new Date(document.lastModified);
+
+        element.textContent = new Intl.DateTimeFormat("en-GB", {
+            weekday: "long",
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        }).format(modifiedDate);
+    }
+
+    function normaliseExternalLinks() {
+        Array.prototype.forEach.call(document.querySelectorAll('a[target="_blank"]'), function (link) {
+            var rel = (link.getAttribute("rel") || "").split(/\s+/).filter(Boolean);
+            if (rel.indexOf("noopener") === -1) rel.push("noopener");
+            link.setAttribute("rel", rel.join(" "));
+        });
+    }
+
+    function setActiveNav() {
+        var currentPath = window.location.pathname.replace(/index\.html$/, "");
+        var currentHref = currentPath.split("/").pop() || "";
+
+        Array.prototype.forEach.call(document.querySelectorAll(".site-nav .nav.navbar-nav > li"), function (item) {
+            item.classList.remove("active");
+            var anchor = item.querySelector("a[href]");
+            if (anchor) {
+                anchor.removeAttribute("aria-current");
+            }
+        });
+
+        Array.prototype.some.call(document.querySelectorAll(".site-nav .nav.navbar-nav > li > a[href]"), function (anchor) {
+            var href = anchor.getAttribute("href");
+            if (!href || href.indexOf("#") === 0) return false;
+
+            var normalisedHref = href.replace(/\.\.\//g, "").replace(/index\.html$/, "");
+            var hrefLeaf = normalisedHref.split("/").pop() || "";
+
+            var isMatch = normalisedHref === currentHref || hrefLeaf === currentHref;
+
+            if (currentPath.indexOf("/hawks/") !== -1 && /hawks\/?$/.test(href)) isMatch = true;
+            if (currentPath.indexOf("/juniors/") !== -1 && /juniors\/?$/.test(href)) isMatch = true;
+            if (currentHref === "" && (/index\.html$/.test(href) || href === "../index.html")) isMatch = true;
+
+            if (isMatch) {
+                anchor.parentElement.classList.add("active");
+                anchor.setAttribute("aria-current", "page");
+                return true;
+            }
+            return false;
+        });
+    }
+
+    function initBackToTop() {
+        if (document.querySelector(".back-to-top")) return;
+
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "back-to-top";
+        button.setAttribute("aria-label", "Back to top");
+        button.innerHTML = '<i class="bi bi-arrow-up" aria-hidden="true"></i>';
+
+        button.addEventListener("click", function () {
+            window.scrollTo({top: 0, behavior: "smooth"});
+        });
+
+        document.body.appendChild(button);
+
+        function updateVisibility() {
+            if (window.scrollY > 320) {
+                button.classList.add("is-visible");
+            } else {
+                button.classList.remove("is-visible");
+            }
+        }
+
+        updateVisibility();
+        window.addEventListener("scroll", updateVisibility, {passive: true});
     }
 
     function buildUrl(endpoint) {
@@ -111,19 +182,150 @@
             })
         ]).then(function (responses) {
             return {
-                fixtures: responses[0].matches || [],
-                results: responses[1].result_summary || []
+                fixtures: asArray(responses[0], "matches"),
+                results: asArray(responses[1], "result_summary")
             };
         });
     }
 
-    /* ==========================================
-       Play-Cricket widget loader
-       Loads the Live Scorer assets once if a page
-       contains one of the widget placeholder links.
-    ========================================== */
+    function getItemDate(item) {
+        return parseDate(item && (item.match_date || item.date));
+    }
 
-    (function loadPlayCricketWidget() {
+    function getUpcoming(items, limit, filterFn, comparator) {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        return (items || [])
+            .filter(function (item) {
+                var itemDate = getItemDate(item);
+                if (!itemDate || itemDate < today) return false;
+                return typeof filterFn === "function" ? filterFn(item) : true;
+            })
+            .sort(comparator || function (a, b) {
+                return getItemDate(a) - getItemDate(b);
+            })
+            .slice(0, limit || 3);
+    }
+
+    function getRecent(items, limit, filterFn) {
+        return (items || [])
+            .filter(function (item) {
+                return typeof filterFn === "function" ? filterFn(item) : true;
+            })
+            .slice()
+            .sort(function (a, b) {
+                return getItemDate(b) - getItemDate(a);
+            })
+            .slice(0, limit || 3);
+    }
+
+    function buildActionButtons(links, defaultLabel) {
+        var items = Array.isArray(links) ? links : [{href: links, label: defaultLabel || "Open"}];
+
+        return items.map(function (link) {
+            return '<a class="btn btn-outline btn-sm" href="' +
+                escapeHtml(link.href) +
+                '" rel="noopener" target="_blank">' +
+                escapeHtml(link.label || defaultLabel || "Open") +
+                '</a>';
+        }).join(" ");
+    }
+
+    function renderEmptyState(target, config) {
+        if (!target) return;
+
+        target.innerHTML = [
+            '<article class="match-item">',
+            '<div class="match-item-top"><span class="match-date"><i class="bi ', escapeHtml(config.icon), '" aria-hidden="true"></i></span></div>',
+            '<h4>', escapeHtml(config.title), '</h4>',
+            '<p class="match-meta">', escapeHtml(config.text), '</p>',
+            '<p class="match-actions">', buildActionButtons(config.links, config.buttonLabel), '</p>',
+            '</article>'
+        ].join("");
+    }
+
+    function getMatchTitle(item, fallback) {
+        if (item.home_club_name && item.away_club_name) {
+            return item.home_club_name + " v " + item.away_club_name;
+        }
+        return item.match_name || fallback;
+    }
+
+    function renderFixtureCard(item, options) {
+        var title = options && options.title ? options.title : getMatchTitle(item, "Upcoming fixture");
+        var dateText = formatDate(item.match_date || item.date);
+        var comp = item.competition_name || item.competition || "";
+        var ground = item.ground_name || item.ground || "";
+        var link = (options && options.link) || item.match_url || item.url || "results.html";
+        var buttonText = (options && options.buttonText) || "Open fixture";
+
+        return [
+            '<article class="match-item">',
+            '<div class="match-item-top"><span class="match-date">', escapeHtml(dateText), '</span></div>',
+            '<h4>', escapeHtml(title), '</h4>',
+            comp ? '<p class="match-meta">' + escapeHtml(comp) + '</p>' : '',
+            ground ? '<p class="match-meta">Ground: ' + escapeHtml(ground) + '</p>' : '',
+            '<p class="match-actions"><a class="btn btn-outline btn-sm" href="', escapeHtml(link), '" rel="noopener" target="_blank">', escapeHtml(buttonText), '</a></p>',
+            '</article>'
+        ].join("");
+    }
+
+    function renderResultCard(item, options) {
+        var title = options && options.title ? options.title : getMatchTitle(item, "Latest result");
+        var dateText = formatDate(item.match_date || item.date);
+        var comp = item.competition_name || item.competition || "";
+        var resultText = item.result_description || item.result || "";
+        var scores = item.home_result && item.away_result ? item.home_result + " / " + item.away_result : "";
+        var link = (options && options.link) || item.match_url || item.url || "results.html";
+        var buttonText = (options && options.buttonText) || "Open result";
+
+        return [
+            '<article class="match-item">',
+            '<div class="match-item-top"><span class="match-date">', escapeHtml(dateText), '</span></div>',
+            '<h4>', escapeHtml(title), '</h4>',
+            comp ? '<p class="match-meta">' + escapeHtml(comp) + '</p>' : '',
+            resultText ? '<p class="match-result">' + escapeHtml(resultText) + '</p>' : '',
+            scores ? '<p class="match-meta">' + escapeHtml(scores) + '</p>' : '',
+            '<p class="match-actions"><a class="btn btn-outline btn-sm" href="', escapeHtml(link), '" rel="noopener" target="_blank">', escapeHtml(buttonText), '</a></p>',
+            '</article>'
+        ].join("");
+    }
+
+    function isHawksOrGirlsMatch(item) {
+        var homeTeamId = String(item.home_team_id || "");
+        var awayTeamId = String(item.away_team_id || "");
+        return homeTeamId === TEAM_IDS.women || awayTeamId === TEAM_IDS.women ||
+            homeTeamId === TEAM_IDS.u15Girls || awayTeamId === TEAM_IDS.u15Girls;
+    }
+
+    function getHawksTeamLabel(item) {
+        var homeTeamId = String(item.home_team_id || "");
+        var awayTeamId = String(item.away_team_id || "");
+
+        if (homeTeamId === TEAM_IDS.women || awayTeamId === TEAM_IDS.women) {
+            return "Women";
+        }
+
+        if (homeTeamId === TEAM_IDS.u15Girls || awayTeamId === TEAM_IDS.u15Girls) {
+            return "U15 Girls";
+        }
+
+        return "";
+    }
+
+    function getHawksTeamUrl(item) {
+        return getHawksTeamLabel(item) === "U15 Girls" ? TEAM_URLS.u15Girls : TEAM_URLS.women;
+    }
+
+    function getHawksTeamPriority(item) {
+        var label = getHawksTeamLabel(item);
+        if (label === "Women") return 1;
+        if (label === "U15 Girls") return 2;
+        return 9;
+    }
+
+    function loadPlayCricketWidget() {
         var widgetLink = document.querySelector("a.lsw");
         if (!widgetLink) return;
 
@@ -147,92 +349,221 @@
             js.src = jsHref;
             document.body.appendChild(js);
         }
-    })();
+    }
 
-    /* ==========================================
-       Play-Cricket API configuration
-    ========================================== */
-
-    var SITE_ID = 3463;
-    var API_TOKEN = "e3dc2fd497532bd833fd0a96b2697680";
-    var season = new Date().getFullYear();
-
-    /* ==========================================
-       Homepage: next match + latest result
-    ========================================== */
-
-    (function initHomepageMatchSummary() {
-        var nextMatchEl = document.getElementById("nextMatch");
-        var latestMatchEl = document.getElementById("latestMatchResult");
-
+    function initHomepageMatchSummary() {
+        var nextMatchEl = byId("nextMatch");
+        var latestMatchEl = byId("latestMatchResult");
         if (!nextMatchEl || !latestMatchEl) return;
 
-        loadClubData()
-            .then(function (data) {
-                var fixtures = data.fixtures;
-                var results = data.results;
+        loadClubData().then(function (data) {
+            var next = getUpcoming(data.fixtures, 1)[0];
+            var latest = getRecent(data.results, 1)[0];
 
-                var today = new Date();
-                today.setHours(0, 0, 0, 0);
+            if (next) {
+                nextMatchEl.innerHTML = renderFixtureCard(next, {
+                    title: getMatchTitle(next, "Upcoming fixture"),
+                    link: next.match_url || "results.html",
+                    buttonText: "Match centre"
+                }).replace('<article class="match-item">', "").replace('</article>', "");
+            } else {
+                nextMatchEl.innerHTML = '<p class="match-meta">No upcoming fixture found.</p><a class="btn btn-outline btn-sm" href="results.html">Fixtures &amp; results</a>';
+            }
 
-                var next = fixtures
-                    .filter(function (item) {
-                        var d = parseDate(item.match_date || item.date);
-                        return d && d >= today;
-                    })
-                    .sort(function (a, b) {
-                        return parseDate(a.match_date || a.date) - parseDate(b.match_date || b.date);
-                    })[0];
+            if (latest) {
+                latestMatchEl.innerHTML = renderResultCard(latest, {
+                    title: getMatchTitle(latest, "Latest completed match"),
+                    link: latest.match_url || "results.html",
+                    buttonText: "Scorecard"
+                }).replace('<article class="match-item">', "").replace('</article>', "");
+            } else {
+                latestMatchEl.innerHTML = '<p class="match-meta">No recent result found.</p><a class="btn btn-outline btn-sm" href="results.html">Latest results</a>';
+            }
+        }).catch(function () {
+            nextMatchEl.innerHTML = '<p class="match-meta">Fixture data is unavailable right now.</p><a class="btn btn-outline btn-sm" href="results.html">Fixtures &amp; results</a>';
+            latestMatchEl.innerHTML = '<p class="match-meta">Result data is unavailable right now.</p><a class="btn btn-outline btn-sm" href="results.html">Fixtures &amp; results</a>';
+        });
+    }
 
-                var latest = results
-                    .slice()
-                    .sort(function (a, b) {
-                        return parseDate(b.match_date || b.date) - parseDate(a.match_date || a.date);
-                    })[0];
+    function initResultsPageFeed() {
+        var statusEl = byId("resultsStatus");
+        var upcomingEl = byId("upcomingFixtures");
+        var resultsEl = byId("latestResults");
+        if (!upcomingEl || !resultsEl) return;
 
-                if (next) {
-                    nextMatchEl.innerHTML =
-                        '<h4>' + escapeHtml(next.home_club_name || "") + ' v ' + escapeHtml(next.away_club_name || "") + '</h4>' +
-                        '<p class="match-meta">' + escapeHtml(formatDate(next.match_date || next.date)) + '</p>' +
-                        '<a class="btn btn-outline btn-sm" rel="noopener" href="' + escapeHtml(next.match_url || "results.html") + '">Match centre</a>';
-                } else {
-                    nextMatchEl.innerHTML =
-                        '<p class="match-meta">No upcoming fixture found.</p>' +
-                        '<a class="btn btn-outline btn-sm" rel="noopener" href="results.html">Fixtures &amp; results</a>';
-                }
+        loadClubData().then(function (data) {
+            var upcoming = getUpcoming(data.fixtures, 3);
+            var recent = getRecent(data.results, 3);
 
-                if (latest) {
-                    latestMatchEl.innerHTML =
-                        '<h4>' + escapeHtml(latest.home_club_name || "") + ' v ' + escapeHtml(latest.away_club_name || "") + '</h4>' +
-                        '<p class="match-meta">' + escapeHtml(latest.result_description || "Latest completed match") + '</p>' +
-                        '<a class="btn btn-outline btn-sm" rel="noopener" href="' + escapeHtml(latest.match_url || "results.html") + '">Scorecard</a>';
-                } else {
-                    latestMatchEl.innerHTML =
-                        '<p class="match-meta">No recent result found.</p>' +
-                        '<a class="btn btn-outline btn-sm" rel="noopener" href="results.html">Latest results</a>';
-                }
-            })
-            .catch(function () {
-                nextMatchEl.innerHTML =
-                    '<p class="match-meta">Fixture data is unavailable right now.</p>' +
-                    '<a class="btn btn-outline btn-sm" href="results.html">Fixtures &amp; results</a>';
+            if (upcoming.length) {
+                upcomingEl.innerHTML = upcoming.map(function (item) {
+                    return renderFixtureCard(item, {link: item.match_url || "https://honleycc.play-cricket.com/Matches?tab=Fixture"});
+                }).join("");
+            } else {
+                renderEmptyState(upcomingEl, {
+                    icon: "bi-calendar-event-fill",
+                    title: "No upcoming fixtures found",
+                    text: "Use the full fixtures list on Play-Cricket for the latest schedule.",
+                    links: "https://honleycc.play-cricket.com/Matches?tab=Fixture",
+                    buttonLabel: "View on Play-Cricket"
+                });
+            }
 
-                latestMatchEl.innerHTML =
-                    '<p class="match-meta">Result data is unavailable right now.</p>' +
-                    '<a class="btn btn-outline btn-sm" href="results.html">Fixtures &amp; results</a>';
+            if (recent.length) {
+                resultsEl.innerHTML = recent.map(function (item) {
+                    return renderResultCard(item, {link: item.match_url || "https://honleycc.play-cricket.com/Matches?tab=Result"});
+                }).join("");
+            } else {
+                renderEmptyState(resultsEl, {
+                    icon: "bi-trophy-fill",
+                    title: "No recent results found",
+                    text: "A full results list is available on Play-Cricket.",
+                    links: "https://honleycc.play-cricket.com/Matches?tab=Result",
+                    buttonLabel: "View on Play-Cricket"
+                });
+            }
+
+            if (statusEl) {
+                statusEl.textContent = "Showing the next 3 fixtures and latest 3 completed results for season " + season + ".";
+            }
+        }).catch(function () {
+            if (statusEl) {
+                statusEl.textContent = "Unable to load live Play-Cricket data right now.";
+            }
+
+            renderEmptyState(upcomingEl, {
+                icon: "bi-calendar-event-fill",
+                title: "Fixtures unavailable",
+                text: "Open the full fixtures list on Play-Cricket.",
+                links: "https://honleycc.play-cricket.com/Matches?tab=Fixture",
+                buttonLabel: "View on Play-Cricket"
             });
-    })();
+
+            renderEmptyState(resultsEl, {
+                icon: "bi-trophy-fill",
+                title: "Results unavailable",
+                text: "Open the full results list on Play-Cricket.",
+                links: "https://honleycc.play-cricket.com/Matches?tab=Result",
+                buttonLabel: "View on Play-Cricket"
+            });
+        });
+    }
+
+    function initHawksFixturesFeed() {
+        var statusEl = byId("hawksResultsStatus");
+        var upcomingEl = byId("hawksUpcomingFixtures");
+        var resultsEl = byId("hawksLatestResults");
+        if (!upcomingEl || !resultsEl) return;
+
+        loadClubData().then(function (data) {
+            var fixtures = data.fixtures.filter(isHawksOrGirlsMatch);
+            var results = data.results.filter(isHawksOrGirlsMatch);
+
+            var upcoming = getUpcoming(fixtures, 4, null, function (a, b) {
+                var dateDiff = getItemDate(a) - getItemDate(b);
+                if (dateDiff !== 0) return dateDiff;
+                return getHawksTeamPriority(a) - getHawksTeamPriority(b);
+            });
+            var recent = getRecent(results, 4);
+
+            if (upcoming.length) {
+                upcomingEl.innerHTML = upcoming.map(function (item) {
+                    var label = getHawksTeamLabel(item);
+                    return renderFixtureCard(item, {
+                        title: (label ? label + " – " : "") + getMatchTitle(item, "Upcoming fixture"),
+                        link: item.match_url || getHawksTeamUrl(item)
+                    });
+                }).join("");
+            } else {
+                renderEmptyState(upcomingEl, {
+                    icon: "bi-calendar-event-fill",
+                    title: "No upcoming Women or U15 Girls fixtures found",
+                    text: "Use the Play-Cricket team pages for the full fixture list.",
+                    links: [
+                        {href: TEAM_URLS.women, label: "View Women on Play-Cricket"},
+                        {href: TEAM_URLS.u15Girls, label: "View U15 Girls on Play-Cricket"}
+                    ]
+                });
+            }
+
+            if (recent.length) {
+                resultsEl.innerHTML = recent.map(function (item) {
+                    var label = getHawksTeamLabel(item);
+                    return renderResultCard(item, {
+                        title: (label ? label + " – " : "") + getMatchTitle(item, "Latest result"),
+                        link: item.match_url || getHawksTeamUrl(item)
+                    });
+                }).join("");
+            } else {
+                renderEmptyState(resultsEl, {
+                    icon: "bi-trophy-fill",
+                    title: "No recent Women or U15 Girls results found",
+                    text: "Use the Play-Cricket team pages for the latest results.",
+                    links: [
+                        {href: TEAM_URLS.women, label: "View Women on Play-Cricket"},
+                        {href: TEAM_URLS.u15Girls, label: "View U15 Girls on Play-Cricket"}
+                    ]
+                });
+            }
+
+            if (statusEl) {
+                statusEl.textContent = "Showing the latest Women and U15 Girls fixtures and results from Play-Cricket.";
+            }
+        }).catch(function (error) {
+            console.warn("Hawks fixtures feed failed:", error);
+
+            if (statusEl) {
+                statusEl.textContent = "Unable to load Women and U15 Girls fixtures and results right now.";
+            }
+
+            renderEmptyState(upcomingEl, {
+                icon: "bi-calendar-event-fill",
+                title: "Fixtures unavailable",
+                text: "Open the Play-Cricket team pages.",
+                links: [
+                    {href: TEAM_URLS.women, label: "View Women on Play-Cricket"},
+                    {href: TEAM_URLS.u15Girls, label: "View U15 Girls on Play-Cricket"}
+                ]
+            });
+
+            renderEmptyState(resultsEl, {
+                icon: "bi-trophy-fill",
+                title: "Results unavailable",
+                text: "Open the Play-Cricket team pages.",
+                links: [
+                    {href: TEAM_URLS.women, label: "View Women on Play-Cricket"},
+                    {href: TEAM_URLS.u15Girls, label: "View U15 Girls on Play-Cricket"}
+                ]
+            });
+        });
+    }
 
     /* ==========================================
-       Results page: fixtures + results feed
-    ========================================== */
-
-    (function initResultsPageFeed() {
-        var statusEl = document.getElementById("resultsStatus");
-        var upcomingEl = document.getElementById("upcomingFixtures");
-        var resultsEl = document.getElementById("latestResults");
+   Juniors page: fixtures + results feed
+   Team IDs from Honley Play-Cricket Teams page
+   U11  = 166913
+   U13  = 209333
+   U13B = 209338
+   U15  = 176755
+   U17  = 166874
+   Girls U15 = 407978
+   ========================================== */
+    (function initJuniorsFixturesFeed() {
+        var statusEl = document.getElementById("juniorsResultsStatus");
+        var upcomingEl = document.getElementById("juniorsUpcomingFixtures");
+        var resultsEl = document.getElementById("juniorsLatestResults");
 
         if (!upcomingEl || !resultsEl) return;
+
+        var JUNIOR_TEAM_IDS = ["166913", "209333", "209338", "176755", "166874", "407978"];
+        var JUNIOR_TEAM_URLS = {
+            "166913": "https://honleycc.play-cricket.com/Teams/166913",
+            "209333": "https://honleycc.play-cricket.com/Teams/209333",
+            "209338": "https://honleycc.play-cricket.com/Teams/209338",
+            "176755": "https://honleycc.play-cricket.com/Teams/176755",
+            "166874": "https://honleycc.play-cricket.com/Teams/166874",
+            "407978": "https://honleycc.play-cricket.com/Teams/407978"
+        };
 
         function asArray(obj, key) {
             if (!obj) return [];
@@ -241,371 +572,69 @@
             return [];
         }
 
-        function fixtureItem(item) {
-            var title = item.home_club_name && item.away_club_name
-                ? item.home_club_name + " v " + item.away_club_name
-                : (item.match_name || "Upcoming fixture");
+        function getHonleyJuniorTeamId(item) {
+            var homeClub = String(item.home_club_name || "").toLowerCase();
+            var awayClub = String(item.away_club_name || "").toLowerCase();
+            var homeTeamId = String(item.home_team_id || "");
+            var awayTeamId = String(item.away_team_id || "");
 
-            var dateText = formatDate(item.match_date || item.date);
-            var comp = item.competition_name || item.competition || "";
-            var ground = item.ground_name || item.ground || "";
-            var link = item.match_url || item.url || "https://honleycc.play-cricket.com/Matches?tab=Fixture";
-
-            return [
-                '<article class="match-item">',
-                '<div class="match-item-top"><span class="match-date">', escapeHtml(dateText), '</span></div>',
-                '<h4>', escapeHtml(title), '</h4>',
-                comp ? '<p class="match-meta">' + escapeHtml(comp) + '</p>' : '',
-                ground ? '<p class="match-meta">Ground: ' + escapeHtml(ground) + '</p>' : '',
-                '<p class="match-actions"><a class="btn btn-outline btn-sm" href="', escapeHtml(link), '" rel="noopener" target="_blank">Open fixture</a></p>',
-                '</article>'
-            ].join("");
-        }
-
-        function resultItem(item) {
-            var title = item.home_club_name && item.away_club_name
-                ? item.home_club_name + " v " + item.away_club_name
-                : (item.match_name || "Latest result");
-
-            var dateText = formatDate(item.match_date || item.date);
-            var comp = item.competition_name || item.competition || "";
-            var resultText = item.result_description || item.result || "";
-            var homeAway = "";
-
-            if (item.home_result && item.away_result) {
-                homeAway = item.home_result + " / " + item.away_result;
+            if (homeClub.indexOf("honley") !== -1 && JUNIOR_TEAM_IDS.indexOf(homeTeamId) !== -1) {
+                return homeTeamId;
             }
 
-            var link = item.match_url || item.url || "https://honleycc.play-cricket.com/Matches?tab=Result";
+            if (awayClub.indexOf("honley") !== -1 && JUNIOR_TEAM_IDS.indexOf(awayTeamId) !== -1) {
+                return awayTeamId;
+            }
 
-            return [
-                '<article class="match-item">',
-                '<div class="match-item-top"><span class="match-date">', escapeHtml(dateText), '</span></div>',
-                '<h4>', escapeHtml(title), '</h4>',
-                comp ? '<p class="match-meta">' + escapeHtml(comp) + '</p>' : '',
-                resultText ? '<p class="match-result">' + escapeHtml(resultText) + '</p>' : '',
-                homeAway ? '<p class="match-meta">' + escapeHtml(homeAway) + '</p>' : '',
-                '<p class="match-actions"><a class="btn btn-outline btn-sm" href="', escapeHtml(link), '" rel="noopener" target="_blank">Open result</a></p>',
-                '</article>'
-            ].join("");
+            return "";
         }
 
-        function renderEmpty(target, icon, title, text, links, buttonText) {
-            var linkItems = Array.isArray(links)
-                ? links
-                : [{href: links, label: buttonText || "Open"}];
+        function isJuniorMatch(item) {
+            return !!getHonleyJuniorTeamId(item);
+        }
 
-            var buttonsHtml = linkItems.map(function (link) {
+        function getJuniorTeamLabel(item) {
+            var teamId = getHonleyJuniorTeamId(item);
+
+            if (teamId === "166913") return "U11";
+            if (teamId === "209333") return "U13";
+            if (teamId === "209338") return "U13B";
+            if (teamId === "407978") return "Girls U15";
+            if (teamId === "176755") return "U15";
+            if (teamId === "166874") return "U17";
+
+            return "";
+        }
+
+        function getJuniorTeamPriority(item) {
+            var teamId = getHonleyJuniorTeamId(item);
+
+            if (teamId === "166874") return 1; // U17
+            if (teamId === "176755") return 2; // U15
+            if (teamId === "407978") return 3; // Girls U15
+            if (teamId === "209338") return 4; // U13B
+            if (teamId === "209333") return 5; // U13
+            if (teamId === "166913") return 6; // U11
+            return 9;
+        }
+
+        function getJuniorTeamUrl(item) {
+            var teamId = getHonleyJuniorTeamId(item);
+            return JUNIOR_TEAM_URLS[teamId] || "https://honleycc.play-cricket.com/Teams";
+        }
+
+        function renderButtons(links) {
+            return (links || []).map(function (link) {
                 return '<a class="btn btn-outline btn-sm" href="' +
                     escapeHtml(link.href) +
                     '" rel="noopener" target="_blank">' +
                     escapeHtml(link.label) +
                     '</a>';
-            }).join(' ');
-
-            target.innerHTML = [
-                '<article class="match-item">',
-                '<div class="match-item-top"><span class="match-date"><i class="bi ', icon, '"></i></span></div>',
-                '<h4>', title, '</h4>',
-                '<p class="match-meta">', text, '</p>',
-                '<p class="match-actions">', buttonsHtml, '</p>',
-                '</article>'
-            ].join("");
-        }
-
-        loadClubData()
-            .then(function (data) {
-                var fixtures = asArray(data.fixtures, "matches");
-                var results = asArray(data.results, "result_summary");
-
-                var today = new Date();
-                today.setHours(0, 0, 0, 0);
-
-                var upcoming = fixtures
-                    .filter(function (item) {
-                        var d = parseDate(item.match_date || item.date);
-                        return d && d >= today;
-                    })
-                    .sort(function (a, b) {
-                        return parseDate(a.match_date || a.date) - parseDate(b.match_date || b.date);
-                    })
-                    .slice(0, 3);
-
-                var recent = results
-                    .slice()
-                    .sort(function (a, b) {
-                        return parseDate(b.match_date || b.date) - parseDate(a.match_date || a.date);
-                    })
-                    .slice(0, 3);
-
-                if (upcoming.length) {
-                    upcomingEl.innerHTML = upcoming.map(fixtureItem).join("");
-                } else {
-                    renderEmpty(
-                        upcomingEl,
-                        "bi-calendar-event-fill",
-                        "No upcoming fixtures found",
-                        "Use the full fixtures list on Play-Cricket for the latest schedule.",
-                        "https://honleycc.play-cricket.com/Matches?tab=Fixture",
-                        "Open fixtures"
-                    );
-                }
-
-                if (recent.length) {
-                    resultsEl.innerHTML = recent.map(resultItem).join("");
-                } else {
-                    renderEmpty(
-                        resultsEl,
-                        "bi-trophy-fill",
-                        "No recent results found",
-                        "A full results list is on Play-Cricket.",
-                        "https://honleycc.play-cricket.com/Matches?tab=Result",
-                        "Open results"
-                    );
-                }
-
-                if (statusEl) {
-                    statusEl.textContent = "Showing the next 3 fixtures and latest 3 completed results for season " + season + ".";
-                }
-            })
-            .catch(function () {
-                if (statusEl) {
-                    statusEl.textContent = "Unable to load live Play-Cricket data just now.";
-                }
-
-                renderEmpty(
-                    upcomingEl,
-                    "bi-calendar-event-fill",
-                    "Fixtures unavailable",
-                    "Open the full fixtures list on Play-Cricket.",
-                    "https://honleycc.play-cricket.com/Matches?tab=Fixture",
-                    "Open fixtures"
-                );
-
-                renderEmpty(
-                    resultsEl,
-                    "bi-trophy-fill",
-                    "Results unavailable",
-                    "Open the full results list on Play-Cricket.",
-                    "https://honleycc.play-cricket.com/Matches?tab=Result",
-                    "Open results"
-                );
-            });
-    })();
-
-    /* ==========================================
-       Hawks page ticker: Women + U15 Girls only
-       Team IDs:
-       407977 = Women
-       407978 = U15 Girls
-   ========================================== */
-    (function initHawksTicker() {
-        var tickerTrack = document.getElementById("hawksTickerTrack");
-        if (!tickerTrack) return;
-
-        var HAWKS_TEAM_IDS = ["407977", "407978"];
-
-        function renderTicker(items) {
-            if (!items || !items.length) {
-                tickerTrack.innerHTML =
-                    '<span class="ticker-item">' +
-                    '<i class="bi bi-info-circle-fill" aria-hidden="true"></i>' +
-                    '<span class="ticker-text">No Women or U15 Girls updates available</span>' +
-                    '</span>';
-                return;
-            }
-
-            tickerTrack.innerHTML = items.map(function (item, index) {
-                var separator = index < items.length - 1
-                    ? '<span class="ticker-separator" aria-hidden="true">•</span>'
-                    : '';
-
-                return (
-                    '<span class="ticker-item">' +
-                    '<i class="bi ' + escapeHtml(item.icon || 'bi-calendar-event-fill') + '" aria-hidden="true"></i>' +
-                    '<span class="ticker-text">' + escapeHtml(item.text) + '</span>' +
-                    '</span>' +
-                    separator
-                );
-            }).join('');
-        }
-
-        function isHawksMatch(item) {
-            var homeTeamId = String(item.home_team_id || "");
-            var awayTeamId = String(item.away_team_id || "");
-
-            return HAWKS_TEAM_IDS.indexOf(homeTeamId) !== -1 ||
-                HAWKS_TEAM_IDS.indexOf(awayTeamId) !== -1;
-        }
-
-        function getHawksTeamLabel(item) {
-            var homeTeamId = String(item.home_team_id || "");
-            var awayTeamId = String(item.away_team_id || "");
-
-            if (homeTeamId === "407977" || awayTeamId === "407977") {
-                return "Women";
-            }
-
-            if (homeTeamId === "407978" || awayTeamId === "407978") {
-                return "U15 Girls";
-            }
-
-            return "";
-        }
-
-        function getTeamPriority(item) {
-            var label = getHawksTeamLabel(item);
-            if (label === "Women") return 1;
-            if (label === "U15 Girls") return 2;
-            return 9;
-        }
-
-        function buildTickerItems(fixtures, results) {
-            var items = [];
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            var upcoming = (fixtures || [])
-                .filter(function (item) {
-                    var d = parseDate(item.match_date || item.date);
-                    return d && d >= today && isHawksMatch(item);
-                })
-                .sort(function (a, b) {
-                    var dateDiff = parseDate(a.match_date || a.date) - parseDate(b.match_date || b.date);
-                    if (dateDiff !== 0) return dateDiff;
-                    return getTeamPriority(a) - getTeamPriority(b);
-                })
-                .slice(0, 3);
-
-            var recent = (results || [])
-                .filter(function (item) {
-                    return isHawksMatch(item);
-                })
-                .slice()
-                .sort(function (a, b) {
-                    return parseDate(b.match_date || b.date) - parseDate(a.match_date || a.date);
-                });
-
-            var latest = recent[0];
-
-            if (latest) {
-                var latestLabel = getHawksTeamLabel(latest);
-                items.push({
-                    icon: "bi-trophy-fill",
-                    text: (latestLabel ? latestLabel + " – " : "") +
-                        "Latest result: " +
-                        (latest.result_description || "Match completed")
-                });
-            }
-
-            upcoming.forEach(function (fixture) {
-                var label = getHawksTeamLabel(fixture);
-                var title = fixture.home_club_name && fixture.away_club_name
-                    ? fixture.home_club_name + " v " + fixture.away_club_name
-                    : (fixture.match_name || "Upcoming fixture");
-
-                items.push({
-                    icon: "bi-calendar-event-fill",
-                    text: formatDate(fixture.match_date || fixture.date) +
-                        ": " +
-                        (label ? label + " – " : "") +
-                        title
-                });
-            });
-
-            return items;
-        }
-
-        function getFallbackItems() {
-            return [
-                { icon: "bi-person-hearts", text: "Women and U15 Girls fixtures on Play-Cricket" },
-                { icon: "bi-calendar-event-fill", text: "See the latest Women fixtures and results" },
-                { icon: "bi-calendar-event-fill", text: "See the latest U15 Girls fixtures and results" }
-            ];
-        }
-
-        loadClubData()
-            .then(function (data) {
-                var fixtures = data.fixtures;
-                var results = data.results;
-
-                var items = buildTickerItems(fixtures, results);
-
-                if (!items.length) {
-                    items = getFallbackItems();
-                }
-
-                renderTicker(items);
-            })
-            .catch(function () {
-                renderTicker(getFallbackItems());
-            });
-    })();
-
-    /* ==========================================
-       Women's team fixtures and results feed
-       Hawks page: fixtures + results feed
-       Team ID: 407977 (women) 407977 (u15 girls)
-    ========================================== */
-    (function initHawksFixturesFeed() {
-        var statusEl = document.getElementById("hawksResultsStatus");
-        var upcomingEl = document.getElementById("hawksUpcomingFixtures");
-        var resultsEl = document.getElementById("hawksLatestResults");
-
-        if (!upcomingEl || !resultsEl) return;
-
-        var HAWKS_TEAM_IDS = ["407977", "407978"];
-        var WOMENS_TEAM_URL = "https://honleycc.play-cricket.com/Teams/407977";
-        var U15_TEAM_URL = "https://honleycc.play-cricket.com/Teams/407978";
-        var DEFAULT_TEAM_URL = WOMENS_TEAM_URL;
-
-        function asArray(obj, key) {
-            if (!obj) return [];
-            if (Array.isArray(obj)) return obj;
-            if (Array.isArray(obj[key])) return obj[key];
-            return [];
-        }
-
-        function isHawksMatch(item) {
-            var homeTeamId = String(item.home_team_id || "");
-            var awayTeamId = String(item.away_team_id || "");
-
-            return HAWKS_TEAM_IDS.indexOf(homeTeamId) !== -1 ||
-                HAWKS_TEAM_IDS.indexOf(awayTeamId) !== -1;
-        }
-
-        function getHawksTeamLabel(item) {
-            var homeTeamId = String(item.home_team_id || "");
-            var awayTeamId = String(item.away_team_id || "");
-
-            if (homeTeamId === "407977" || awayTeamId === "407977") {
-                return "Women";
-            }
-
-            if (homeTeamId === "407978" || awayTeamId === "407978") {
-                return "U15 Girls";
-            }
-
-            return "";
-        }
-
-        function getHawksTeamUrl(item) {
-            var homeTeamId = String(item.home_team_id || "");
-            var awayTeamId = String(item.away_team_id || "");
-
-            if (homeTeamId === "407978" || awayTeamId === "407978") {
-                return U15_TEAM_URL;
-            }
-
-            if (homeTeamId === "407977" || awayTeamId === "407977") {
-                return WOMENS_TEAM_URL;
-            }
-
-            return DEFAULT_TEAM_URL;
+            }).join(" ");
         }
 
         function fixtureItem(item) {
-            var teamLabel = getHawksTeamLabel(item);
+            var teamLabel = getJuniorTeamLabel(item);
             var title = item.home_club_name && item.away_club_name
                 ? item.home_club_name + " v " + item.away_club_name
                 : (item.match_name || "Upcoming fixture");
@@ -617,7 +646,7 @@
             var dateText = formatDate(item.match_date || item.date);
             var comp = item.competition_name || item.competition || "";
             var ground = item.ground_name || item.ground || "";
-            var link = item.match_url || item.url || getHawksTeamUrl(item);
+            var link = item.match_url || item.url || getJuniorTeamUrl(item);
 
             return [
                 '<article class="match-item">',
@@ -631,7 +660,7 @@
         }
 
         function resultItem(item) {
-            var teamLabel = getHawksTeamLabel(item);
+            var teamLabel = getJuniorTeamLabel(item);
             var title = item.home_club_name && item.away_club_name
                 ? item.home_club_name + " v " + item.away_club_name
                 : (item.match_name || "Latest result");
@@ -644,7 +673,7 @@
             var comp = item.competition_name || item.competition || "";
             var resultText = item.result_description || item.result || "";
             var scores = "";
-            var link = item.match_url || item.url || getHawksTeamUrl(item);
+            var link = item.match_url || item.url || getJuniorTeamUrl(item);
 
             if (item.home_result && item.away_result) {
                 scores = item.home_result + " / " + item.away_result;
@@ -662,21 +691,35 @@
             ].join("");
         }
 
-        function renderEmpty(target, icon, title, text, href, buttonText) {
+        function renderEmpty(target, icon, title, text, links) {
             target.innerHTML = [
                 '<article class="match-item">',
                 '<div class="match-item-top"><span class="match-date"><i class="bi ', icon, '"></i></span></div>',
                 '<h4>', title, '</h4>',
                 '<p class="match-meta">', text, '</p>',
-                '<p class="match-actions"><a class="btn btn-outline btn-sm" href="', href, '" rel="noopener" target="_blank">', buttonText, '</a></p>',
+                '<p class="match-actions">', renderButtons(links), '</p>',
                 '</article>'
             ].join("");
         }
 
-        loadClubData()
-            .then(function (data) {
-                var fixtures = asArray(data.fixtures, "matches").filter(isHawksMatch);
-                var results = asArray(data.results, "result_summary").filter(isHawksMatch);
+        function getJuniorTeamButtons() {
+            return [
+                { href: JUNIOR_TEAM_URLS["166913"], label: "Open U11" },
+                { href: JUNIOR_TEAM_URLS["209333"], label: "Open U13" },
+                { href: JUNIOR_TEAM_URLS["209338"], label: "Open U13B" },
+                { href: JUNIOR_TEAM_URLS["407978"], label: "Open Girls U15" },
+                { href: JUNIOR_TEAM_URLS["176755"], label: "Open U15" },
+                { href: JUNIOR_TEAM_URLS["166874"], label: "Open U17" }
+            ];
+        }
+
+        Promise.all([
+            loadJson(buildUrl("matches.json")),
+            loadJson(buildUrl("result_summary.json"))
+        ])
+            .then(function (responses) {
+                var fixtures = asArray(responses[0], "matches").filter(isJuniorMatch);
+                var results = asArray(responses[1], "result_summary").filter(isJuniorMatch);
 
                 var today = new Date();
                 today.setHours(0, 0, 0, 0);
@@ -687,16 +730,20 @@
                         return d && d >= today;
                     })
                     .sort(function (a, b) {
-                        return parseDate(a.match_date || a.date) - parseDate(b.match_date || b.date);
+                        var dateDiff = parseDate(a.match_date || a.date) - parseDate(b.match_date || b.date);
+                        if (dateDiff !== 0) return dateDiff;
+                        return getJuniorTeamPriority(a) - getJuniorTeamPriority(b);
                     })
-                    .slice(0, 4);
+                    .slice(0, 8);
 
                 var recent = results
                     .slice()
                     .sort(function (a, b) {
-                        return parseDate(b.match_date || b.date) - parseDate(a.match_date || a.date);
+                        var dateDiff = parseDate(b.match_date || b.date) - parseDate(a.match_date || a.date);
+                        if (dateDiff !== 0) return dateDiff;
+                        return getJuniorTeamPriority(a) - getJuniorTeamPriority(b);
                     })
-                    .slice(0, 4);
+                    .slice(0, 8);
 
                 if (upcoming.length) {
                     upcomingEl.innerHTML = upcoming.map(fixtureItem).join("");
@@ -704,12 +751,9 @@
                     renderEmpty(
                         upcomingEl,
                         "bi-calendar-event-fill",
-                        "No upcoming Women or U15 Girls fixtures found",
-                        "Use the Play-Cricket team pages for the full fixture list.",
-                        [
-                            {href: WOMENS_TEAM_URL, label: "Open Women's team"},
-                            {href: U15_TEAM_URL, label: "Open U15 Girls team"}
-                        ]
+                        "No upcoming junior fixtures found",
+                        "Use the junior team pages on Play-Cricket.",
+                        getJuniorTeamButtons()
                     );
                 }
 
@@ -719,69 +763,197 @@
                     renderEmpty(
                         resultsEl,
                         "bi-trophy-fill",
-                        "No recent Women or U15 Girls results found",
-                        "Use the Play-Cricket team pages for the latest results.",
-                        [
-                            {href: WOMENS_TEAM_URL, label: "Open Women's team"},
-                            {href: U15_TEAM_URL, label: "Open U15 Girls team"}
-                        ]
+                        "No recent junior results found",
+                        "Use the junior team pages on Play-Cricket.",
+                        getJuniorTeamButtons()
                     );
                 }
 
                 if (statusEl) {
-                    statusEl.textContent = "Showing the latest Women and U15 Girls fixtures and results from Play-Cricket.";
+                    statusEl.textContent = "Showing the latest Honley junior fixtures and results from Play-Cricket.";
                 }
             })
             .catch(function (err) {
-                console.warn("Hawks fixtures feed failed:", err);
+                console.warn("Juniors fixtures feed failed:", err);
 
                 if (statusEl) {
-                    statusEl.textContent = "Unable to load Women and U15 Girls fixtures and results right now.";
+                    statusEl.textContent = "Unable to load junior fixtures and results right now.";
                 }
 
                 renderEmpty(
                     upcomingEl,
                     "bi-calendar-event-fill",
                     "Fixtures unavailable",
-                    "Open the Play-Cricket team pages.",
-                    WOMENS_TEAM_URL,
-                    "Open Women's team"
+                    "Open the junior team pages on Play-Cricket.",
+                    getJuniorTeamButtons()
                 );
 
                 renderEmpty(
                     resultsEl,
                     "bi-trophy-fill",
                     "Results unavailable",
-                    "Open the Play-Cricket team pages.",
-                    U15_TEAM_URL,
-                    "Open U15 Girls team"
+                    "Open the junior team pages on Play-Cricket.",
+                    getJuniorTeamButtons()
                 );
             });
     })();
 
-    /* ==========================================
-       Membership page: quick links to accordion
-       ------------------------------------------------
-       - Highlights the selected membership button
-       - Opens the relevant Bootstrap collapse panel
-       - Scrolls smoothly to the membership group
-       - Keeps button state in sync if a panel is
-         opened directly inside the accordion
-    ========================================== */
+    function renderTicker(track, items) {
+        if (!track) return;
 
-    (function initMembershipPage() {
+        if (!items || !items.length) {
+            track.innerHTML = '<span class="ticker-item"><i class="bi bi-info-circle-fill" aria-hidden="true"></i><span class="ticker-text">No updates available</span></span>';
+            return;
+        }
+
+        track.innerHTML = items.map(function (item, index) {
+            var separator = index < items.length - 1
+                ? '<span class="ticker-separator" aria-hidden="true">•</span>'
+                : '';
+
+            return '<span class="ticker-item">' +
+                '<i class="bi ' + escapeHtml(item.icon || "bi-calendar-event-fill") + '" aria-hidden="true"></i>' +
+                '<span class="ticker-text">' + escapeHtml(item.text) + '</span>' +
+                '</span>' + separator;
+        }).join("");
+    }
+
+    function initHomeTicker() {
+        var track = byId("heroTickerTrack");
+        if (!track) return;
+
+        function getHomeTeamLabel(item) {
+            var homeClub = String(item.home_club_name || "").toLowerCase();
+            var awayClub = String(item.away_club_name || "").toLowerCase();
+            var homeTeam = String(item.home_team_name || "").toLowerCase();
+            var awayTeam = String(item.away_team_name || "").toLowerCase();
+            var honleyTeam = "";
+
+            if (homeClub.indexOf("honley") !== -1) {
+                honleyTeam = homeTeam;
+            } else if (awayClub.indexOf("honley") !== -1) {
+                honleyTeam = awayTeam;
+            }
+
+            if (honleyTeam.indexOf("1st xi") !== -1) return "1st XI";
+            if (honleyTeam.indexOf("2nd xi") !== -1) return "2nd XI";
+            if (honleyTeam.indexOf("3rd xi") !== -1) return "3rd XI";
+            return "";
+        }
+
+        function getPriority(item) {
+            var label = getHomeTeamLabel(item);
+            if (label === "1st XI") return 1;
+            if (label === "2nd XI") return 2;
+            if (label === "3rd XI") return 3;
+            return 9;
+        }
+
+        function getFallbackNews() {
+            return [
+                {icon: "bi-megaphone-fill", text: "Players always welcome at Honley Cricket Club"},
+                {icon: "bi-people-fill", text: "Junior training starts Sunday at 10am"},
+                {icon: "bi-person-hearts", text: "Honley Hawks are recruiting new players"}
+            ];
+        }
+
+        Promise.all([
+            loadJson("news.json").catch(function () {
+                return getFallbackNews();
+            }),
+            loadClubData()
+        ]).then(function (responses) {
+            var manualNews = responses[0];
+            var data = responses[1];
+            var liveItems = [];
+            var upcoming = getUpcoming(data.fixtures, 2, null, function (a, b) {
+                var dateDiff = getItemDate(a) - getItemDate(b);
+                if (dateDiff !== 0) return dateDiff;
+                return getPriority(a) - getPriority(b);
+            });
+            var latest = getRecent(data.results, 1)[0];
+
+            if (latest) {
+                var latestLabel = getHomeTeamLabel(latest);
+                liveItems.push({
+                    icon: "bi-trophy-fill",
+                    text: (latestLabel ? latestLabel + " – " : "") + "Latest result: " + (latest.result_description || "Match completed")
+                });
+            }
+
+            upcoming.forEach(function (fixture) {
+                var label = getHomeTeamLabel(fixture);
+                liveItems.push({
+                    icon: "bi-calendar-event-fill",
+                    text: formatDate(fixture.match_date || fixture.date, {day: "numeric", month: "short"}) + ": " + (label ? label + " – " : "") + getMatchTitle(fixture, "Upcoming fixture")
+                });
+            });
+
+            renderTicker(track, manualNews.concat(liveItems).slice(0, 6));
+        }).catch(function () {
+            renderTicker(track, getFallbackNews());
+        });
+    }
+
+    function initHawksTicker() {
+        var track = byId("hawksTickerTrack");
+        if (!track) return;
+
+        function getFallbackItems() {
+            return [
+                {icon: "bi-person-hearts", text: "Women and U15 Girls fixtures are available on Play-Cricket"},
+                {icon: "bi-calendar-event-fill", text: "View Women fixtures and results on Play-Cricket"},
+                {icon: "bi-calendar-event-fill", text: "View U15 Girls fixtures and results on Play-Cricket"}
+            ];
+        }
+
+        loadClubData().then(function (data) {
+            var fixtures = data.fixtures.filter(isHawksOrGirlsMatch);
+            var results = data.results.filter(isHawksOrGirlsMatch);
+            var items = [];
+
+            var upcoming = getUpcoming(fixtures, 3, null, function (a, b) {
+                var dateDiff = getItemDate(a) - getItemDate(b);
+                if (dateDiff !== 0) return dateDiff;
+                return getHawksTeamPriority(a) - getHawksTeamPriority(b);
+            });
+            var latest = getRecent(results, 1)[0];
+
+            if (latest) {
+                var latestLabel = getHawksTeamLabel(latest);
+                items.push({
+                    icon: "bi-trophy-fill",
+                    text: (latestLabel ? latestLabel + " – " : "") + "Latest result: " + (latest.result_description || "Match completed")
+                });
+            }
+
+            upcoming.forEach(function (fixture) {
+                var label = getHawksTeamLabel(fixture);
+                items.push({
+                    icon: "bi-calendar-event-fill",
+                    text: formatDate(fixture.match_date || fixture.date, {day: "numeric", month: "short"}) + ": " + (label ? label + " – " : "") + getMatchTitle(fixture, "Upcoming fixture")
+                });
+            });
+
+            renderTicker(track, items.length ? items : getFallbackItems());
+        }).catch(function () {
+            renderTicker(track, getFallbackItems());
+        });
+    }
+
+    function initMembershipPage() {
         if (!window.jQuery) return;
 
-        var buttons = window.jQuery(".membership-type-button");
-        var accordion = window.jQuery("#accordion");
+        var $ = window.jQuery;
+        var buttons = $(".membership-type-button");
+        var accordion = $("#accordion");
 
         if (!buttons.length || !accordion.length) return;
 
         function setActiveButton(targetId) {
             buttons.removeClass("active");
-
             buttons.each(function () {
-                var button = window.jQuery(this);
+                var button = $(this);
                 if (button.attr("href") === "#" + targetId) {
                     button.addClass("active");
                 }
@@ -789,10 +961,10 @@
         }
 
         function scrollToGroup(targetId) {
-            var target = window.jQuery("#" + targetId);
+            var target = $("#" + targetId);
             if (!target.length) return;
 
-            window.jQuery("html, body").stop().animate({
+            $("html, body").stop().animate({
                 scrollTop: target.offset().top - 110
             }, 260);
         }
@@ -800,20 +972,18 @@
         buttons.on("click", function (event) {
             event.preventDefault();
 
-            var button = window.jQuery(this);
+            var button = $(this);
             var targetId = (button.attr("href") || "").replace("#", "");
             var collapseId = button.data("target-collapse");
 
             if (!targetId) return;
 
             setActiveButton(targetId);
-
             accordion.find(".panel-collapse.in").collapse("hide");
 
             if (collapseId) {
                 setTimeout(function () {
-                    window.jQuery("#" + collapseId).collapse("show");
-
+                    $("#" + collapseId).collapse("show");
                     setTimeout(function () {
                         scrollToGroup(targetId);
                     }, 220);
@@ -827,20 +997,15 @@
 
         accordion.on("show.bs.collapse", function (event) {
             accordion.find(".panel-collapse.in").not(event.target).collapse("hide");
-
-            var groupId = window.jQuery(event.target).closest(".membership-group").attr("id");
+            var groupId = $(event.target).closest(".membership-group").attr("id");
             if (groupId) {
                 setActiveButton(groupId);
             }
         });
-    })();
+    }
 
-    /* ==========================================
-       YouTube livestream embed
-    ========================================== */
-
-    (function initLivestreamEmbed() {
-        var liveContainer = document.getElementById("live-container");
+    function initLivestreamEmbed() {
+        var liveContainer = byId("live-container");
         var API_KEY = "YOUR_API_KEY";
         var CHANNEL_ID = "UCEY81pC3tG4_0OaV-svjkwA";
 
@@ -851,196 +1016,39 @@
             "&eventType=live&type=video&key=" +
             API_KEY;
 
-        fetch(url)
-            .then(function (res) {
-                if (!res.ok) throw new Error("YouTube API request failed");
-                return res.json();
-            })
-            .then(function (data) {
-                if (!data.items || !data.items.length) return;
+        fetch(url).then(function (response) {
+            if (!response.ok) throw new Error("YouTube API request failed");
+            return response.json();
+        }).then(function (data) {
+            if (!data.items || !data.items.length) return;
 
-                var videoId = data.items[0].id.videoId;
+            var videoId = data.items[0].id.videoId;
+            liveContainer.innerHTML = '' +
+                '<div class="live-embed">' +
+                '    <div class="embed-responsive embed-responsive-16by9">' +
+                '        <iframe class="embed-responsive-item" ' +
+                '                src="https://www.youtube.com/embed/' + videoId + '" ' +
+                '                title="Honley CC livestream" ' +
+                '                allowfullscreen ' +
+                '                loading="lazy">' +
+                '        </iframe>' +
+                '    </div>' +
+                '</div>';
+        }).catch(function (error) {
+            console.warn("Livestream check failed:", error);
+        });
+    }
 
-                liveContainer.innerHTML = '' +
-                    '<div class="live-embed">' +
-                    '    <div class="embed-responsive embed-responsive-16by9">' +
-                    '        <iframe class="embed-responsive-item" ' +
-                    '                src="https://www.youtube.com/embed/' + videoId + '" ' +
-                    '                title="Honley CC livestream" ' +
-                    '                allowfullscreen ' +
-                    '                loading="lazy">' +
-                    '        </iframe>' +
-                    '    </div>' +
-                    '</div>';
-            })
-            .catch(function (err) {
-                console.warn("Livestream check failed:", err);
-            });
-    })();
-
-    /* ==========================================
-       HERO TICKER: latest updates / fixtures
-       Uses shared utilities + Play-Cricket v2
-    ========================================== */
-    (function () {
-        var tickerTrack = document.getElementById("heroTickerTrack");
-        if (!tickerTrack) return;
-
-        function renderTicker(items) {
-            if (!items || !items.length) {
-                tickerTrack.innerHTML =
-                    '<span class="ticker-item"><i class="bi bi-info-circle-fill" aria-hidden="true"></i><span class="ticker-text">No updates available</span></span>';
-                return;
-            }
-
-            tickerTrack.innerHTML = items.map(function (item, index) {
-                var separator = index < items.length - 1
-                    ? '<span class="ticker-separator" aria-hidden="true"> | </span>'
-                    : '';
-
-                return (
-                    '<span class="ticker-item">' +
-                    '<i class="bi ' + escapeHtml(item.icon || 'bi-calendar-event-fill') + '" aria-hidden="true"></i>' +
-                    '<span class="ticker-text">' + escapeHtml(item.text) + '</span>' +
-                    '</span>' +
-                    separator
-                );
-            }).join('');
-        }
-
-        function getTeamLabel(item) {
-            var homeClub = String(item.home_club_name || "").toLowerCase();
-            var awayClub = String(item.away_club_name || "").toLowerCase();
-            var homeTeam = String(item.home_team_name || "").toLowerCase();
-            var awayTeam = String(item.away_team_name || "").toLowerCase();
-
-            var honleyTeam = "";
-
-            if (homeClub.indexOf("honley") !== -1) {
-                honleyTeam = homeTeam;
-            } else if (awayClub.indexOf("honley") !== -1) {
-                honleyTeam = awayTeam;
-            } else {
-                return "";
-            }
-
-            if (honleyTeam.indexOf("1st xi") !== -1) return "1st XI";
-            if (honleyTeam.indexOf("2nd xi") !== -1) return "2nd XI";
-            if (honleyTeam.indexOf("3rd xi") !== -1) return "3rd XI";
-
-            return "";
-        }
-
-        function getTeamPriority(item) {
-            var team = getTeamLabel(item);
-            if (team === "1st XI") return 1;
-            if (team === "2nd XI") return 2;
-            if (team === "3rd XI") return 3;
-            return 9;
-        }
-
-        function buildTickerItems(fixtures, results) {
-            var items = [];
-            var today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            var upcoming = (fixtures || [])
-                .filter(function (item) {
-                    var d = parseDate(item.match_date || item.date);
-                    return d && d >= today;
-                })
-                .sort(function (a, b) {
-                    var dateDiff = parseDate(a.match_date || a.date) - parseDate(b.match_date || b.date);
-                    if (dateDiff !== 0) return dateDiff;
-                    return getTeamPriority(a) - getTeamPriority(b);
-                });
-
-            var preferredUpcoming = upcoming
-                .filter(function (item) {
-                    var team = getTeamLabel(item);
-                    return team === "1st XI" || team === "2nd XI";
-                })
-                .slice(0, 2);
-
-            if (!preferredUpcoming.length) {
-                preferredUpcoming = upcoming.slice(0, 2);
-            }
-
-            var latestResults = (results || [])
-                .slice()
-                .sort(function (a, b) {
-                    return parseDate(b.match_date || b.date) - parseDate(a.match_date || a.date);
-                });
-
-            var preferredLatest = latestResults.find(function (item) {
-                var team = getTeamLabel(item);
-                return team === "1st XI" || team === "2nd XI";
-            }) || latestResults[0];
-
-            if (preferredLatest) {
-                var latestTeam = getTeamLabel(preferredLatest);
-                items.push({
-                    icon: "bi-trophy-fill",
-                    text: (latestTeam ? latestTeam + " – " : "") +
-                        "Latest result: " +
-                        (preferredLatest.result_description || "Match completed")
-                });
-            }
-
-            preferredUpcoming.forEach(function (fixture) {
-                var team = getTeamLabel(fixture);
-                var title = fixture.home_club_name && fixture.away_club_name
-                    ? fixture.home_club_name + " v " + fixture.away_club_name
-                    : "Upcoming fixture";
-
-                items.push({
-                    icon: "bi-calendar-event-fill",
-                    text: formatDate(fixture.match_date || fixture.date) +
-                        ": " +
-                        (team ? team + " – " : "") +
-                        title
-                });
-            });
-
-            return items;
-        }
-
-        function getFallbackNews() {
-            return [
-                {icon: "bi-people-fill", text: "Junior training runs each Friday."},
-                {icon: "bi-person-hearts", text: "Honley Hawks now recruiting."},
-                {icon: "bi-megaphone-fill", text: "Players always welcome."}
-            ];
-        }
-
-        Promise.all([
-            fetch("news.json", {cache: "no-store"})
-                .then(function (r) {
-                    if (!r.ok) throw new Error("news.json failed");
-                    return r.json();
-                })
-                .catch(function () {
-                    return getFallbackNews();
-                }),
-            loadJson(buildUrl("matches.json")).catch(function () {
-                return {matches: []};
-            }),
-            loadJson(buildUrl("result_summary.json")).catch(function () {
-                return {result_summary: []};
-            })
-        ])
-            .then(function (responses) {
-                var manualNews = responses[0];
-                var fixtures = responses[1].matches || [];
-                var results = responses[2].result_summary || [];
-
-                var liveItems = buildTickerItems(fixtures, results);
-                var combined = manualNews.concat(liveItems).slice(0, 6);
-
-                renderTicker(combined);
-            })
-            .catch(function () {
-                renderTicker(getFallbackNews());
-            });
-    })();
+    setLastModified();
+    normaliseExternalLinks();
+    setActiveNav();
+    initBackToTop();
+    loadPlayCricketWidget();
+    initHomepageMatchSummary();
+    initResultsPageFeed();
+    initHawksFixturesFeed();
+    initHomeTicker();
+    initHawksTicker();
+    initMembershipPage();
+    initLivestreamEmbed();
 })();
