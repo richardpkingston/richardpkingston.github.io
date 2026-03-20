@@ -135,19 +135,20 @@
         padding: 10px 14px;
         margin-top: 16px;
     }
-
+    
     .news-label {
         font-size: 11px;
     }
-
+    
     .ticker-item {
         font-size: 13px;
     }
-
+    
     .ticker-separator {
         margin: 0 12px;
     }
 }
+
 .hero-home h1 {
     color: #fff;
     margin-top: 0;
@@ -206,15 +207,19 @@
     background-color: var(--hcc-green-dark);
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     border: 1px solid rgba(255, 255, 255, 0.14);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
-    transition: all 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .quick-card::before {
     content: "";
     position: absolute;
     inset: 0;
+    border-radius: inherit;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.26) 42%, rgba(0, 0, 0, 0.06) 100%);
     z-index: 1;
 }
@@ -226,6 +231,7 @@
     right: 0;
     bottom: 0;
     height: 38%;
+    border-radius: inherit;
     background: linear-gradient(to top, rgba(11, 107, 58, 0.22) 0%, rgba(11, 107, 58, 0.08) 55%, rgba(11, 107, 58, 0) 100%);
     z-index: 1;
     pointer-events: none;
@@ -236,11 +242,11 @@
     z-index: 2;
 }
 
-.quick-card:hover {
+.quick-card:hover,
+.quick-card:focus-within {
     transform: translateY(-4px);
     box-shadow: 0 16px 30px rgba(0, 0, 0, 0.20);
     color: #fff;
-    background-size: 108%;
 }
 
 .quick-card i {
@@ -311,6 +317,7 @@
     background-image: linear-gradient(rgba(6, 32, 18, 0.42), rgba(6, 32, 18, 0.64)), url('../img/hawks_logo1.png');
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* Shared cards */
@@ -508,7 +515,6 @@
     background: #fff;
     box-shadow: var(--hcc-shadow-card);
 }
-
 
 .live-scores-section .section-tag {
     margin-bottom: 14px;
@@ -1134,8 +1140,6 @@
     margin-bottom: 0;
 }
 
-
-
 /* Back to top */
 .back-to-top {
     position: fixed;
@@ -1157,24 +1161,30 @@
     transform: translateY(8px);
     transition: opacity var(--hcc-transition), transform var(--hcc-transition), background-color var(--hcc-transition);
 }
+
 .back-to-top:hover,
 .back-to-top:focus-visible {
     background: var(--hcc-green-dark);
     color: #fff;
     text-decoration: none;
 }
+
 .back-to-top.is-visible {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
 }
+
 @media (max-width: 767px) {
     body {
         padding-top: 72px;
     }
-    .back-to-top { right: 12px; bottom: 12px; }
+    
+    .back-to-top {
+        right: 12px;
+        bottom: 12px;
+    }
 }
-
 
 .membership-accordion .accordion-button {
     background: #fbfcfb;
