@@ -15,50 +15,7 @@
     <link href="css/components.css" rel="stylesheet"/>
 </head>
 <body class="membership-page">
-<nav aria-label="Main navigation" class="navbar navbar-default navbar-fixed-top site-nav" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button aria-controls="main-nav" aria-expanded="false" class="navbar-toggle" data-target="#main-nav"
-                    data-toggle="collapse" type="button">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a aria-label="Honley Cricket Club home" class="navbar-brand brand-wrap" href="index.html">
-                <img alt="Honley Cricket Club logo" class="brand-logo" src="img/logo.jpg"/>
-                <span class="brand-text">Honley Cricket Club</span>
-            </a>
-        </div>
-        <div class="collapse navbar-collapse" id="main-nav">
-            <ul class="nav navbar-nav">
-                <li><a href="index.html">Home</a></li>
-                <li class="active"><a aria-current="page" href="join.html">Join</a></li>
-                <li><a href="results.html">Fixtures &amp; Results</a></li>
-                <li><a href="juniors/">Juniors</a></li>
-                <li><a href="hawks/">Hawks (Women &amp; Girls)</a></li>
-                <li><a href="policy.html">Policies</a></li>
-                <li><a href="index.html#watch-live">Watch Matches</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        Follow us <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li><a href="https://www.facebook.com/honleycc/" rel="noopener" target="_blank"><i
-                                class="bi bi-facebook"></i> Facebook</a></li>
-                        <li><a href="https://www.instagram.com/honleycricketclub/" rel="noopener" target="_blank"><i
-                                class="bi bi-instagram"></i> Instagram</a></li>
-                        <li><a href="https://www.youtube.com/@honleycc6945" rel="noopener" target="_blank"><i
-                                class="bi bi-youtube"></i> YouTube</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div id="site-header"></div>
 <main class="content-shell content-shell-compact">
     <div class="container">
         <div class="page-header-intro">
@@ -419,45 +376,9 @@
         </div>
     </div>
 </main>
-<footer class="site-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <h2 class="footer-title">Honley Cricket Club</h2>
-                <p>Community cricket in Honley, with senior, junior, and women &amp; girls opportunities.</p>
-                <p class="small text-muted">
-                    © Honley Cricket Club
-                    <script>document.write(new Date().getFullYear());</script>
-                    <br/>
-                    Built by <a href="http://www.tellus-toolkit.com" rel="noopener" target="_blank">TellUs Toolkit
-                    Ltd</a><br/>
-                    Last updated <span id="lastModified"></span>.
-                </p>
-            </div>
-            <div class="col-sm-4">
-                <h2 class="footer-title">Quick Links</h2>
-                <ul class="footer-links list-unstyled">
-                    <li><a href="join.html">Membership</a></li>
-                    <li><a href="results.html">Fixtures &amp; Results</a></li>
-                    <li><a href="juniors/">Juniors</a></li>
-                    <li><a href="hawks/">Women &amp; Girls</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-4">
-                <h2 class="footer-title">Follow</h2>
-                <ul class="footer-links list-unstyled">
-                    <li><a href="https://www.facebook.com/honleycc/" rel="noopener" target="_blank">Facebook</a></li>
-                    <li><a href="https://www.instagram.com/honleycricketclub/" rel="noopener"
-                           target="_blank">Instagram</a></li>
-                    <li><a href="https://www.youtube.com/@honleycc6945" rel="noopener" target="_blank">YouTube</a></li>
-                    <li><a href="contact.html">Contact us</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="js/site.js"></script>
+<div id="site-footer"></div>
+<script defer src="js/site-shell.js"></script>
+<script defer src="js/play-cricket.js"></script>
+<script defer src="js/pages.js"></script>
 </body>
 </html>
