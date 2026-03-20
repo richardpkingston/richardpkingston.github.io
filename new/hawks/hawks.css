@@ -243,6 +243,16 @@
         padding: 30px 0 24px;
     }
 
+    .hawks-hero-inner {
+        display: block;
+    }
+
+    .hawks-hero-copy,
+    .hawks-hero-badge,
+    .hawks-hero-ticker {
+        max-width: 100%;
+    }
+
     .hawks-hero h1 {
         font-size: 32px;
     }
@@ -251,13 +261,55 @@
         font-size: 16px;
     }
 
-    
+    .hawks-hero-badge {
+        transform: none;
+        margin: 16px 0 12px;
+        text-align: center;
+    }
+
+    .hawks-hero-badge img {
+        width: 180px;
+    }
+
+    .hawks-hero-ticker {
+        margin-top: 14px;
+        margin-bottom: 0;
+    }
+
+    .hawks-actions .btn {
+        display: block;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .hawks-actions .btn + .btn {
+        margin-top: 8px;
+    }
 
     .hawks-quick-links {
-        margin-top: -210px;
-        position: relative;
+        margin-top: 0;
         z-index: 20;
-        padding-bottom: 4px;
+        padding-top: 18px;
+        padding-bottom: 0;
+    }
+
+    .hawks-quick-links .col-sm-4 {
+        margin-bottom: 16px;
+    }
+
+    .hawks-quick-links .col-sm-4:last-child {
+        margin-bottom: 0;
+    }
+
+    .hawks-quick-card,
+    .hawks-fixtures-panel,
+    .hawks-feature-card {
+        height: auto;
+        min-height: 0;
+    }
+
+    .hawks-quick-card h3 {
+        overflow-wrap: anywhere;
     }
 }
 .hawks-hero-badge img {
@@ -294,4 +346,11 @@
 .hawks-hero-ticker {
     margin-top: 18px;
     margin-bottom: 8px;
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .hawks-quick-links {
+        margin-top: -18px;
+    }
 }
