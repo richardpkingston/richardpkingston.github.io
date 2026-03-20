@@ -46,7 +46,7 @@ body {
 body {
     color: var(--hcc-text);
     background: #fff;
-    padding-top: 66px;
+    padding-top: 72px;
 }
 
 p,
@@ -60,7 +60,6 @@ select,
 .table-modern,
 .breadcrumb-nav,
 .quick-card p,
-.hawks-list,
 .hawks-join-list {
     font-family: var(--font-body);
 }
@@ -198,4 +197,22 @@ button:focus-visible,
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+/* Global overflow guard */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    position: relative;
 }

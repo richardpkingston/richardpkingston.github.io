@@ -242,11 +242,11 @@
         top: 96px;
         align-self: flex-start;
     }
-
+    
     .membership-sidebar-sticky .info-card {
         margin-bottom: 18px;
     }
-
+    
     .page-header-content,
     .page-header-content > [class*="col-"] {
         overflow: visible !important;
@@ -257,13 +257,13 @@
     .brand-text {
         font-size: 16px;
     }
-
+    
     .site-nav .nav.navbar-nav > li > a {
         padding-left: 9px;
         padding-right: 9px;
         font-size: 14px;
     }
-
+    
     .site-nav .navbar-right > li > a {
         padding-left: 8px;
         padding-right: 8px;
@@ -274,42 +274,46 @@
     .site-nav .container {
         display: block;
     }
-
+    
     .site-nav .navbar-header {
         display: block;
         margin-right: 0;
     }
-
+    
     .site-nav .navbar-toggle {
         display: block;
         margin-top: 18px;
         margin-bottom: 18px;
     }
-
+    
     .site-nav .navbar-collapse {
         display: none !important;
         width: 100%;
         margin-top: 8px;
     }
-
+    
     .site-nav .navbar-collapse.in {
         display: block !important;
     }
-
+    
     .site-nav .nav.navbar-nav,
     .site-nav .navbar-right {
         display: block;
         margin: 0;
     }
-
+    
     .site-nav .nav.navbar-nav > li,
     .site-nav .navbar-right > li {
         display: block;
     }
-
+    
     .site-nav .nav.navbar-nav > li > a,
     .site-nav .navbar-right > li > a {
-        padding: 12px 15px;
+        display: block;
+        width: 100%;
+        padding: 12px 16px;
+        white-space: normal;
+        text-align: left;
     }
 }
 
@@ -318,62 +322,82 @@
     .hero-overlay {
         min-height: 320px;
     }
-
+    
     .hero-content {
         padding-top: 64px;
         padding-bottom: 140px;
     }
-
+    
     .hero-home h1 {
         font-size: 32px;
     }
-
+    
     .hero-lead {
         font-size: 16px;
         margin-bottom: 14px;
     }
-
+    
     .quick-links {
         margin-top: -70px;
         padding-top: 0;
     }
-
+    
     .quick-card {
         min-height: 200px;
     }
-
+    
     .feature-card {
         margin-bottom: 20px;
         height: auto;
     }
-
+    
     .card-title {
         font-size: 24px;
     }
-
+    
     .page-header-rich {
         padding-bottom: 20px;
     }
-
+    
     .page-header-intro {
         margin-bottom: 18px;
     }
-
+    
     .compact-embed-wrap,
     .compact-embed-wrap iframe {
         min-height: 460px;
     }
-
+    
     .match-summary-row {
         display: block;
     }
-
+    
     .match-summary-row > [class*="col-"] {
         display: block;
     }
-
+    
     .match-summary-row .compact-card {
         min-height: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .table-responsive {
+        overflow-x: visible !important;
+    }
+    
+    .table-responsive table {
+        width: 100%;
+        table-layout: fixed;
+    }
+    
+    .table-responsive th,
+    .table-responsive td {
+        white-space: normal !important;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        font-size: 13px;
+        padding: 8px 6px;
     }
 }
 
@@ -381,172 +405,276 @@
     body {
         padding-top: 72px;
     }
-
+    
+    .site-nav,
+    .site-nav .container,
+    .site-nav .navbar-header,
+    .site-nav .navbar-collapse,
+    .site-nav .nav.navbar-nav,
+    .site-nav .navbar-right,
+    .site-nav .dropdown-menu,
+    .page-header-compact,
+    .content-shell,
+    .content-shell-compact,
+    .section-pad {
+        max-width: 100%;
+    }
+    
+    .site-nav {
+        min-height: 72px;
+    }
+    
+    .site-nav .container {
+        display: block !important;
+        overflow-x: hidden;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .site-nav .navbar-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100%;
+        min-height: 72px;
+        float: none;
+        margin: 0;
+    }
+    
+    .site-nav .navbar-brand.brand-wrap,
+    .brand-wrap {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+        float: none;
+        margin: 0;
+        padding: 0;
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: calc(100% - 64px);
+    }
+    
+    .brand-logo {
+        flex: 0 0 34px;
+    }
+    
     .brand-text {
         font-size: 15px;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
-
+    
+    .site-nav .navbar-toggle {
+        display: block !important;
+        position: relative;
+        right: auto;
+        top: auto;
+        float: none !important;
+        margin: 0 0 0 12px;
+        flex: 0 0 auto;
+    }
+    
+    .site-nav .navbar-collapse {
+        display: none !important;
+        clear: both;
+        width: 100%;
+        margin-top: 8px;
+        padding: 8px 8px 0 !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        box-shadow: none;
+        background: #fff;
+        overflow-x: hidden;
+        max-height: calc(100vh - 90px);
+        overflow-y: auto;
+    }
+    
+    .site-nav .navbar-collapse.in {
+        display: block !important;
+    }
+    
+    .site-nav .nav.navbar-nav,
+    .site-nav .navbar-right {
+        display: block !important;
+        width: 100%;
+        margin: 0;
+        float: none !important;
+    }
+    
+    .site-nav .nav.navbar-nav > li,
+    .site-nav .navbar-right > li {
+        display: block;
+        float: none;
+        width: 100%;
+    }
+    
+    .site-nav .nav.navbar-nav > li > a,
+    .site-nav .navbar-right > li > a {
+        display: block;
+        width: 100%;
+        padding: 12px 16px !important;
+        white-space: normal;
+        text-align: left !important;
+    }
+    
+    .site-nav .dropdown-menu {
+        position: static;
+        float: none;
+        width: 100%;
+        min-width: 0;
+        margin-top: 0;
+        border: 0;
+        box-shadow: none;
+        padding: 0 0 0 16px !important;
+    }
+    
+    .site-nav .dropdown-menu > li > a {
+        padding: 10px 16px !important;
+    }
+    
     .hero-home,
     .hero-overlay {
         min-height: auto;
     }
-
+    
     .hero-content {
         padding-top: 60px;
         padding-bottom: 34px;
     }
-
+    
     .hero-home h1 {
         font-size: 28px;
         line-height: 1.12;
     }
-
+    
     .hero-lead {
         font-size: 15px;
         line-height: 1.45;
         margin-bottom: 14px;
     }
-
+    
     .page-header-compact {
         padding: 24px 0 18px;
     }
-
+    
     .page-header-compact h1 {
         font-size: 28px;
     }
-
+    
     .page-subtitle,
     .page-header-intro .lead {
         font-size: 15px;
     }
-
+    
     .page-header-rich {
         padding-bottom: 16px;
     }
-
+    
     .quick-links {
         margin-top: -40px;
         padding-top: 0;
     }
-
+    
     .quick-card {
         min-height: 180px;
         padding: 18px;
     }
-
+    
     .quick-card-title {
         font-size: 22px;
     }
-
+    
     .quick-card-badge {
         top: 12px;
         right: 12px;
     }
-
+    
     .feature-card {
         padding: 18px;
     }
-
+    
     .card-title {
         font-size: 22px;
     }
-
+    
     .compact-info-card {
         padding: 16px;
     }
-
+    
     .live-scores-section .feature-card {
         padding: 20px;
     }
-
+    
     .live-scores-widget {
         min-height: 110px;
     }
-
+    
     .compact-embed-wrap,
     .compact-embed-wrap iframe {
         min-height: 380px;
     }
-
+    
     .content-shell-compact {
         padding-top: 0;
         padding-bottom: 0;
     }
-
+    
     .kit-logo {
         height: 120px;
     }
-
+    
     .contact-map-wrap iframe {
         height: 320px;
     }
-
+    
     .membership-type-button {
         font-size: 15px;
     }
-
+    
     .membership-accordion .panel-title a {
         padding: 12px 42px 12px 14px;
         font-size: 15px;
     }
-
+    
     .membership-accordion .panel-body {
         padding: 12px;
     }
-
+    
     .match-centre-grid {
         display: block;
     }
-
+    
     .match-centre-panel {
         margin-bottom: 22px;
     }
-
+    
     .match-centre-panel:last-child {
         margin-bottom: 0;
     }
-}
-
-
-/* Mobile overlap and stacking refinements */
-@media (max-width: 767px) {
-    .quick-links {
-        margin-top: 0;
-        padding-top: 18px;
-        padding-bottom: 0;
+    
+    .button-group-inline,
+    .match-actions {
+        width: 100%;
     }
-
-    .quick-links-row,
-    .feature-row,
-    .match-summary-row {
-        display: block;
+    
+    .match-actions {
+        gap: 10px;
     }
-
-    .quick-links-col,
-    .feature-row > [class*="col-"],
-    .match-summary-row > [class*="col-"] {
-        margin-bottom: 16px;
+    
+    .match-actions .btn,
+    .button-group-inline .btn {
+        flex: 1 1 100%;
     }
-
-    .quick-links-col:last-child,
-    .feature-row > [class*="col-"]:last-child,
-    .match-summary-row > [class*="col-"]:last-child {
-        margin-bottom: 0;
+    
+    .policy-list .policy-item span {
+        min-width: 0;
+        overflow-wrap: anywhere;
     }
-
-    .page-header-content,
-    .page-header-content > [class*="col-"] {
-        overflow: visible;
-    }
-
-    .contact-map-wrap iframe {
-        height: 240px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    .quick-links {
-        margin-top: -24px;
+    
+    .hero-news-ticker {
+        margin-top: 16px;
+        margin-bottom: 18px;
     }
 }
 
@@ -556,12 +684,12 @@
     body * {
         visibility: hidden;
     }
-
+    
     #section-to-print,
     #section-to-print * {
         visibility: visible;
     }
-
+    
     #section-to-print {
         position: absolute;
         left: 0;
@@ -619,7 +747,6 @@
     margin-bottom: 8px;
 }
 
-
 .button-group-inline,
 .match-actions {
     display: flex;
@@ -638,16 +765,4 @@
 .info-card,
 .feature-card {
     scroll-margin-top: 92px;
-}
-
-@media (max-width: 767px) {
-    .hero-news-ticker,
-    .hawks-hero-ticker {
-        margin-top: 16px;
-        margin-bottom: 18px;
-    }
-
-    .match-actions {
-        gap: 10px;
-    }
 }
