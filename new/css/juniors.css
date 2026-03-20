@@ -1,0 +1,12 @@
+/* Page-specific juniors adjustments */
+.juniors-page .quick-card.quick-juniors {
+    background-image: linear-gradient(rgba(11, 107, 58, 0.5), rgba(7, 74, 40, 0.78)), url("../img/club_12_2017.jpg");
+}
+
+.juniors-page .quick-card.quick-join {
+    background-image: linear-gradient(rgba(11, 107, 58, 0.45), rgba(7, 74, 40, 0.72)), url("../img/sky.jpg");
+}
+
+.juniors-page .quick-card.quick-fixtures {
+    background-image: linear-gradient(rgba(11, 107, 58, 0.45), rgba(7, 74, 40, 0.72)), url("../img/club_10_2017.jpg");
+}
