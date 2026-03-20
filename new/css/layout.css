@@ -379,7 +379,7 @@
 
 @media (max-width: 767px) {
     body {
-        padding-top: 58px;
+        padding-top: 72px;
     }
 
     .brand-text {
@@ -504,6 +504,49 @@
 
     .match-centre-panel:last-child {
         margin-bottom: 0;
+    }
+}
+
+
+/* Mobile overlap and stacking refinements */
+@media (max-width: 767px) {
+    .quick-links {
+        margin-top: 0;
+        padding-top: 18px;
+        padding-bottom: 0;
+    }
+
+    .quick-links-row,
+    .feature-row,
+    .match-summary-row {
+        display: block;
+    }
+
+    .quick-links-col,
+    .feature-row > [class*="col-"],
+    .match-summary-row > [class*="col-"] {
+        margin-bottom: 16px;
+    }
+
+    .quick-links-col:last-child,
+    .feature-row > [class*="col-"]:last-child,
+    .match-summary-row > [class*="col-"]:last-child {
+        margin-bottom: 0;
+    }
+
+    .page-header-content,
+    .page-header-content > [class*="col-"] {
+        overflow: visible;
+    }
+
+    .contact-map-wrap iframe {
+        height: 240px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .quick-links {
+        margin-top: -24px;
     }
 }
 
