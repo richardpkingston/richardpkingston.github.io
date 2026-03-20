@@ -1162,3 +1162,64 @@
 @media (max-width: 767px) {
     .back-to-top { right: 12px; bottom: 12px; }
 }
+
+
+/* Mobile card sizing and content flow refinements */
+@media (max-width: 767px) {
+    .hero-news-ticker {
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 14px;
+        border-radius: 12px;
+    }
+
+    .news-label {
+        display: block;
+        margin-bottom: 4px;
+        white-space: normal;
+    }
+
+    .ticker-wrap {
+        overflow: hidden;
+        min-width: 0;
+    }
+
+    .quick-card,
+    .feature-card,
+    .content-card,
+    .content-card.compact-card,
+    .info-card,
+    .content-panel-compact {
+        height: auto;
+        min-height: 0;
+    }
+
+    .quick-card {
+        justify-content: flex-end;
+        background-size: cover;
+    }
+
+    .quick-card-title,
+    .card-title,
+    .info-card h3 {
+        overflow-wrap: anywhere;
+        word-wrap: break-word;
+    }
+
+    .card-actions .btn,
+    .compact-card-actions .btn {
+        display: block;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .card-actions .btn + .btn,
+    .compact-card-actions .btn + .btn {
+        margin-top: 8px;
+    }
+
+    .compact-embed-wrap,
+    .compact-embed-wrap iframe {
+        min-height: 260px;
+    }
+}
