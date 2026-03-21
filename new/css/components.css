@@ -33,6 +33,10 @@
     color: var(--hcc-gold);
 }
 
+.hero-actions {
+    margin: 16px 0 16px 0;
+}
+
 /* Hero news ticker */
 
 .hero-news-ticker {
@@ -1187,6 +1191,10 @@
     
     .brand-text {
         font-size: 1rem;
+    }
+    
+    .hero-actions {
+        margin-top: 14px;
     }
     
     .back-to-top {
