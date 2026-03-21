@@ -94,7 +94,7 @@
 .ticker-item {
     display: inline-flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: #111;
     gap: 8px;
@@ -137,11 +137,11 @@
     }
     
     .news-label {
-        font-size: 11px;
+        font-size: 10px;
     }
     
     .ticker-item {
-        font-size: 13px;
+        font-size: 12px;
     }
     
     .ticker-separator {
@@ -154,13 +154,13 @@
     margin-top: 0;
     margin-bottom: 12px;
     max-width: 760px;
-    font-size: 38px;
+    font-size: 34px;
     line-height: 1.08;
     font-weight: 700;
 }
 
 .hero-lead {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.5;
     max-width: 720px;
     margin-bottom: 0;
@@ -259,7 +259,7 @@
     background: rgba(255, 255, 255, 0.14);
     backdrop-filter: blur(2px);
     color: #fff;
-    font-size: 24px;
+    font-size: 22px;
     line-height: 42px;
     text-align: center;
 }
@@ -267,7 +267,7 @@
 .quick-card-title {
     margin-top: 6px;
     margin-bottom: 8px;
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1.2;
     color: #fff;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
@@ -344,13 +344,13 @@
 .info-card i {
     margin-bottom: 12px;
     color: var(--hcc-green);
-    font-size: 24px;
+    font-size: 22px;
 }
 
 .info-card h3 {
     margin-top: 0;
     margin-bottom: 8px;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--hcc-green-dark);
 }
 
@@ -359,7 +359,7 @@
 .muted,
 .site-footer p {
     color: var(--hcc-muted);
-    line-height: 1.6;
+    line-height: 1.55;
 }
 
 .compact-info-card {
@@ -375,7 +375,7 @@
 .feature-card {
     height: 100%;
     border-radius: 14px;
-    padding: 22px;
+    padding: 20px;
     border: 1px solid var(--hcc-border);
     box-shadow: var(--hcc-shadow-soft);
     background: #fff;
@@ -395,21 +395,21 @@
     background: var(--hcc-soft);
     border: 1px solid var(--hcc-border);
     color: var(--hcc-green-dark);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.4px;
     text-transform: uppercase;
 }
 
 .section-tag i {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--hcc-green);
 }
 
 .card-title {
     margin-top: 0;
     margin-bottom: 10px;
-    font-size: 28px;
+    font-size: 24px;
     line-height: 1.2;
     color: var(--hcc-green-dark);
 }
@@ -454,7 +454,7 @@
 
 .table-notes {
     color: var(--hcc-muted);
-    line-height: 1.6;
+    line-height: 1.55;
     margin-bottom: 12px;
 }
 
@@ -467,7 +467,7 @@
     border-radius: 999px;
     color: #fff;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 11px;
     margin-bottom: 4px;
 }
 
@@ -509,7 +509,7 @@
 .live-scores-section .feature-card {
     position: relative;
     overflow: hidden;
-    padding: 28px;
+    padding: 26px;
     border: 1px solid var(--hcc-border);
     border-radius: var(--hcc-radius-lg);
     background: #fff;
@@ -533,8 +533,8 @@
 
 .live-scores-fallback {
     margin: 0;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.55;
     color: var(--hcc-muted);
 }
 
@@ -567,7 +567,7 @@
 .match-summary-row .compact-card h4 {
     margin-top: 6px;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.35;
 }
 
@@ -623,7 +623,7 @@
 .list-clean li {
     margin-bottom: 8px;
     color: var(--hcc-muted);
-    line-height: 1.6;
+    line-height: 1.55;
 }
 
 .note-strip {
@@ -655,7 +655,7 @@
 
 .section-cta p {
     opacity: 0.92;
-    font-size: 17px;
+    font-size: 16px;
     margin-bottom: 18px;
 }
 
@@ -687,14 +687,14 @@
 .live-fallback-inner h3 {
     margin-top: 0;
     margin-bottom: 12px;
-    font-size: 34px;
+    font-size: 30px;
     color: #fff;
 }
 
 .live-fallback-inner p {
     color: rgba(255, 255, 255, 0.92);
-    font-size: 18px;
-    line-height: 1.6;
+    font-size: 16px;
+    line-height: 1.55;
 }
 
 .live-badge {
@@ -798,12 +798,12 @@
     background: #fff;
     border-radius: var(--hcc-radius-md);
     border: 1px solid #e6e6e6;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 18px;
+    margin-bottom: 18px;
 }
 
 .fixture-label {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--hcc-green);
@@ -811,7 +811,7 @@
 }
 
 .fixture-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
 }
 
@@ -820,7 +820,7 @@
 }
 
 .fixture-ground {
-    font-size: 14px;
+    font-size: 13px;
     color: #777;
 }
 
@@ -834,6 +834,7 @@
 .fixtures-subtitle {
     margin-top: 20px;
     margin-bottom: 10px;
+    font-size: 18px;
 }
 
 /* Membership page */
@@ -851,7 +852,7 @@
 
 .contact-email-item label {
     display: block;
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 6px;
     color: var(--hcc-muted);
     font-weight: 600;
@@ -867,7 +868,7 @@
     background: #f8f8f8;
     color: var(--hcc-text);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.4;
 }
 
@@ -880,7 +881,7 @@
 
 .email-button i {
     color: var(--hcc-green);
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .join-card-prominent {
@@ -890,7 +891,7 @@
 }
 
 .join-card-prominent .bi {
-    font-size: 26px;
+    font-size: 24px;
     color: var(--hcc-green);
     margin-bottom: 10px;
 }
@@ -901,7 +902,7 @@
 }
 
 .membership-label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     margin-bottom: 8px;
     color: var(--hcc-muted);
@@ -921,7 +922,7 @@
     background: #f6faf7;
     color: var(--hcc-green-dark);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.4;
     font-weight: 600;
 }
@@ -949,8 +950,8 @@
 .membership-help-note {
     margin-bottom: 18px;
     color: var(--hcc-muted);
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.55;
 }
 
 .membership-accordion-wrap {
@@ -965,7 +966,7 @@
 .membership-group-title {
     margin-top: 0;
     margin-bottom: 12px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     color: var(--hcc-green-dark);
 }
@@ -988,7 +989,7 @@
 
 .membership-accordion .panel-title,
 .membership-accordion .accordion-title-wrap {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.4;
 }
 
@@ -1077,12 +1078,12 @@
 
 .match-centre-panel-header i {
     color: var(--hcc-green);
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .match-centre-panel-header h3 {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
     color: var(--hcc-green-dark);
 }
 
@@ -1090,7 +1091,7 @@
     background: #fbfcfb;
     border: 1px solid var(--hcc-border);
     border-radius: 14px;
-    padding: 16px;
+    padding: 15px;
     margin-bottom: 14px;
 }
 
@@ -1104,7 +1105,7 @@
 
 .match-date {
     display: inline-block;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.3px;
     text-transform: uppercase;
@@ -1118,7 +1119,7 @@
 .match-item h4 {
     margin-top: 0;
     margin-bottom: 8px;
-    font-size: 18px;
+    font-size: 17px;
     line-height: 1.35;
     color: var(--hcc-text);
 }
@@ -1127,7 +1128,7 @@
 .match-result {
     margin-bottom: 8px;
     color: var(--hcc-muted);
-    line-height: 1.55;
+    line-height: 1.5;
 }
 
 .match-result {
@@ -1178,6 +1179,14 @@
 @media (max-width: 767px) {
     body {
         padding-top: 72px;
+    }
+    
+    .site-nav .nav-link {
+        font-size: 0.95rem;
+    }
+    
+    .brand-text {
+        font-size: 1rem;
     }
     
     .back-to-top {

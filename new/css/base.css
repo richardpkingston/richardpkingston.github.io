@@ -34,6 +34,7 @@
 /* Base */
 html {
     scroll-behavior: smooth;
+    font-size: 15px;
 }
 
 html,
@@ -48,6 +49,7 @@ body {
     color: var(--hcc-text);
     background: #fff;
     padding-top: 80px;
+    line-height: 1.5;
 }
 
 p,
@@ -77,6 +79,14 @@ h6,
 .section-tag,
 .footer-title {
     font-family: var(--font-sans);
+}
+
+.site-nav .nav-link {
+    font-size: 0.95rem;
+}
+
+.brand-text {
+    font-size: 1rem;
 }
 
 img {
