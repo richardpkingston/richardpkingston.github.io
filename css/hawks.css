@@ -1,0 +1,394 @@
+:root {
+    --hawks-teal: #00a6b6;
+    --hawks-teal-dark: #007e8a;
+    --hawks-pink: #ec008c;
+    --hawks-pink-dark: #c40073;
+    --hawks-text: #2a2a2a;
+    --hawks-muted: #666;
+    --hawks-border: #e7e7e7;
+    --hawks-soft: #fff4fa;
+}
+
+.hawks-nav {
+    border-bottom: 3px solid var(--hawks-pink);
+}
+
+.hawks-nav .brand-text {
+    color: var(--hawks-pink-dark);
+}
+
+.hawks-nav .navbar-nav > li > a:hover {
+    color: var(--hawks-pink-dark);
+}
+
+.hawks-nav .brand-logo {
+    border-radius: 50%;
+}
+
+.hawks-hero {
+    position: relative;
+    padding: 70px 0 60px;
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.65)
+    ),
+    url("../img/hawks_background.png");
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+.hawks-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(236, 0, 140, 0.18), rgba(0, 166, 182, 0.16));
+}
+
+.hawks-hero-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.hawks-hero-copy {
+    max-width: 620px;
+}
+
+.hawks-hero-badge img {
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.6));
+}
+
+.hawks-hero-badge {
+    position: relative;
+    transform: translateY(30px);
+}
+
+.hawks-kicker {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+    padding: 6px 10px;
+    border-radius: 999px;
+}
+
+.hawks-hero h1 {
+    margin: 0 0 10px;
+    font-size: 42px;
+    line-height: 1.05;
+    color: #fff;
+}
+
+.hawks-lead {
+    font-size: 19px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.94);
+    margin-bottom: 18px;
+}
+
+.btn-hawks-primary {
+    background: var(--hawks-pink);
+    border-color: var(--hawks-pink);
+    color: #fff;
+}
+
+.btn-hawks-primary:hover,
+.btn-hawks-primary:focus {
+    background: var(--hawks-pink-dark);
+    border-color: var(--hawks-pink-dark);
+    color: #fff;
+}
+
+.btn-hawks-outline {
+    background: #fff;
+    border: 2px solid #fff;
+    color: var(--hawks-pink-dark);
+}
+
+.btn-hawks-outline:hover,
+.btn-hawks-outline:focus {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+}
+
+.hawks-actions .btn {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.hawks-quick-links {
+    margin-top: -26px;
+    position: relative;
+    z-index: 5;
+}
+
+.hawks-quick-card {
+    display: block;
+    height: 100%;
+    padding: 22px;
+    border-radius: 16px;
+    text-decoration: none !important;
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    margin-bottom: 18px;
+}
+
+.hawks-card-join {
+    background: linear-gradient(135deg, var(--hawks-pink), var(--hawks-pink-dark));
+}
+
+.hawks-card-training {
+    background: linear-gradient(135deg, var(--hawks-teal), var(--hawks-teal-dark));
+}
+
+.hawks-card-fixtures {
+    background: linear-gradient(135deg, #5f2d86, #3f1d59);
+}
+
+.hawks-quick-card i {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 24px;
+}
+
+.hawks-quick-card h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.hawks-quick-card p {
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.hawks-feature-card {
+    border-radius: 16px;
+}
+
+.hawks-tag {
+    background: var(--hawks-soft);
+    color: var(--hawks-pink-dark);
+    border-color: #f3c9e4;
+}
+
+.hawks-list {
+    padding-left: 18px;
+}
+
+.hawks-list li {
+    margin-bottom: 8px;
+}
+
+.hawks-check-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.hawks-check-list li {
+    margin-bottom: 10px;
+}
+
+.hawks-cta-band {
+    padding: 54px 0;
+    background: linear-gradient(135deg, var(--hawks-pink-dark), var(--hawks-teal-dark));
+    color: #fff;
+}
+
+.hawks-cta-band h2,
+.hawks-cta-band p {
+    color: #fff;
+}
+
+.hawks-join-list {
+    max-width: 540px;
+    margin: 0 auto 18px;
+}
+
+.hawks-join-list li {
+    margin-bottom: 8px;
+}
+
+.hawks-footer {
+    background: linear-gradient(
+            135deg,
+            var(--hawks-pink-dark),
+            var(--hawks-teal-dark)
+    );
+}
+
+.hawks-footer a {
+    color: #ffd6ec;
+}
+
+.hawks-footer a:hover {
+    color: #fff;
+}
+
+/* Hawks mobile layout fixes */
+@media (max-width: 767px) {
+    .hawks-hero,
+    .hawks-hero-section,
+    .hawks-hero-home,
+    .hawks-page .hero-home {
+        min-height: auto !important;
+        padding-top: 20px !important;
+        padding-bottom: 28px !important;
+    }
+    
+    .hawks-hero .container,
+    .hawks-hero-section .container,
+    .hawks-page .hero-content {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .hawks-hero-inner,
+    .hawks-hero-content,
+    .hawks-page .hero-inner {
+        display: block !important;
+        min-height: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .hawks-hero-copy,
+    .hawks-page .hero-inner {
+        max-width: 100% !important;
+        padding-right: 0 !important;
+    }
+    
+    .hawks-hero-copy h1,
+    .hawks-hero-title,
+    .hawks-page .hero-home h1 {
+        font-size: 28px !important;
+        line-height: 1.12 !important;
+        margin-bottom: 12px !important;
+    }
+    
+    .hawks-hero-copy p,
+    .hawks-hero-lead,
+    .hawks-page .hero-lead {
+        font-size: 15px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 14px !important;
+    }
+    
+    .hawks-hero-actions,
+    .hawks-actions {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        margin-bottom: 18px !important;
+    }
+    
+    .hawks-hero-actions .btn,
+    .hawks-actions .btn {
+        width: auto;
+        max-width: 100%;
+    }
+    
+    .hawks-hero-badge,
+    .hawks-hero-logo,
+    .hawks-logo-wrap,
+    .hawks-page .hero-badge {
+        position: static !important;
+        top: auto !important;
+        right: auto !important;
+        left: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        display: block !important;
+        margin: 18px auto 0 !important;
+        text-align: center !important;
+        max-width: 100% !important;
+    }
+    
+    .hawks-hero-badge img,
+    .hawks-hero-logo img,
+    .hawks-logo-wrap img,
+    .hawks-logo,
+    .hawks-page .hero-badge img {
+        display: block;
+        width: 220px !important;
+        max-width: 72vw !important;
+        height: auto !important;
+        margin: 0 auto !important;
+    }
+    
+    .hawks-quick-links,
+    .hawks-quick-links-section,
+    .hawks-cards-overlap,
+    .hawks-page .quick-links {
+        margin-top: 0 !important;
+        padding-top: 16px !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .hawks-quick-links .row,
+    .hawks-feature-row,
+    .hawks-page .quick-links-row {
+        margin-left: -8px;
+        margin-right: -8px;
+    }
+    
+    .hawks-quick-links [class*="col-"],
+    .hawks-feature-row [class*="col-"],
+    .hawks-page .quick-links-col {
+        padding-left: 8px !important;
+        padding-right: 8px !important;
+        margin-bottom: 16px !important;
+    }
+    
+    .hawks-quick-card,
+    .hawks-feature-card,
+    .hawks-card,
+    .hawks-panel,
+    .hawks-page .quick-card,
+    .hawks-page .feature-card {
+        min-height: 0 !important;
+        height: auto !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .hawks-quick-card,
+    .hawks-page .quick-card {
+        padding: 20px 18px !important;
+        border-radius: 18px !important;
+    }
+    
+    .hawks-quick-card h3,
+    .hawks-card-title,
+    .hawks-page .quick-card-title {
+        font-size: 20px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .hawks-quick-card p,
+    .hawks-card-text,
+    .hawks-page .quick-card p {
+        font-size: 15px !important;
+        line-height: 1.4 !important;
+    }
+    
+    .hawks-page .hero-news-ticker,
+    .hawks-page .hawks-hero-ticker {
+        margin-top: 14px !important;
+        margin-bottom: 16px !important;
+        padding: 10px 14px !important;
+    }
+}
+

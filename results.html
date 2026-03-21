@@ -1,94 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Honley Cricket Club website"/>
-    <meta name="author" content="Richard Kingston"/>
-    <title>Honley Cricket Club - resutls & fixtures</title>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="Fixtures, results and live links for Honley Cricket Club." name="description"/>
+    <meta content="Richard Kingston" name="author"/>
+    <title>Honley Cricket Club - Fixtures &amp; Results</title>
     <link href="favicon.png" rel="shortcut icon" type="image/x-icon"/>
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/form.css" rel="stylesheet">    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>    <![endif]-->
-    <!--script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script-->
-    <style>        .embed-container {
-        position: relative;
-        padding-bottom: 100%;
-        height: 0;
-        overflow: hidden;
-        max-width: 100%;
-        min-height: 100%;
-    }
-
-    .embed-container iframe, .embed-container object, .embed-container embed {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 0;
-    }    </style>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link href="css/base.css" rel="stylesheet"/>
+    <link href="css/layout.css" rel="stylesheet"/>
+    <link href="css/components.css" rel="stylesheet"/>
+    <link href="css/juniors.css" rel="stylesheet"/>
+    <link href="css/hawks.css" rel="stylesheet"/>
 </head>
-<body>
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><img alt="Honley Cricket Club" src="img/logo.jpg" height="35px" title="Honley Cricket Club"></a>
+<body class="results-page">
+<nav aria-label="Main navigation" class="navbar navbar-expand-xl fixed-top site-nav" role="navigation">
+    <div class="container">
+        <a aria-label="Honley Cricket Club home" class="navbar-brand brand-wrap" href="index.html">
+            <img alt="Honley Cricket Club logo" class="brand-logo" src="img/logo.jpg"/>
+            <span class="brand-text">Honley Cricket Club</span>
+        </a>
+        <button aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-bs-target="#main-nav" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-nav">
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="join.html">Join</a></li>
+                <li class="nav-item"><a aria-current="page" class="nav-link active" href="results.html">Fixtures &amp;
+                    Results</a></li>
+                <li class="nav-item"><a class="nav-link" href="juniors.html">Juniors</a></li>
+                <li class="nav-item"><a class="nav-link" href="hawks.html">Hawks (Women &amp; Girls)</a></li>
+                <li class="nav-item"><a class="nav-link" href="policy.html">Policies</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html#watch-live">Watch Matches</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+            <ul class="navbar-nav ms-xl-3">
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                       role="button">
+                        Follow us
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="https://www.facebook.com/honleycc/" rel="noopener"
+                               target="_blank"><i class="bi bi-facebook"></i> Facebook</a></li>
+                        <li><a class="dropdown-item" href="https://www.instagram.com/honleycricketclub/" rel="noopener"
+                               target="_blank"><i class="bi bi-instagram"></i> Instagram</a></li>
+                        <li><a class="dropdown-item" href="https://www.youtube.com/@honleycc6945" rel="noopener"
+                               target="_blank"><i class="bi bi-youtube"></i> YouTube</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="/"><i class="fa fa-home fa-2x"></i></a></li>
-                <li><a href="membership.html">Membership</a></li>
-                <li><a href="/members/policy.html">Club policies</a></li>
-                <li><a href="results.html">Results & Fixtures</a></li>
-                <li><a href="juniors">Juniors Section</a></li>
-                <!--li><a href="/hawks/">Hawks</a></li-->
-                <li><a href="https://www.honleycc.com/#LiveStream">Watch matches</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#follow"><i class="fa fa-facebook-square fa-2x"></i> &nbsp; <i class="fa fa-twitter-square fa-2x"></i></a></li>
-                <li><a href="contact.html">Contact us</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div><!--/.container-fluid -->
+    </div>
 </nav>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12"><h2 class="page-header">Results & Fixtures</h2> Results and fixtures are provided via the
-            ECB's external site @ <a href="http://honleycc.play-cricket.com/" target="_blank">Play-Cricket.com</a>. You
-            can filter by team, age group, month etc. below.</h2>
-
-            <div class="embed-container">
-                <iframe class="embed-responsive-item"
-                        src="https://honleycc.play-cricket.com/Matches?tab=Fixture"
-                        width="100%"></iframe>
+<main class="content-shell content-shell-compact">
+    <div class="container">
+        <div class="page-header-intro">
+            <h1>Fixtures &amp; results</h1>
+            <p class="page-subtitle">Matchday links, live scores and quick access to Play-Cricket and the club
+                stream.</p>
+        </div>
+        <div class="row page-header-content">
+            <div class="col-md-4">
+                <div class="info-card compact-info-card">
+                    <i aria-hidden="true" class="bi bi-bar-chart-fill"></i>
+                    <h3>Live scores</h3>
+                    <a class="lsw"
+                       href="https://www.play-cricket.com/embed_widget/live_scorer_widgets?club_id=3463&amp;days=0"
+                       id="lsw_link_1526534855798" style="display:none;"></a>
+                    <div class="lsw-col-12 lsw_tile panel-body" id="lsw_container_1526534855798">
+                        <h4>Scores appear here on match days.</h4>
+                    </div>
+                </div>
+                <div class="info-card compact-info-card">
+                    <i aria-hidden="true" class="bi bi-camera-video-fill"></i>
+                    <h3>Livestreams</h3>
+                    <p>You can jump straight to the club’s YouTube channel on matchdays.</p>
+                    <p class="compact-card-actions">
+                        <a class="btn btn-primary" href="https://www.youtube.com/@honleycc6945" rel="noopener"
+                           target="_blank">
+                            YouTube channel
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <section aria-labelledby="results-heading" class="content-card feature-card header-feed-card">
+                    <div class="section-tag">
+                        <i aria-hidden="true" class="bi bi-bar-chart-line-fill"></i>
+                        <span>Live Match centre</span>
+                    </div>
+                    <p class="card-actions">
+                        <a class="btn btn-primary" href="https://honleycc.play-cricket.com/Matches?tab=Fixture"
+                           rel="noopener" target="_blank">Open fixtures on Play-Cricket</a>
+                        <a class="btn btn-juniors-primary" href="juniors.html#fixtures">
+                            Junior results &amp; fixtures
+                        </a>
+                        <a class="btn btn-hawks-primary" href="hawks.html#fixtures">
+                            All Hawks results &amp; fixtures
+                        </a>
+                    </p>
+                    <div class="results-status" id="resultsStatus">Loading fixtures and results…</div>
+                    <div class="match-centre-grid">
+                        <section class="match-centre-panel">
+                            <div class="match-centre-panel-header">
+                                <i class="bi bi-calendar-event-fill"></i>
+                                <h3>Upcoming fixtures</h3>
+                            </div>
+                            <div id="upcomingFixtures">
+                                <p class="muted">Loading fixtures…</p>
+                            </div>
+                        </section>
+                        <section class="match-centre-panel">
+                            <div class="match-centre-panel-header">
+                                <i class="bi bi-trophy-fill"></i>
+                                <h3>Latest results</h3>
+                            </div>
+                            <div id="latestResults">
+                                <p class="muted">Loading results…</p>
+                            </div>
+                        </section>
+                    </div>
+                </section>
             </div>
         </div>
-    </div>    <!-- /.row -->    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12"><p class="text-center">Copyright &copy; Honley Cricket Club 2018 | Built by <a
-                    href="http://www.tellus-toolkit.com" target="_blank">TellUs Toolkit Ltd</a>.</p></div>
+    </div>
+</main>
+<footer class="site-footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <h2 class="footer-title">Honley Cricket Club</h2>
+                <p>Community cricket in Honley, with senior, junior, and women &amp; girls opportunities.</p>
+                <p class="small text-muted">
+                    © Honley Cricket Club <span class="current-year"></span><br/>
+                    Built by <a href="http://www.tellus-toolkit.com" rel="noopener" target="_blank">TellUs Toolkit
+                    Ltd</a><br/>
+                    Last updated <span id="lastModified"></span>.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="footer-title">Quick Links</h2>
+                <ul class="footer-links list-unstyled mb-0">
+                    <li><a href="join.html">Membership</a></li>
+                    <li><a href="results.html">Fixtures &amp; Results</a></li>
+                    <li><a href="juniors.html">Juniors</a></li>
+                    <li><a href="hawks.html">Women &amp; Girls</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h2 class="footer-title">Follow</h2>
+                <ul class="footer-links list-unstyled mb-0">
+                    <li><a href="https://www.facebook.com/honleycc/" rel="noopener" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/honleycricketclub/" rel="noopener"
+                           target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/@honleycc6945" rel="noopener" target="_blank">YouTube</a></li>
+                    <li><a href="contact.html">Contact us</a></li>
+                </ul>
+            </div>
         </div>
-    </footer>
-</div><!-- /.container --><!-- Bootstrap Core JavaScript -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </div>
+    <button aria-label="Back to top" class="back-to-top" id="backToTop">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+</footer>
+<script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/site-core.js"></script>
+<script src="js/play-cricket.js"></script>
+<script src="js/results.js"></script>
 </body>
 </html>

@@ -1,0 +1,98 @@
+/* Page-specific juniors adjustments */
+.juniors-page .quick-card.quick-juniors {
+    background-image: linear-gradient(rgba(11, 107, 58, 0.5), rgba(7, 74, 40, 0.78)), url("../img/club_12_2017.jpg");
+}
+
+.juniors-page .quick-card.quick-join {
+    background-image: linear-gradient(rgba(11, 107, 58, 0.45), rgba(7, 74, 40, 0.72)), url("../img/sky.jpg");
+}
+
+.juniors-page .quick-card.quick-fixtures {
+    background-image: linear-gradient(rgba(11, 107, 58, 0.45), rgba(7, 74, 40, 0.72)), url("../img/club_10_2017.jpg");
+}
+
+.btn-juniors-primary {
+    background: var(--hcc-gold);
+    border-color: var(--hcc-gold);
+    color: #fff;
+}
+
+.btn-juniors-primary:hover,
+.btn-juniors-primary:focus {
+    background: var(--hcc-gold-dark);
+    border-color: var(--hcc-gold-dark);
+    color: #fff;
+}
+
+.btn-juniors-outline {
+    background: #fff;
+    border: 2px solid #fff;
+    color: var(--hcc-gold-dark);
+}
+
+.btn-juniors-outline:hover,
+.btn-juniors-outline:focus {
+    background: transparent;
+    color: #fff;
+    border-color: #fff;
+}
+
+.juniors-actions .btn {
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.table-modern {
+    width: 100%;
+    margin-bottom: 0;
+    table-layout: auto;
+}
+
+.table-modern th,
+.table-modern td {
+    vertical-align: top;
+    padding: 0.85rem 0.9rem;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: break-word;
+}
+
+.table-modern thead th {
+    font-weight: 700;
+    border-bottom-width: 2px;
+    white-space: normal;
+}
+
+.table-modern caption {
+    caption-side: top;
+}
+
+.table-modern tbody th[scope="row"] {
+    font-weight: 700;
+}
+
+.table-modern tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.025);
+}
+
+.table-responsive {
+    overflow-x: visible;
+}
+
+@media (max-width: 767.98px) {
+    .table-modern th,
+    .table-modern td {
+        padding: 0.55rem 0.6rem;
+        font-size: 0.92rem;
+    }
+    
+    .table-responsive {
+        overflow-x: visible;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .age-chip {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}

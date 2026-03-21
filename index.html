@@ -1,395 +1,405 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Honley Cricket Club website" name="description"/>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="Honley Cricket Club - senior, junior, women and girls cricket in the Holme Valley."
+          name="description"/>
     <meta content="Richard Kingston" name="author"/>
     <title>Honley Cricket Club</title>
     <link href="favicon.png" rel="shortcut icon" type="image/x-icon"/>
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/modern-business.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <!-- Font awsome -->
-    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" rel="stylesheet">
-    <!-- font awesome -->
-    <script src="https://use.fontawesome.com/4bf94d1c48.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// --><!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
-    <style>
-        /* Honley girls– hot pink button */
-        .btn-hotpink {
-            background-color: var(--hcc-mid-pink-211c, #F5A4BE);
-            border-color: var(--hcc-teal-321c, #009B77);
-            color: #fff;
-        }
-
-        .btn-hotpink:hover,
-        .btn-hotpink:focus {
-            background-color: #d6007d; /* slightly darker for hover */
-            border-color: #009B77;
-            color: #fff;
-        }
-    </style>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link href="css/base.css" rel="stylesheet"/>
+    <link href="css/layout.css" rel="stylesheet"/>
+    <link href="css/components.css" rel="stylesheet"/>
+    <link href="css/juniors.css" rel="stylesheet"/>
+    <link href="css/hawks.css" rel="stylesheet"/>
 </head>
-<body>
-
-<div id="fb-root"></div>
-<script async crossorigin="anonymous" defer nonce="wkbROybP"
-        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v16.0"></script>
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar"
-                    data-toggle="collapse" type="button">
-                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><img alt="Honley Cricket Club" height="35px" src="img/logo.jpg"
-                                                  title="Honley Cricket Club"></a>
+<body class="home-page">
+<nav aria-label="Main navigation" class="navbar navbar-expand-xl fixed-top site-nav" role="navigation">
+    <div class="container">
+        <a aria-label="Honley Cricket Club home" class="navbar-brand brand-wrap" href="index.html">
+            <img alt="Honley Cricket Club logo" class="brand-logo" src="img/logo.jpg"/>
+            <span class="brand-text">Honley Cricket Club</span>
+        </a>
+        <button aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-bs-target="#main-nav" data-bs-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-nav">
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+                <li class="nav-item"><a aria-current="page" class="nav-link active" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="join.html">Join</a></li>
+                <li class="nav-item"><a class="nav-link" href="results.html">Fixtures &amp; Results</a></li>
+                <li class="nav-item"><a class="nav-link" href="juniors.html">Juniors</a></li>
+                <li class="nav-item"><a class="nav-link" href="hawks.html">Hawks (Women &amp; Girls)</a></li>
+                <li class="nav-item"><a class="nav-link" href="policy.html">Policies</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html#watch-live">Watch Matches</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+            </ul>
+            <ul class="navbar-nav ms-xl-3">
+                <li class="nav-item dropdown">
+                    <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+                       role="button">
+                        Follow us
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="https://www.facebook.com/honleycc/" rel="noopener"
+                               target="_blank"><i class="bi bi-facebook"></i> Facebook</a></li>
+                        <li><a class="dropdown-item" href="https://www.instagram.com/honleycricketclub/" rel="noopener"
+                               target="_blank"><i class="bi bi-instagram"></i> Instagram</a></li>
+                        <li><a class="dropdown-item" href="https://www.youtube.com/@honleycc6945" rel="noopener"
+                               target="_blank"><i class="bi bi-youtube"></i> YouTube</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        <div class="navbar-collapse collapse" id="navbar">
-            <ul class="nav navbar-nav">
-                <li><a href="/"><i class="fa fa-home fa-2x"></i></a></li>
-                <li><a href="membership.html">Membership</a></li>
-                <li><a href="policy.html">Club policies</a></li>
-                <li><a href="https://honleycc.play-cricket.com/Matches?tab=Fixture" target="_blank">Results & Fixtures
-                    <i aria-hidden="true" class="fa fa-external-link"></i></a></li>
-                <li><a href="/juniors/">Juniors Section</a></li>
-                <li><a href="/hawks/">Hawks</a></li>
-                <li><a href="#LiveStream">Watch matches</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#follow"><i class="fa fa-facebook-square fa-2x"></i> &nbsp; <i
-                        class="fa fa-twitter-square fa-2x"></i></a></li>
-                <li><a href="contact.html">Contact us</a></li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div><!--/.container-fluid -->
+    </div>
 </nav>
-<div class="jumbotron text-white jumbotron-image shadow"
-     style="background-image: url(https://www.honleycc.com/img/club_10_2017.jpg);">
-    <div class="col-md-7">
-        <h2>Welcome to Honley Cricket Club</h2>
-        <!--p style="padding-top: 30px"><a href="membership.html" class="btn btn-lg btn-success">
-            Sign-up now for the 2025 season.</a>
-            <br /><br />
-        <a href="#LiveStream" class="btn btn-lg btn-success">
-            You can now watch our home games live.</a></p-->
-        <p style="padding-top: 30px"><a class="btn btn-lg btn-success" href="membership.html">
-            Junior winter training sessions</a>
-        </p>
-        <p style="padding-top: 30px"><a class="btn btn-lg btn-hotpink" href="#women_girls">
-            Women's &amp girls' cricket<br>
-            Launch evening<br>
-            Wednesday 25th February @ 6:30pm</a>
-        </p>
-        <p style="padding-top: 30px"><a class="btn btn-lg btn-success" href="#kit">
-            Order your junior playing kit now.<br>
-            Online Shop CLOSING<br>
-            MIDDAY 2nd MARCH</a>
-        </p>
-    </div>
-</div>
-<!-- Page Content -->
-<div class="container">
-    <div class="row" id="topRow">
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-bar-chart"></i> Live scores today</h4>
+<header class="hero-home">
+    <div class="hero-overlay">
+        <div class="container hero-content">
+            <div class="hero-inner">
+                <div class="section-tag">
+                    <i aria-hidden="true" class="bi bi-circle-half"></i>
+                    <span>Established 1880</span>
                 </div>
-                <div style="text-align: center; margin: 1em 0;">
-                    <a class="btn btn-lg btn-success" href="https://honleycc.play-cricket.com/" target="_blank">
-                        View fixtures &amp; results on Play-Cricket</a>
-                </div>
-                <a class="lsw" href="https://www.play-cricket.com/embed_widget/live_scorer_widgets?club_id=3463&days=0"
-                   id="lsw_link_1526534855798"
-                   style="display:none;"></a>
-
-                <div class="lsw-col-12 lsw_tile panel-body" id="lsw_container_1526534855798">
-                    <h4>Scores appear here on match days.</h4></div>
-
-                <script type="text/javascript">function loadCSSIfNotAlreadyLoadedForSomeReason() {
-                    var ss = document.styleSheets;
-                    for (var i = 0, max = ss.length; i < max; i++) {
-                        if (ss[i].href == " https://www.play-cricket.com/live_scorer.css") return;
-                    }
-                    var link = document.createElement("link");
-                    link.rel = "stylesheet";
-                    link.href = " https://www.play-cricket.com/live_scorer.css";
-                    document.getElementsByTagName("head")[0].appendChild(link);
-                }
-
-                loadCSSIfNotAlreadyLoadedForSomeReason();
-                !function (d, s, id) {
-                    var js, fjs = d.getElementsByTagName(s)[0];
-                    if (!d.getElementById(id)) {
-                        js = d.createElement(s);
-                        js.id = id;
-                        js.src = " https://www.play-cricket.com/live_scorer.js";
-                        fjs.parentNode.insertBefore(js, fjs);
-                    }
-                }(document, "script", "lsw-wjs");</script>
+                <h1>Cricket for the whole community in the heart of Honley</h1>
+                <p class="hero-lead">
+                    Honley Cricket Club has been part of village life for generations, combining competitive cricket
+                    with a welcoming local atmosphere.
+                </p>
             </div>
-        </div>
-        <!-- News Section -->
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-newspaper-o"></i> News - the latest updates below</h4>
-                </div>
-                <div class="panel-body">
-                    <h4>Junior indoor winter training and cricket nets for u11s (yrs 5-6), u13s (yrs 7-8) and u15s (yrs
-                        9-10) is:</h4>
-                    <ul>
-                        <li class="standard">When: Friday 30th January to Friday 27th March 7-8pm.</li>
-                        <li class="standard">Where: Honley High School sports hall.</li>
-                    </ul>
-                    <h4>Could you please fill in this <a href="https://forms.gle/GDepsfoZWmGV4huCA">form</a> so we can
-                        gauge numbers and plan accordingly.</h4>
-                    <h4>We will charge a single flat fee of £35 per child for the training sessions, this can be paid
-                        <a href="https://www.honleycc.com/membership.html">online here</a> so we don’t have to spend
-                        time collecting money at the start of each weekly session.</h4>
-
-                    <h4>Junior outdoor training runs every <b>Friday evening</b> as follows:</h4>
-                    <h4>Reception and Year 1 - 5:45 - 6:30. <!--(<b>starts Friday 25th April</b>)--></h4>
-                    <h4>Year 2 - 6:45 - 7:30. <!--(<b>starts Friday 25th April</b>)--></h4>
-                    <h4>u9s, u11s and u13s 6 - 7:30pm.</h4>
-                    <h4>u15s and u17s train on Thursday's 6:30 - 7:45pm.</h4>
-                    <!--h4>The <strong>junior</strong> end of season presentation evening will take place on Friday 6th September.</h4>
-                    <p>Please put the date in your diary - more details about arrangements will follow via email in the next couple of weeks.</p-->
-                    <!--h4>Junior winter nets starting Thursday 30th January - <a href="winter-training.html">sign up</a-->
-                    <hr>
-                    <h4>All our team fixtures and results can be found here:</h4>
-                    <table class="table">
-                        <tr>
-                            <td><a href="https://honleycc.play-cricket.com/Teams/17550" target="_blank">1st XI</a></td>
-                            <td><a href="https://honleycc.play-cricket.com/Teams/17551" target="_blank">2nd XI</a></td>
-                            <td><a href="https://honleycc.play-cricket.com/Teams/260883" target="_blank">3rd XI</a></td>
-                            <td><a href="https://honleycc.play-cricket.com/Teams/281615" target="_blank">Sunday 1st
-                                XI</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="https://honleycc.play-cricket.com/Teams/166874" target="_blank">U17</a></td>
-                            <td><a href="https://honleycc.play-cricket.com/Teams/176755" target="_blank">U15</a></td>
-                            <td><a href="https://honleycc.play-cricket.com/Teams/209333" target="_blank">U13a</a> &amp;
-                                <a href="https://honleycc.play-cricket.com/Teams/209338" target="_blank">U13b</a></td>
-                            <td><a href="https://honleycc.play-cricket.com/Teams/166913" target="_blank">U11a</a> &amp;
-                                <a href="https://honleycc.play-cricket.com/Teams/209303" target="_blank">U11b</a></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4"><a href="/juniors/">U9 tournament dates</a></td>
-                        </tr>
-                    </table>
-                </div>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#latest-events">Events &amp; venue hire</a>
             </div>
-        </div>
-        <div class="col-md-4" id="kit">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-pencil"></i> 2026 season membership</h4>
-                </div>
-                <div class="panel-body">
-                    <h4><a href="https://uk.paladin.sport/collections/honley-cricket-club-juniors" target="_blank">Order
-                        junior playing kit</a> for the 2026 season</h4>
-                    <h4>Junior players need:
-                        <ul>
-                            <li class="standard">a Honley CC Juniors Cream Playing Shirt <a
-                                    href="https://uk.paladin.sport/products/honley-cc-juniors-cream-playing-shirt-s-s-kids"
-                                    target="_blank">short sleeved</a> (£20) or <a
-                                    href="https://uk.paladin.sport/products/honley-cc-juniors-cream-playing-shirt-l-s-kids"
-                                    target="_blank">long sleeved</a> (£21.50).
-                            </li>
-                            <li class="standard">a Honley CC Juniors Coloured Cricket <a
-                                    href="https://uk.paladin.sport/products/honley-cc-juniors-coloured-cricket-pant-kids"
-                                    target="_blank">Pants</a> (£24.50).
-                            </li>
-                        </ul>
-                    </h4>
-                    <hr>
-                    <h4><a href="membership.html">2026 membership fees and online registration is not yet open</a>.</h4>
-                    <!--h4>All memberships are to be paid by no later than Saturday 31st May 2025.</h4>
-                    <h4>This year u11 - u17s membership fees will include <a
-                            href="https://www.honleycc.com/juniors/#kit">black branded Honley CC trousers</a>.</h4-->
-                    <hr>
-                    <!--h4>HCC junior winter training for U11s, U13s and U15s starting Thursday 30th January through to
-                        27th March, from 8 – 9pm at Honley High School. <a href="winter-training.html">Sign up here</a>.
-                    </h4-->
-                    <h4>Do you have unloved junior cricket kit and equipment that you have grown out of? Let the coaches
-                        know so we can make it available to new players.<!--If so you can drop
-                        this off at the club on training nights so we can offer it to other players for a small donation
-                        to the junior fund.--></h4>
-                    <hr>
-                    <h4>Order official Honley CC club kit from</h4>
-                    <div style="text-align: center;">
-                        <a href="https://uk.paladin.sport/collections/honley-cricket-club-juniors"
-                           target="_blank">
-                            <img height="150px" src="img/paladin_sports_logo.jpg"
-                                 style="background-color: #e38708; padding: 5px;"/></a>
+            <div aria-label="Latest club updates" class="hero-news-ticker" role="region">
+                <span class="news-label">
+                    <i aria-hidden="true" class="bi bi-megaphone-fill"></i>
+                    Latest
+                </span>
+                <div class="ticker-wrap">
+                    <div aria-live="polite" class="ticker-track" id="heroTickerTrack">
+                        <span class="ticker-item">
+                            <i aria-hidden="true" class="bi bi-calendar-event-fill"></i>
+                            <span class="ticker-text">Loading fixtures, results and news...</span>
+                            </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /. end of row -->
-    <div class="row" id="follow">
-        <!-- About Section -->
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-hourglass-half"></i> Our History</h4>
+</header>
+<main>
+    <section aria-label="Quick links" class="quick-links">
+        <div class="container">
+            <div class="row quick-links-row">
+                <div class="col-sm-6 col-md-3 quick-links-col">
+                    <a class="quick-card quick-join" href="join.html">
+                        <i aria-hidden="true" class="bi bi-person-fill-add"></i>
+                        <h3 class="quick-card-title">Join</h3>
+                        <p>Memberships &amp; registrations.</p>
+                    </a>
                 </div>
-                <div class="panel-body">
-                    <h4>Our club is renowned throughout Yorkshire and listed in the <a
-                            href="https://www.amazon.co.uk/Rothmans-Book-Village-Cricket/dp/0747511837" target="_blank">'Rothmans
-                        Book of Village Cricket'</a>
-                        and Jonathan Rice's <a
-                                href="https://www.amazon.co.uk/Pavilion-Book-Pavilions-Jonathan-Rice/dp/1851458735"
-                                target="_blank">'The Pavilion book of Pavilions'</a>.</h4>
-                    <p>The freehold title to the Cricket Ground was acquired in 1928 and is held in trust forever as a
-                        sporting venue for you, the people of
-                        Honley. The Cricket Club has been on site since 1878 and has enjoyed an illustrious history both
-                        on and off the field.</p>
-                    <p>It hosted a Geoff Boycott benefit match in 1969 and in 2005 the First XI won the Huddersfield
-                        League Title for the first time. However
-                        they didn’t stop there winning it again in 2006, 2007 and 2008 to create history in becoming the
-                        first club ever to win four consecutive
-                        League Titles.</p>
-                    <p>They also won the Title in 2010 and 2011 along with the Sykes Cup in 2005 and 2006 and the much
-                        coveted Black Sheep Yorkshire Champions
-                        Trophy in 2008. These on field achievements make Honley CC one of the most successful Clubs in
-                        the League's history. We have been a
-                        member of the Drakes Huddersfield Cricket League from 1894-1915 and since 1920 to present day.
-                        The Club also boasts a thriving Junior
-                        section where our local youngsters learn their craft from qualified coaches.</p>
+                <div class="col-sm-6 col-md-3 quick-links-col">
+                    <a class="quick-card quick-fixtures" href="results.html">
+                        <i aria-hidden="true" class="bi bi-calendar-event-fill"></i>
+                        <h3 class="quick-card-title">Fixtures</h3>
+                        <p>Live links to Play-Cricket fixtures.</p>
+                    </a>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-4" id="women_girls">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-child"></i> <a href="/hawks/">Women's &amp; Girl's Cricket</a></h4>
+                <div class="col-sm-6 col-md-3 quick-links-col">
+                    <a class="quick-card quick-juniors" href="juniors.html">
+                        <i aria-hidden="true" class="bi bi-people-fill"></i>
+                        <h3 class="quick-card-title">Junior Cricket</h3>
+                        <p>Training, age groups &amp; pathways.</p>
+                    </a>
                 </div>
-                <div class="panel-body">
-                    <h4>New for 2026 - women’s and girls’ cricket pathway at Honley Cricket Club.</h4>
-                    <p>Built for confidence, skills, and enjoyment. Whether you’re completely new to cricket or
-                        returning to the game, there’s a place for you. From 2026 we will be running:</p>
-                    <ul>
-                        <li class="standard">U11s - Dynamos girls softball team</li>
-                        <li class="standard">U15s - hardball girls team</li>
-                        <li class="standard">Women's softball team</li>
-                    </ul>
-                    <p>Launch evening Wednesday 25th February, 6:30pm at Honley Cricket Club.</p>
-                    <p>Guest speakers from Yorkshire County Cricket Club.</p>
-                    <p>Meet your new coaches.</p>
-                    <p>Bar open, raffle and quiz</p>
-                    <p style="padding-top: 30px"><a class="btn btn-hotpink" href="https://forms.gle/UFSp5rZ2uaj4efYy8"
-                                                    target="_blank">
-                        Register your interest</a>
+                <div class="col-sm-6 col-md-3 quick-links-col">
+                    <a class="quick-card quick-hawks" href="hawks.html">
+                        <i aria-hidden="true" class="bi bi-people"></i>
+                        <h3 class="quick-card-title">Women &amp; Girls</h3>
+                        <p>Honley Hawks pathway.</p>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-facebook"></i> Facebook updates</h4>
+    </section>
+    <section class="section-pad live-scores-section">
+        <div class="container">
+            <section aria-labelledby="live-scores-heading" class="content-card feature-card">
+                <div class="section-tag">
+                    <i aria-hidden="true" class="bi bi-bar-chart-fill"></i>
+                    <span>Live Match centre</span>
                 </div>
-                <div class="panel-body">
-                    <div class="fb-page" data-adapt-container-width="true" data-height="600"
-                         data-hide-cover="false" data-href="https://www.facebook.com/honleycc/"
-                         data-show-facepile="true" data-show-posts="true"
-                         data-small-header="false" data-width="">
-                        <blockquote cite="https://www.facebook.com/honleycc/" class="fb-xfbml-parse-ignore"><a
-                                href="https://www.facebook.com/honleycc/">Honley Cricket Club</a></blockquote>
+                <div class="row match-summary-row">
+                    <!-- Next match -->
+                    <div class="col-md-4">
+                        <section class="content-card compact-card">
+                            <div class="section-tag">
+                                <i class="bi bi-calendar-event-fill"></i>
+                                <span>Next match</span>
+                            </div>
+                            <div id="nextMatch">
+                                <p class="muted">Loading fixture…</p>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Latest result -->
+                    <div class="col-md-4">
+                        <section class="content-card compact-card">
+                            <div class="section-tag">
+                                <i class="bi bi-trophy-fill"></i>
+                                <span>Latest result</span>
+                            </div>
+                            <div id="latestMatchResult">
+                                <p class="muted">Loading result…</p>
+                            </div>
+                        </section>
+                    </div>
+                    <!-- Live scores -->
+                    <div class="col-md-4">
+                        <section class="content-card compact-card">
+                            <div class="section-tag">
+                                <i class="bi bi-graph-up"></i>
+                                <span>Live scores</span>
+                            </div>
+                            <a class="lsw"
+                               href="https://www.play-cricket.com/embed_widget/live_scorer_widgets?club_id=3463&amp;days=0"
+                               id="lsw_link_home" style="display:none;"></a>
+                            <div class="lsw-col-12 lsw_tile" id="lsw_container_home">
+                                <p class="muted">Live scores appear here on match days.</p>
+                            </div>
+                        </section>
+                    </div>
+                    <p class="card-actions">
+                        <a class="btn btn-primary" href="results.html">
+                            All senior results &amp; fixtures
+                        </a>
+                        <a class="btn btn-juniors-primary" href="juniors.html#fixtures">
+                            All junior results &amp; fixtures
+                        </a>
+                        <a class="btn btn-hawks-primary" href="hawks.html#fixtures">
+                            All Hawks results &amp; fixtures
+                        </a>
+                        <a class="btn btn-primary" href="https://honleycc.play-cricket.com/Matches?tab=Fixture"
+                           rel="noopener" target="_blank">Open fixtures on Play-Cricket</a>
+                    </p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <section aria-label="Latest updates" class="section-pad">
+        <div class="container">
+            <div class="row feature-row">
+                <div class="col-md-6">
+                    <section aria-labelledby="latest-news-heading" class="content-card feature-card">
+                        <div class="section-tag">
+                            <i aria-hidden="true" class="bi bi-megaphone-fill"></i>
+                            <span>Latest news</span>
+                        </div>
+                        <h2 class="card-title" id="latest-news-heading">Junior training starts in April</h2>
+                        <p class="card-intro">
+                            Key junior training dates for the new season are set out below.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-modern">
+                                <thead>
+                                <tr>
+                                    <th>Age group</th>
+                                    <th>Training starts</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><span class="age-chip age-u7">U7</span></td>
+                                    <td>Friday 24 April</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="age-chip age-u9">U9</span>
+                                        <span class="age-chip age-u11">U11</span>
+                                        <span class="age-chip age-u13">U13</span>
+                                    </td>
+                                    <td>Friday 17 April, 6pm</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="age-chip age-girls">U11, U13 &amp; U15 girls</span>
+                                    </td>
+                                    <td>Friday 17 April, 6pm</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="age-chip age-u15">U15</span>
+                                    </td>
+                                    <td>Thursdays 16th April, 6:30pm</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span class="age-chip age-u17">U17</span>
+                                    </td>
+                                    <td>Thursdays 16th April, 6:30pm</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-md-6">
+                    <section aria-labelledby="kit-heading" class="content-card feature-card">
+                        <div class="section-tag">
+                            <i aria-hidden="true" class="bi bi-bag-fill"></i>
+                            <span>Junior kit</span>
+                        </div>
+                        <h2 class="card-title" id="kit-heading">Order playing kit for the 2026 season</h2>
+                        <p class="card-intro">
+                            Junior players need a Honley CC Juniors Cream Playing Shirt:
+                            <a href="https://uk.paladin.sport/products/honley-cc-juniors-cream-playing-shirt-s-s-kids"
+                               rel="noopener" target="_blank">short sleaved</a>
+                            (£20) or
+                            <a href="https://uk.paladin.sport/products/honley-cc-juniors-cream-playing-shirt-l-s-kids"
+                               rel="noopener" target="_blank">long sleaved</a>
+                            (£21.50). They will also need Honley CC Juniors Coloured Cricket
+                            <a href="https://uk.paladin.sport/products/honley-cc-juniors-coloured-cricket-pant-kids"
+                               rel="noopener" target="_blank">pants</a>
+                            (£24.50).
+                        </p>
+                        <p class="card-actions">
+                            <a class="btn btn-primary"
+                               href="https://uk.paladin.sport/collections/honley-cricket-club-juniors" rel="noopener"
+                               target="_blank">
+                                Order junior kit
+                            </a>
+                            <a class="btn btn-primary" href="https://uk.paladin.sport/collections/honley-cc-womens"
+                               rel="noopener" target="_blank">
+                                Order women's kit
+                            </a>
+                        </p>
+                        <div class="kit-logo-wrap">
+                            <a href="https://uk.paladin.sport/collections/honley-cricket-club-juniors" rel="noopener"
+                               target="_blank">
+                                <img alt="Paladin Sports" class="kit-logo" src="img/paladin_sports_logo.jpg"/>
+                            </a>
+                        </div>
+                        <hr/>
+                        <p class="muted">
+                            Do you have junior cricket kit or equipment that has been outgrown? Let the coaches
+                            know so it can be made available to new players.
+                        </p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section aria-label="Latest events" class="section-pad" id="latest-events">
+        <div class="container">
+            <div class="row feature-row">
+                <div class="col-md-6">
+                    <section aria-labelledby="latest-events-heading" class="content-card feature-card">
+                        <div class="section-tag">
+                            <i aria-hidden="true" class="bi bi-buildings-fill"></i>
+                            <span>Events</span>
+                        </div>
+                        <h2 class="card-title" id="latest-events-heading">Hire the club</h2>
+                        <p class="card-intro">You can Hire the cricket club for your next event.</p>
+                        <p class="muted">To make enquiries contact us via email.</p>
+                        <a class="email-button"
+                           href="mailto:honleycc@gmail.com?subject=General%20Membership%20Enquiry">
+                            <i class="bi bi-envelope-fill"></i>
+                            honleycc@gmail.com
+                        </a>
+                    </section>
+                </div>
+
+                <div class="col-md-6">
+                    <section aria-labelledby="crickfest-heading" class="content-card feature-card">
+                        <div class="section-tag">
+                            <i aria-hidden="true" class="bi bi-megaphone-fill"></i>
+                            <span>Crickfest</span>
+                        </div>
+                        <h2 class="card-title" id="crickfest-heading">Sunday 30th August 2026</h2>
+                        <p class="card-intro">1pm to 10pm, Far Land End, Honley</p>
+                        <hr/>
+                        <a href="https://www.facebook.com/events/874819105603632/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+                           rel="noopener" target="_blank"><img alt="Crickfest image" class="img-fluid"
+                                                               src="img/crickfest.jpg"/></a>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section aria-labelledby="watch-live-heading" class="section-cta" id="watch-live">
+        <div class="container text-center cta-inner">
+            <h2 id="watch-live-heading">Watch Honley CC live</h2>
+            <p>Follow matchday streams and club video updates.</p>
+            <div id="live-container">
+                <div class="live-fallback-card">
+                    <div class="live-fallback-inner">
+                        <div class="live-badge">YouTube</div>
+                        <h3>Matchday livestreams</h3>
+                        <p>
+                            Live matches and replays are available on our YouTube channel.
+                            When a match is live it will appear here automatically.
+                        </p>
+                        <a class="btn btn-soft btn-lg" href="https://www.youtube.com/@honleycc6945/streams"
+                           rel="noopener" target="_blank">
+                            View all streams
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- end of row -->
-    <div class="row" id="LiveStream">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4><i class="fa fa-fw fa-youtube-play"></i> Live stream home matches</h4> via YouTube <a
-                        href="https://www.youtube.com/@honleycc6945" target="_blank">here</a>.
-                </div>
-                <div class="panel-body">
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe allow="accelerometer; autoplay; allowfullscreen"
-                                class="embed-responsive-item"
-                                src="https://www.youtube.com/embed/live_stream?channel=UCEY81pC3tG4_0OaV-svjkwA"
-                                title="Honley CC YouTube video player"></iframe>
-                    </div>
-                </div>
+    </section>
+</main>
+<footer class="site-footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <h2 class="footer-title">Honley Cricket Club</h2>
+                <p>Community cricket in Honley, with senior, junior, and women &amp; girls opportunities.</p>
+                <p class="small text-muted">
+                    © Honley Cricket Club <span class="current-year"></span><br/>
+                    Built by <a href="http://www.tellus-toolkit.com" rel="noopener" target="_blank">TellUs Toolkit
+                    Ltd</a><br/>
+                    Last updated <span id="lastModified"></span>.
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="footer-title">Quick Links</h2>
+                <ul class="footer-links list-unstyled mb-0">
+                    <li><a href="join.html">Membership</a></li>
+                    <li><a href="results.html">Fixtures &amp; Results</a></li>
+                    <li><a href="juniors.html">Juniors</a></li>
+                    <li><a href="hawks.html">Women &amp; Girls</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h2 class="footer-title">Follow</h2>
+                <ul class="footer-links list-unstyled mb-0">
+                    <li><a href="https://www.facebook.com/honleycc/" rel="noopener" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/honleycricketclub/" rel="noopener"
+                           target="_blank">Instagram</a></li>
+                    <li><a href="https://www.youtube.com/@honleycc6945" rel="noopener" target="_blank">YouTube</a></li>
+                    <li><a href="contact.html">Contact us</a></li>
+                </ul>
             </div>
         </div>
     </div>
-    <!-- end of row -->
-    <hr>
-    <!-- Footer -->
-    <div class="row" id="footer">
-        <div class="col-lg-12">
-            <p class="text-center">&copy; Honley Cricket Club
-                <script>document.write(new Date().getFullYear());</script>
-                | Built by <a href="http://www.tellus-toolkit.com" target="_blank">TellUs Toolkit
-                    Ltd</a>.
-            <p>
-            <p class="text-center small">
-                Last updated:
-            <p class="text-center small" id="lastModified"></p>
-            <script>
-                // Retrieve the last modified date
-                const lastModified = document.lastModified;
-
-                // Create a new Date object
-                const modifiedDate = new Date(lastModified);
-
-                // Create an array of weekday names
-                const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-                // Get the day of the week
-                const dayOfWeek = weekdays[modifiedDate.getDay()]; // Get the weekday name
-
-                // Extract day, month, and year in UK format
-                const day = String(modifiedDate.getDate()).padStart(2, '0'); // Get day and add leading zero if needed
-                //const month = String(modifiedDate.getMonth() + 1).padStart(2, '0'); // Get month and add leading zero if needed
-                const month = months[modifiedDate.getMonth()]; // Get the month name
-                const year = modifiedDate.getFullYear(); // Get year
-
-                // Combine into UK format (DD/MM/YYYY)
-                const formattedDate = `${dayOfWeek} ${day} ${month} ${year}`;
-
-                // Display the formatted date on the webpage
-                document.getElementById("lastModified").textContent = formattedDate;
-            </script>
-            </p>
-        </div>
-    </div>
-</div>
-<!-- /.container -->
-<!-- jQuery -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<!--script src="js/bootstrap.min.js"></script-->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip({'placement': 'top'});
-    });
-</script>
-<!-- jQuery -->
-<!-- Contact Form JavaScript -->
-<script src="js/jqBootstrapValidation.js"></script>
-<script src="js/contact_me.js"></script>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+</footer>
+<script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/site-core.js"></script>
+<script src="js/play-cricket.js"></script>
+<script src="js/home.js"></script>
 </body>
 </html>
