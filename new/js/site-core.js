@@ -377,10 +377,31 @@
         });
     };
 
+    HCC.initBackToTop = function () {
+        var btn = document.getElementById("backToTop");
+        if (!btn) return;
+
+        window.addEventListener("scroll", function () {
+            if (window.scrollY > 300) {
+                btn.classList.add("is-visible");
+            } else {
+                btn.classList.remove("is-visible");
+            }
+        });
+
+        btn.addEventListener("click", function () {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    };
+
     HCC.bootCore = function bootCore() {
         HCC.setLastModified();
         HCC.setCurrentYears();
         HCC.normaliseExternalLinks();
+        HCC.initBackToTop();
     };
 
     if (document.readyState === "loading") {
