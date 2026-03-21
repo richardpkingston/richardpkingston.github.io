@@ -377,128 +377,17 @@
         });
     };
 
-    HCC.initPlayCricketWidget = function initPlayCricketWidget() {
-        var widgetLink = document.querySelector("a.lsw");
-        if (!widgetLink) return;
-
-        var cssHref = "https://www.play-cricket.com/live_scorer.css";
-        var jsHref = "https://www.play-cricket.com/live_scorer.js";
-
-        var alreadyLoaded = Array.prototype.some.call(document.styleSheets, function (sheet) {
-            return sheet.href === cssHref;
-        });
-
-        if (!alreadyLoaded) {
-            var link = document.createElement("link");
-            link.rel = "stylesheet";
-            link.href = cssHref;
-            document.head.appendChild(link);
-        }
-
-        if (!document.getElementById("lsw-wjs")) {
-            var js = document.createElement("script");
-            js.id = "lsw-wjs";
-            js.src = jsHref;
-            document.body.appendChild(js);
-        }
+    HCC.bootCore = function bootCore() {
+        HCC.setLastModified();
+        HCC.setCurrentYears();
+        HCC.normaliseExternalLinks();
     };
 
-    HCC.initMembershipPage = function initMembershipPage() {
-        var buttons = Array.prototype.slice.call(document.querySelectorAll(".membership-type-button"));
-        var accordion = HCC.byId("accordion");
-
-        if (!buttons.length || !accordion || !window.bootstrap) return;
-
-        function setActiveButton(targetId) {
-            buttons.forEach(function (button) {
-                button.classList.toggle("active", button.getAttribute("href") === "#" + targetId);
-            });
-        }
-
-        function scrollToGroup(targetId) {
-            var target = HCC.byId(targetId);
-            if (!target) return;
-            window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 110, behavior: "smooth" });
-        }
-
-        function hideOpenItems(exceptId) {
-            accordion.querySelectorAll('.accordion-collapse.show').forEach(function (item) {
-                if (item.id !== exceptId) {
-                    window.bootstrap.Collapse.getOrCreateInstance(item).hide();
-                }
-            });
-        }
-
-        buttons.forEach(function (button) {
-            button.addEventListener("click", function (event) {
-                event.preventDefault();
-                var targetId = (button.getAttribute("href") || "").replace("#", "");
-                var collapseId = button.getAttribute("data-target-collapse");
-                if (!targetId) return;
-
-                setActiveButton(targetId);
-                hideOpenItems(collapseId);
-
-                if (collapseId) {
-                    var collapseEl = HCC.byId(collapseId);
-                    if (collapseEl) {
-                        window.bootstrap.Collapse.getOrCreateInstance(collapseEl).show();
-                    }
-                }
-
-                setTimeout(function () {
-                    scrollToGroup(targetId);
-                }, 220);
-            });
-        });
-
-        accordion.addEventListener("show.bs.collapse", function (event) {
-            hideOpenItems(event.target.id);
-            var group = event.target.closest('.membership-group');
-            if (group && group.id) {
-                setActiveButton(group.id);
-            }
-        });
-    };
-
-    HCC.initLivestreamEmbed = function initLivestreamEmbed() {
-        var liveContainer = HCC.byId("live-container");
-        var API_KEY = "YOUR_API_KEY";
-        var CHANNEL_ID = "UCEY81pC3tG4_0OaV-svjkwA";
-
-        if (!liveContainer || !API_KEY || API_KEY === "YOUR_API_KEY") return;
-
-        var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" +
-            CHANNEL_ID +
-            "&eventType=live&type=video&key=" +
-            API_KEY;
-
-        fetch(url)
-            .then(function (res) {
-                if (!res.ok) throw new Error("YouTube API request failed");
-                return res.json();
-            })
-            .then(function (data) {
-                if (!data.items || !data.items.length) return;
-
-                var videoId = data.items[0].id.videoId;
-
-                liveContainer.innerHTML = '' +
-                    '<div class="live-embed">' +
-                    '    <div class="ratio ratio-16x9">' +
-                    '        <iframe ' +
-                    '                src="https://www.youtube.com/embed/' + videoId + '" ' +
-                    '                title="Honley CC livestream" ' +
-                    '                allowfullscreen ' +
-                    '                loading="lazy">' +
-                    '        </iframe>' +
-                    '    </div>' +
-                    '</div>';
-            })
-            .catch(function (err) {
-                console.warn("Livestream check failed:", err);
-            });
-    };
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", HCC.bootCore);
+    } else {
+        HCC.bootCore();
+    }
 
     window.HCC = HCC;
 })(window, document);
