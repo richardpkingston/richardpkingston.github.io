@@ -150,6 +150,21 @@ button:focus-visible,
     background: linear-gradient(90deg, var(--hcc-green), var(--hcc-gold));
 }
 
+.text-hcc-green {
+    color: var(--hcc-green);
+}
+
+.text-hcc-gold {
+    color: var(--hcc-gold);
+}
+
+.text-hcc-green-dark {
+    color: var(--hcc-green-dark);
+}
+
+.text-hcc-red {
+    color: var(--hcc-pdf-red);
+}
 
 /* Age chips */
 .age-chip {
