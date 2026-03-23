@@ -4,6 +4,7 @@
     var HCC = window.HCC;
 
     function bootJuniors() {
+        if (!HCC) return;
         HCC.initJuniorsFixturesFeed();
     }
 

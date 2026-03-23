@@ -4,6 +4,7 @@
     var HCC = window.HCC;
 
     function bootHawks() {
+        if (!HCC) return;
         HCC.initHawksFixturesFeed();
         HCC.initHawksTicker();
     }

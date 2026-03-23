@@ -68,11 +68,118 @@
             });
     };
 
+    HCC.initHomepageCountdown = function initHomepageCountdown() {
+        var daysEl = document.getElementById("countdown-inline-days");
+        var hoursEl = document.getElementById("countdown-inline-hours");
+        var minutesEl = document.getElementById("countdown-inline-minutes");
+        var secondsEl = document.getElementById("countdown-inline-seconds");
+        var badgeTextEl = document.querySelector(".countdown-badge-text");
+        var refreshTimeout = null;
+        var timer = null;
+
+        if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+
+        function clearTimers() {
+            if (timer) {
+                clearInterval(timer);
+                timer = null;
+            }
+            if (refreshTimeout) {
+                clearTimeout(refreshTimeout);
+                refreshTimeout = null;
+            }
+        }
+
+        function setBadgeHtml(html) {
+            if (!badgeTextEl) return;
+            badgeTextEl.innerHTML = html;
+        }
+
+        function setCountdownText(days, hours, minutes, seconds) {
+            daysEl.textContent = days + "d";
+            hoursEl.textContent = String(hours).padStart(2, "0") + "h";
+            minutesEl.textContent = String(minutes).padStart(2, "0") + "m";
+            secondsEl.textContent = String(seconds).padStart(2, "0") + "s";
+        }
+
+        function renderBadgePrefix() {
+            setBadgeHtml(
+                'Next match in ' +
+                '<strong id="countdown-inline-days">' + HCC.escapeHtml(daysEl.textContent) + '</strong>' +
+                '<strong id="countdown-inline-hours">' + HCC.escapeHtml(hoursEl.textContent) + '</strong>' +
+                '<strong id="countdown-inline-minutes">' + HCC.escapeHtml(minutesEl.textContent) + '</strong>' +
+                '<strong id="countdown-inline-seconds">' + HCC.escapeHtml(secondsEl.textContent) + '</strong>'
+            );
+            daysEl = document.getElementById("countdown-inline-days");
+            hoursEl = document.getElementById("countdown-inline-hours");
+            minutesEl = document.getElementById("countdown-inline-minutes");
+            secondsEl = document.getElementById("countdown-inline-seconds");
+        }
+
+        function setFallback(message) {
+            clearTimers();
+            setBadgeHtml(HCC.escapeHtml(message));
+        }
+
+        function scheduleRefresh(delayMs) {
+            refreshTimeout = window.setTimeout(function () {
+                loadNextFixture(true);
+            }, delayMs);
+        }
+
+        function startCountdown(targetDate) {
+            clearTimers();
+            renderBadgePrefix();
+
+            function updateCountdown() {
+                var now = Date.now();
+                var distance = targetDate.getTime() - now;
+
+                if (distance <= 0) {
+                    clearTimers();
+                    loadNextFixture(true);
+                    return;
+                }
+
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                setCountdownText(days, hours, minutes, seconds);
+            }
+
+            updateCountdown();
+            timer = window.setInterval(updateCountdown, 1000);
+            scheduleRefresh(HCC.COUNTDOWN_REFRESH_MS || (5 * 60 * 1000));
+        }
+
+        function loadNextFixture(forceRefresh) {
+            HCC.loadClubData({forceRefresh: !!forceRefresh}).then(function (data) {
+                var nextFixture = HCC.getNextFirstXIFixture(data.fixtures);
+                var nextFixtureDate = HCC.getFixtureDateTime(nextFixture);
+
+                if (!nextFixture || !nextFixtureDate) {
+                    setFallback("No upcoming 1st XI fixture");
+                    return;
+                }
+
+                startCountdown(nextFixtureDate);
+            }).catch(function (err) {
+                console.warn("Homepage countdown failed:", err);
+                setFallback("Fixture update unavailable");
+            });
+        }
+
+        loadNextFixture(false);
+    };
+
     function bootHome() {
         HCC.initPlayCricketWidget();
         HCC.initHomepageMatchSummary();
         HCC.initHomeTicker();
         HCC.initLivestreamEmbed();
+        HCC.initHomepageCountdown();
     }
 
     if (document.readyState === "loading") {
@@ -80,44 +187,4 @@
     } else {
         bootHome();
     }
-
-        /**
-     * Countdown clock
-     */
-    (function () {
-        const matchDate = new Date("2026-04-18T12:30:00").getTime();
-
-        const daysEl = document.getElementById("countdown-inline-days");
-        const hoursEl = document.getElementById("countdown-inline-hours");
-        const minutesEl = document.getElementById("countdown-inline-minutes");
-        const secondsEl = document.getElementById("countdown-inline-seconds");
-
-        function updateCountdownBadge() {
-            const now = new Date().getTime();
-            const distance = matchDate - now;
-
-            if (distance <= 0) {
-                daysEl.textContent = "0d";
-                hoursEl.textContent = "00h";
-                minutesEl.textContent = "00m";
-                secondsEl.textContent = "00s";
-                clearInterval(timer);
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            daysEl.textContent = `${days}d`;
-            hoursEl.textContent = `${String(hours).padStart(2, "0")}h`;
-            minutesEl.textContent = `${String(minutes).padStart(2, "0")}m`;
-            secondsEl.textContent = `${String(seconds).padStart(2, "0")}s`;
-        }
-
-        updateCountdownBadge();
-        const timer = setInterval(updateCountdownBadge, 1000);
-    })();
-    
 })(window, document);

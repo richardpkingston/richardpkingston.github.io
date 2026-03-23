@@ -20,7 +20,17 @@
         });
     };
 
-    HCC.loadClubData = function loadClubData() {
+    HCC.resetClubDataCache = function resetClubDataCache() {
+        clubDataPromise = null;
+    };
+
+    HCC.loadClubData = function loadClubData(options) {
+        var forceRefresh = options && options.forceRefresh;
+
+        if (forceRefresh) {
+            HCC.resetClubDataCache();
+        }
+
         if (clubDataPromise) {
             return clubDataPromise;
         }
@@ -67,6 +77,41 @@
                 return HCC.getItemDate(b) - HCC.getItemDate(a);
             })
             .slice(0, limit || 3);
+    };
+
+    HCC.getFutureFixtures = function getFutureFixtures(items, filterFn, comparator) {
+        var now = HCC.getNow();
+
+        return (items || [])
+            .filter(function (item) {
+                var itemDateTime = HCC.getItemDateTime(item);
+                if (!itemDateTime || itemDateTime <= now) return false;
+                return typeof filterFn === "function" ? filterFn(item) : true;
+            })
+            .slice()
+            .sort(comparator || function (a, b) {
+                return HCC.getItemDateTime(a) - HCC.getItemDateTime(b);
+            });
+    };
+
+    HCC.getNextFixtureForTeamLabel = function getNextFixtureForTeamLabel(fixtures, label) {
+        var future = HCC.getFutureFixtures(fixtures, function (item) {
+            return HCC.getHonleyTeamLabel(item) === label;
+        }, function (a, b) {
+            var dateDiff = HCC.getItemDateTime(a) - HCC.getItemDateTime(b);
+            if (dateDiff !== 0) return dateDiff;
+            return HCC.getHonleyTeamPriority(a) - HCC.getHonleyTeamPriority(b);
+        });
+
+        return future.length ? future[0] : null;
+    };
+
+    HCC.getNextFirstXIFixture = function getNextFirstXIFixture(fixtures) {
+        return HCC.getNextFixtureForTeamLabel(fixtures, HCC.COUNTDOWN_TEAM_LABEL || "1st XI");
+    };
+
+    HCC.getFixtureDateTime = function getFixtureDateTime(item) {
+        return HCC.getItemDateTime(item);
     };
 
     HCC.initHomepageMatchSummary = function initHomepageMatchSummary() {

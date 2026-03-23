@@ -6,6 +6,9 @@
     HCC.SITE_ID = 3463;
     HCC.API_TOKEN = "e3dc2fd497532bd833fd0a96b2697680";
     HCC.SEASON = new Date().getFullYear();
+    HCC.COUNTDOWN_TEAM_LABEL = "1st XI";
+    HCC.COUNTDOWN_DEFAULT_TIME = "12:30";
+    HCC.COUNTDOWN_REFRESH_MS = 5 * 60 * 1000;
 
     HCC.TEAM_CONFIG = {
         women: {
@@ -98,6 +101,33 @@
         return isNaN(parsed.getTime()) ? null : parsed;
     };
 
+    HCC.parseTimeParts = function parseTimeParts(value, fallback) {
+        var raw = String(value || fallback || HCC.COUNTDOWN_DEFAULT_TIME).trim();
+        var match = raw.match(/^(\d{1,2}):(\d{2})$/);
+
+        if (!match) {
+            return {hours: 12, minutes: 30};
+        }
+
+        return {
+            hours: parseInt(match[1], 10),
+            minutes: parseInt(match[2], 10)
+        };
+    };
+
+    HCC.parseMatchDateTime = function parseMatchDateTime(item, fallbackTime) {
+        if (!item) return null;
+
+        var parsedDate = HCC.parseDate(item.match_date || item.date);
+        if (!parsedDate) return null;
+
+        var timeParts = HCC.parseTimeParts(item.match_time, fallbackTime);
+        var dt = new Date(parsedDate.getTime());
+        dt.setHours(timeParts.hours, timeParts.minutes, 0, 0);
+
+        return isNaN(dt.getTime()) ? null : dt;
+    };
+
     HCC.formatDate = function formatDate(value, options) {
         var parsed = HCC.parseDate(value);
         if (!parsed) return value || "Date TBC";
@@ -113,10 +143,18 @@
         return HCC.parseDate(item && (item.match_date || item.date));
     };
 
+    HCC.getItemDateTime = function getItemDateTime(item) {
+        return HCC.parseMatchDateTime(item);
+    };
+
     HCC.getTodayStart = function getTodayStart() {
         var today = new Date();
         today.setHours(0, 0, 0, 0);
         return today;
+    };
+
+    HCC.getNow = function getNow() {
+        return new Date();
     };
 
     HCC.getMatchTitle = function getMatchTitle(item, fallback) {
@@ -377,7 +415,7 @@
         });
     };
 
-    HCC.initBackToTop = function () {
+    HCC.initBackToTop = function initBackToTop() {
         var btn = document.getElementById("backToTop");
         if (!btn) return;
 

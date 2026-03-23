@@ -4,6 +4,7 @@
     var HCC = window.HCC;
 
     function bootResults() {
+        if (!HCC) return;
         HCC.initResultsPageFeed();
     }
 

@@ -18,11 +18,14 @@
         function scrollToGroup(targetId) {
             var target = HCC.byId(targetId);
             if (!target) return;
-            window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 110, behavior: "smooth" });
+            window.scrollTo({
+                top: target.getBoundingClientRect().top + window.pageYOffset - 110,
+                behavior: "smooth"
+            });
         }
 
         function hideOpenItems(exceptId) {
-            accordion.querySelectorAll('.accordion-collapse.show').forEach(function (item) {
+            accordion.querySelectorAll(".accordion-collapse.show").forEach(function (item) {
                 if (item.id !== exceptId) {
                     window.bootstrap.Collapse.getOrCreateInstance(item).hide();
                 }
@@ -46,7 +49,7 @@
                     }
                 }
 
-                setTimeout(function () {
+                window.setTimeout(function () {
                     scrollToGroup(targetId);
                 }, 220);
             });
@@ -54,7 +57,7 @@
 
         accordion.addEventListener("show.bs.collapse", function (event) {
             hideOpenItems(event.target.id);
-            var group = event.target.closest('.membership-group');
+            var group = event.target.closest(".membership-group");
             if (group && group.id) {
                 setActiveButton(group.id);
             }
@@ -62,6 +65,7 @@
     };
 
     function bootMembership() {
+        if (!HCC) return;
         HCC.initMembershipPage();
     }
 
