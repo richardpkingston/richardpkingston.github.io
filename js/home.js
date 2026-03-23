@@ -72,12 +72,11 @@
         var daysEl = document.getElementById("countdown-inline-days");
         var hoursEl = document.getElementById("countdown-inline-hours");
         var minutesEl = document.getElementById("countdown-inline-minutes");
-        var secondsEl = document.getElementById("countdown-inline-seconds");
         var badgeTextEl = document.querySelector(".countdown-badge-text");
         var refreshTimeout = null;
         var timer = null;
 
-        if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+        if (!daysEl || !hoursEl || !minutesEl || !badgeTextEl) return;
 
         function clearTimers() {
             if (timer) {
@@ -91,29 +90,25 @@
         }
 
         function setBadgeHtml(html) {
-            if (!badgeTextEl) return;
             badgeTextEl.innerHTML = html;
+            daysEl = document.getElementById("countdown-inline-days");
+            hoursEl = document.getElementById("countdown-inline-hours");
+            minutesEl = document.getElementById("countdown-inline-minutes");
         }
 
-        function setCountdownText(days, hours, minutes, seconds) {
-            daysEl.textContent = days + "d";
-            hoursEl.textContent = String(hours).padStart(2, "0") + "h";
-            minutesEl.textContent = String(minutes).padStart(2, "0") + "m";
-            secondsEl.textContent = String(seconds).padStart(2, "0") + "s";
+        function setCountdownText(days, hours, minutes) {
+            if (daysEl) daysEl.textContent = days + "d";
+            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0") + "h";
+            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0") + "m";
         }
 
         function renderBadgePrefix() {
             setBadgeHtml(
                 'Next match in ' +
-                '<strong id="countdown-inline-days">' + HCC.escapeHtml(daysEl.textContent) + '</strong>' +
-                '<strong id="countdown-inline-hours">' + HCC.escapeHtml(hoursEl.textContent) + '</strong>' +
-                '<strong id="countdown-inline-minutes">' + HCC.escapeHtml(minutesEl.textContent) + '</strong>' +
-                '<strong id="countdown-inline-seconds">' + HCC.escapeHtml(secondsEl.textContent) + '</strong>'
+                '<strong id="countdown-inline-days">' + HCC.escapeHtml(daysEl.textContent || "0d") + '</strong>' +
+                '<strong id="countdown-inline-hours">' + HCC.escapeHtml(hoursEl.textContent || "00h") + '</strong>' +
+                '<strong id="countdown-inline-minutes">' + HCC.escapeHtml(minutesEl.textContent || "00m") + '</strong>'
             );
-            daysEl = document.getElementById("countdown-inline-days");
-            hoursEl = document.getElementById("countdown-inline-hours");
-            minutesEl = document.getElementById("countdown-inline-minutes");
-            secondsEl = document.getElementById("countdown-inline-seconds");
         }
 
         function setFallback(message) {
@@ -144,18 +139,21 @@
                 var days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                setCountdownText(days, hours, minutes, seconds);
+                if (days === 0 && hours === 0) {
+                    setCountdownText(0, 0, minutes);
+                } else {
+                    setCountdownText(days, hours, minutes);
+                }
             }
 
             updateCountdown();
-            timer = window.setInterval(updateCountdown, 1000);
+            timer = window.setInterval(updateCountdown, 30000);
             scheduleRefresh(HCC.COUNTDOWN_REFRESH_MS || (5 * 60 * 1000));
         }
 
         function loadNextFixture(forceRefresh) {
-            HCC.loadClubData({forceRefresh: !!forceRefresh}).then(function (data) {
+            HCC.loadClubData({ forceRefresh: !!forceRefresh }).then(function (data) {
                 var nextFixture = HCC.getNextFirstXIFixture(data.fixtures);
                 var nextFixtureDate = HCC.getFixtureDateTime(nextFixture);
 
