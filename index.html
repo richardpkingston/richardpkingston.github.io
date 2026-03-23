@@ -70,16 +70,34 @@
                     <i aria-hidden="true" class="bi bi-circle-half"></i>
                     <span>Established 1880</span>
                 </div>
+
                 <h1>Cricket for the whole community in the heart of Honley</h1>
+
                 <p class="hero-lead">
                     Honley Cricket Club has been part of village life for generations, combining competitive cricket
                     with a welcoming local atmosphere.
                 </p>
             </div>
-            <div class="hero-actions d-flex flex-column flex-sm-row gap-4">
-                <a class="btn btn-primary" href="#latest-events">Events &amp; venue hire</a>
-                <a class="btn btn-hawks-primary" href="hawks.html">NEW for 2026 Honley Hawks</a>
-            </div>
+
+            <!--div class="hero-actions-row d-flex flex-column flex-sm-row gap-4"-->
+                <div class="hero-actions hero-actions-with-countdown">
+                    <div class="hero-actions-left">
+                        <a class="btn btn-primary" href="#latest-events">Events &amp; venue hire</a>
+                        <a class="btn btn-hawks-primary" href="hawks.html">NEW for 2026 Honley Hawks</a>
+                    </div>
+
+                    <div class="match-countdown-badge" aria-live="polite">
+                        <span class="countdown-badge-label">1st XI</span>
+                        <span class="countdown-badge-text">
+                            Next match in
+                            <strong id="countdown-inline-days">0d</strong>
+                            <strong id="countdown-inline-hours">00h</strong>
+                            <strong id="countdown-inline-minutes">00m</strong>
+                            <strong id="countdown-inline-seconds">00s</strong>
+                        </span>
+                    </div>
+                </div>
+
             <div aria-label="Latest club updates" class="hero-news-ticker" role="region">
                 <span class="news-label">
                     <i aria-hidden="true" class="bi bi-megaphone-fill"></i>
@@ -90,13 +108,14 @@
                         <span class="ticker-item">
                             <i aria-hidden="true" class="bi bi-calendar-event-fill"></i>
                             <span class="ticker-text">Loading fixtures, results and news...</span>
-                            </span>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </header>
+
 <main>
     <section aria-label="Quick links" class="quick-links">
         <div class="container">
