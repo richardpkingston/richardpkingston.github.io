@@ -80,4 +80,44 @@
     } else {
         bootHome();
     }
+
+        /**
+     * Countdown clock
+     */
+    (function () {
+        const matchDate = new Date("2026-04-18T12:30:00").getTime();
+
+        const daysEl = document.getElementById("countdown-inline-days");
+        const hoursEl = document.getElementById("countdown-inline-hours");
+        const minutesEl = document.getElementById("countdown-inline-minutes");
+        const secondsEl = document.getElementById("countdown-inline-seconds");
+
+        function updateCountdownBadge() {
+            const now = new Date().getTime();
+            const distance = matchDate - now;
+
+            if (distance <= 0) {
+                daysEl.textContent = "0d";
+                hoursEl.textContent = "00h";
+                minutesEl.textContent = "00m";
+                secondsEl.textContent = "00s";
+                clearInterval(timer);
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            daysEl.textContent = `${days}d`;
+            hoursEl.textContent = `${String(hours).padStart(2, "0")}h`;
+            minutesEl.textContent = `${String(minutes).padStart(2, "0")}m`;
+            secondsEl.textContent = `${String(seconds).padStart(2, "0")}s`;
+        }
+
+        updateCountdownBadge();
+        const timer = setInterval(updateCountdownBadge, 1000);
+    })();
+    
 })(window, document);
