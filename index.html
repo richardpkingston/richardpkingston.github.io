@@ -66,9 +66,14 @@
     <div class="hero-overlay">
         <div class="container hero-content">
             <div class="hero-inner">
-                <div class="section-tag">
-                    <i aria-hidden="true" class="bi bi-circle-half"></i>
-                    <span>Established 1880</span>
+                <div class="section-tag section-tag-crest">
+                    <span class="section-tag-crest-icon">
+                        <img alt="Honley Cricket Club crest" src="img/logo.jpg">
+                    </span>
+                    <span class="section-tag-crest-text">
+                        <span class="section-tag-crest-label">Established</span>
+                        <span class="section-tag-crest-year">1880</span>
+                    </span>
                 </div>
 
                 <h1>Cricket for the whole community in the heart of Honley</h1>
@@ -80,22 +85,23 @@
             </div>
 
             <!--div class="hero-actions-row d-flex flex-column flex-sm-row gap-4"-->
-                <div class="hero-actions hero-actions-with-countdown">
-                    <div class="hero-actions-left">
-                        <a class="btn btn-primary" href="#latest-events">Events &amp; venue hire</a>
-                        <a class="btn btn-hawks-primary" href="hawks.html">NEW for 2026 Honley Hawks</a>
-                    </div>
+            <div class="hero-actions hero-actions-with-countdown">
+                <div class="hero-actions-left">
+                    <a class="btn btn-primary" href="#latest-events">Events &amp; venue hire</a>
+                    <a class="btn btn-hawks-primary" href="hawks.html">NEW for 2026 Honley Hawks</a>
+                </div>
 
-                    <div class="match-countdown-badge" aria-live="polite">
-                        <span class="countdown-badge-label">1st XI</span>
-                        <span class="countdown-badge-text">
+                <div aria-live="polite" class="match-countdown-badge">
+                    <span class="countdown-badge-label">1st XI</span>
+                    <span class="countdown-badge-text">
                             Next match in
                             <strong id="countdown-inline-days">0d</strong>
                             <strong id="countdown-inline-hours">00h</strong>
                             <strong id="countdown-inline-minutes">00m</strong>
+                        <!--strong id="countdown-inline-seconds">00s</strong-->
                         </span>
-                    </div>
                 </div>
+            </div>
 
             <div aria-label="Latest club updates" class="hero-news-ticker" role="region">
                 <span class="news-label">
