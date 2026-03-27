@@ -42,14 +42,15 @@
     margin-bottom: 8px;
 }
 
-.table-modern {
+/* Juniors pages need slightly more forgiving table wrapping */
+.juniors-page .table-modern {
     width: 100%;
     margin-bottom: 0;
     table-layout: auto;
 }
 
-.table-modern th,
-.table-modern td {
+.juniors-page .table-modern th,
+.juniors-page .table-modern td {
     vertical-align: top;
     padding: 0.85rem 0.9rem;
     white-space: normal;
@@ -57,41 +58,41 @@
     overflow-wrap: break-word;
 }
 
-.table-modern thead th {
+.juniors-page .table-modern thead th {
     font-weight: 700;
     border-bottom-width: 2px;
     white-space: normal;
 }
 
-.table-modern caption {
+.juniors-page .table-modern caption {
     caption-side: top;
 }
 
-.table-modern tbody th[scope="row"] {
+.juniors-page .table-modern tbody th[scope="row"] {
     font-weight: 700;
 }
 
-.table-modern tbody tr:hover {
+.juniors-page .table-modern tbody tr:hover {
     background-color: rgba(0, 0, 0, 0.025);
 }
 
-.table-responsive {
+.juniors-page .table-responsive {
     overflow-x: visible;
 }
 
 @media (max-width: 767.98px) {
-    .table-modern th,
-    .table-modern td {
+    .juniors-page .table-modern th,
+    .juniors-page .table-modern td {
         padding: 0.55rem 0.6rem;
         font-size: 0.92rem;
     }
-    
-    .table-responsive {
+
+    .juniors-page .table-responsive {
         overflow-x: visible;
         -webkit-overflow-scrolling: touch;
     }
-    
-    .age-chip {
+
+    .juniors-page .age-chip {
         font-size: 0.75rem;
         padding: 0.25rem 0.5rem;
     }

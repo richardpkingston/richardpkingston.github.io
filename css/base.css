@@ -1,10 +1,7 @@
 /*
-  Honley Cricket Club - Consolidated & Optimised Stylesheet
-  Source merge: site.css + hcc-refresh.css
-  Notes:
-  - Removes duplicated rules and keeps the newer cleaner design direction.
-  - Includes the improved responsive/flex navbar that aligns brand + menu.
-  - Keeps Bootstrap 3 compatibility.
+  Honley Cricket Club - Base stylesheet
+  Cleaned to keep only tokens, typography, buttons and global utilities.
+  Component/page styling lives in layout.css, components.css, hawks.css and juniors.css.
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Open+Sans:wght@400;600;700;800&display=swap');
@@ -82,21 +79,15 @@ h6,
     font-family: var(--font-sans);
 }
 
-.site-nav .nav-link {
-    font-size: 0.95rem;
-}
-
-.brand-text {
-    font-size: 1rem;
-}
-
 img {
     max-width: 100%;
     height: auto;
 }
 
 a {
-    transition: color var(--hcc-transition), background-color var(--hcc-transition), border-color var(--hcc-transition), opacity var(--hcc-transition), box-shadow var(--hcc-transition), transform var(--hcc-transition);
+    transition: color var(--hcc-transition), background-color var(--hcc-transition),
+        border-color var(--hcc-transition), opacity var(--hcc-transition),
+        box-shadow var(--hcc-transition), transform var(--hcc-transition);
 }
 
 a:focus-visible,
@@ -108,7 +99,6 @@ button:focus-visible,
     outline-offset: 2px;
     box-shadow: 0 0 0 3px rgba(11, 107, 58, 0.18);
 }
-
 
 /* Buttons */
 .btn-primary {
@@ -128,7 +118,6 @@ button:focus-visible,
     border: 1px solid rgba(255, 255, 255, 0.6);
     font-weight: 600;
 }
-
 
 /* Reusable top accent strip for cards */
 .card-accent-top,
@@ -150,66 +139,10 @@ button:focus-visible,
     background: linear-gradient(90deg, var(--hcc-green), var(--hcc-gold));
 }
 
-.text-hcc-green {
-    color: var(--hcc-green);
-}
-
-.text-hcc-gold {
-    color: var(--hcc-gold);
-}
-
-.text-hcc-green-dark {
-    color: var(--hcc-green-dark);
-}
-
-.text-hcc-red {
-    color: var(--hcc-pdf-red);
-}
-
-/* Age chips */
-.age-chip {
-    display: inline-block;
-    min-width: 52px;
-    text-align: center;
-    padding: 4px 10px;
-    border-radius: 999px;
-    color: #fff;
-    font-weight: 700;
-    font-size: 12px;
-    margin-bottom: 4px;
-}
-
-.age-u7 {
-    background: #2e8b57;
-}
-
-.age-u9 {
-    background: #4472c4;
-}
-
-.age-u11 {
-    background: #ed7d31;
-}
-
-.age-u13 {
-    background: #ffc000;
-    color: #3c2c00;
-}
-
-.age-u15 {
-    background: #7da9d1;
-}
-
-.age-u17 {
-    background: #d6aa2b;
-    color: #3c2c00;
-}
-
-.age-girls {
-    background: #ec008c;
-}
-
-
+.text-hcc-green { color: var(--hcc-green); }
+.text-hcc-gold { color: var(--hcc-gold); }
+.text-hcc-green-dark { color: var(--hcc-green-dark); }
+.text-hcc-red { color: var(--hcc-pdf-red); }
 
 /* Utilities */
 .u-muted { color: var(--hcc-muted); }
@@ -225,4 +158,10 @@ button:focus-visible,
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+@media (max-width: 767.98px) {
+    body {
+        padding-top: 80px;
+    }
 }
