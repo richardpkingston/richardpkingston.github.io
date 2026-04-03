@@ -64,9 +64,37 @@
         });
     };
 
+    HCC.initMembershipClubPay = function initMembershipClubPay() {
+        var accordionPanels = document.querySelectorAll(".membership-accordion .accordion-collapse");
+        if (!accordionPanels.length) return;
+
+        function loadClubPayScript() {
+            var existing = document.querySelector('script[data-clubpay-loader="true"]');
+            if (existing && existing.parentNode) {
+                existing.parentNode.removeChild(existing);
+            }
+
+            var script = document.createElement("script");
+            script.async = true;
+            script.src = "https://www.clubpay.co.uk/forms/js/mf.js";
+            script.setAttribute("data-clubpay-loader", "true");
+            document.body.appendChild(script);
+        }
+
+        accordionPanels.forEach(function (panel) {
+            panel.addEventListener("shown.bs.collapse", function () {
+                loadClubPayScript();
+            });
+        });
+
+        // Load once on page ready in case any form section is visible by default.
+        loadClubPayScript();
+    };
+
     function bootMembership() {
         if (!HCC) return;
         HCC.initMembershipPage();
+        HCC.initMembershipClubPay();
     }
 
     if (document.readyState === "loading") {
@@ -74,4 +102,5 @@
     } else {
         bootMembership();
     }
+
 })(window, document);
