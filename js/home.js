@@ -68,15 +68,83 @@
             });
     };
 
+    function getMatchDurationMs(fixture) {
+        var comp = (fixture && fixture.competition_name ? fixture.competition_name : "").toLowerCase();
+
+        if (comp.includes("t20") || comp.includes("twenty20")) {
+            return 3 * 60 * 60 * 1000;
+        }
+
+        return 6 * 60 * 60 * 1000;
+    }
+
+    function getFixtureContext(fixture) {
+        if (!fixture) return {};
+
+        var isHome = fixture.home_club_name === "Honley CC";
+
+        return {
+            isHome: isHome,
+            opponent: isHome ? fixture.away_club_name : fixture.home_club_name,
+            venueIcon: isHome ? "🏠" : "🚗",
+            venueText: isHome ? "Home" : "Away"
+        };
+    }
+
+    function getCurrentOrNextFirstXIFixture(fixtures) {
+        var now = new Date().getTime();
+
+        var firstXIFixtures = (fixtures || [])
+            .filter(function (item) {
+                return HCC.getHonleyTeamLabel(item) === "1st XI";
+            })
+            .map(function (item) {
+                return {
+                    fixture: item,
+                    date: HCC.getFixtureDateTime(item)
+                };
+            })
+            .filter(function (item) {
+                return item.date && !isNaN(item.date.getTime());
+            })
+            .sort(function (a, b) {
+                return a.date.getTime() - b.date.getTime();
+            });
+
+        for (var i = 0; i < firstXIFixtures.length; i++) {
+            var fixtureObj = firstXIFixtures[i];
+            var start = fixtureObj.date.getTime();
+            var matchDurationMs = getMatchDurationMs(fixtureObj.fixture);
+            var end = start + matchDurationMs;
+
+            if (now >= start && now < end) {
+                return {
+                    fixture: fixtureObj.fixture,
+                    date: fixtureObj.date,
+                    status: "in_progress"
+                };
+            }
+
+            if (now < start) {
+                return {
+                    fixture: fixtureObj.fixture,
+                    date: fixtureObj.date,
+                    status: "upcoming"
+                };
+            }
+        }
+
+        return null;
+    }
+
+    HCC.getCurrentOrNextFirstXIFixture = getCurrentOrNextFirstXIFixture;
+
     HCC.initHomepageCountdown = function initHomepageCountdown() {
-        var daysEl = document.getElementById("countdown-inline-days");
-        var hoursEl = document.getElementById("countdown-inline-hours");
-        var minutesEl = document.getElementById("countdown-inline-minutes");
         var badgeTextEl = document.querySelector(".countdown-badge-text");
         var refreshTimeout = null;
         var timer = null;
 
-        if (!daysEl || !hoursEl || !minutesEl || !badgeTextEl) return;
+        if (!badgeTextEl) return;
 
         function clearTimers() {
             if (timer) {
@@ -91,48 +159,72 @@
 
         function setBadgeHtml(html) {
             badgeTextEl.innerHTML = html;
-            daysEl = document.getElementById("countdown-inline-days");
-            hoursEl = document.getElementById("countdown-inline-hours");
-            minutesEl = document.getElementById("countdown-inline-minutes");
         }
 
-        function setCountdownText(days, hours, minutes) {
-            if (daysEl) daysEl.textContent = days + "d";
-            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0") + "h";
-            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0") + "m";
-        }
-
-        function renderBadgePrefix() {
-            setBadgeHtml(
-                'Next match in ' +
-                '<strong id="countdown-inline-days">' + HCC.escapeHtml(daysEl.textContent || "0d") + '</strong>' +
-                '<strong id="countdown-inline-hours">' + HCC.escapeHtml(hoursEl.textContent || "00h") + '</strong>' +
-                '<strong id="countdown-inline-minutes">' + HCC.escapeHtml(minutesEl.textContent || "00m") + '</strong>'
-            );
+        function setSimpleMessage(message) {
+            setBadgeHtml(HCC.escapeHtml(message));
         }
 
         function setFallback(message) {
             clearTimers();
-            setBadgeHtml(HCC.escapeHtml(message));
+            setSimpleMessage(message);
         }
 
         function scheduleRefresh(delayMs) {
             refreshTimeout = window.setTimeout(function () {
-                loadNextFixture(true);
+                loadRelevantFixture(true);
             }, delayMs);
         }
 
-        function startCountdown(targetDate) {
+        function buildBadgeHtml(text, fixture, isInProgress) {
+            var ctx = getFixtureContext(fixture);
+            var statusClass = isInProgress ? " countdown-live" : "";
+
+            return (
+                '<span class="countdown-prefix">' +
+                (ctx.venueIcon || "") +
+                '</span>' +
+                '<span class="countdown-main' + statusClass + '">' +
+                HCC.escapeHtml(text) +
+                '</span>' +
+                (ctx.opponent
+                    ? '<span class="countdown-opponent"> v ' + HCC.escapeHtml(ctx.opponent) + '</span>'
+                    : '')
+            );
+        }
+
+        function setStructured(text, fixture, isInProgress) {
+            setBadgeHtml(buildBadgeHtml(text, fixture, isInProgress));
+        }
+
+        function startCountdown(targetDate, fixture, status) {
             clearTimers();
-            renderBadgePrefix();
 
             function updateCountdown() {
-                var now = Date.now();
+                var now = new Date().getTime();
+                var matchDurationMs = getMatchDurationMs(fixture);
+                var matchEnd = targetDate.getTime() + matchDurationMs;
                 var distance = targetDate.getTime() - now;
 
-                if (distance <= 0) {
+                if (status === "in_progress") {
+                    if (now < matchEnd) {
+                        setStructured("Match in progress", fixture, true);
+                        return;
+                    }
+
                     clearTimers();
-                    loadNextFixture(true);
+                    loadRelevantFixture(true);
+                    return;
+                }
+
+                if (distance <= 0) {
+                    if (now < matchEnd) {
+                        setStructured("Match in progress", fixture, true);
+                        return;
+                    }
+
+                    clearTimers();
+                    loadRelevantFixture(true);
                     return;
                 }
 
@@ -140,11 +232,35 @@
                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-                if (days === 0 && hours === 0) {
-                    setCountdownText(0, 0, minutes);
-                } else {
-                    setCountdownText(days, hours, minutes);
+                if (distance < 2 * 60 * 60 * 1000) {
+                    var mins = Math.max(1, Math.ceil(distance / (1000 * 60)));
+                    setStructured("Starts in " + mins + "m", fixture, false);
+                    return;
                 }
+
+                var currentDate = new Date(now);
+                var sameDay =
+                    currentDate.getFullYear() === targetDate.getFullYear() &&
+                    currentDate.getMonth() === targetDate.getMonth() &&
+                    currentDate.getDate() === targetDate.getDate();
+
+                if (sameDay || distance < 24 * 60 * 60 * 1000) {
+                    var time = targetDate.toLocaleTimeString("en-GB", {
+                        hour: "numeric",
+                        minute: "2-digit"
+                    });
+
+                    setStructured("Today " + time, fixture, false);
+                    return;
+                }
+
+                setStructured(
+                    days + "d " +
+                    String(hours).padStart(2, "0") + "h " +
+                    String(minutes).padStart(2, "0") + "m",
+                    fixture,
+                    false
+                );
             }
 
             updateCountdown();
@@ -152,24 +268,118 @@
             scheduleRefresh(HCC.COUNTDOWN_REFRESH_MS || (5 * 60 * 1000));
         }
 
-        function loadNextFixture(forceRefresh) {
+        function loadRelevantFixture(forceRefresh) {
             HCC.loadClubData({ forceRefresh: !!forceRefresh }).then(function (data) {
-                var nextFixture = HCC.getNextFirstXIFixture(data.fixtures);
-                var nextFixtureDate = HCC.getFixtureDateTime(nextFixture);
+                var matchInfo = getCurrentOrNextFirstXIFixture(data.fixtures);
 
-                if (!nextFixture || !nextFixtureDate) {
+                if (!matchInfo || !matchInfo.date) {
                     setFallback("No upcoming 1st XI fixture");
                     return;
                 }
 
-                startCountdown(nextFixtureDate);
+                startCountdown(matchInfo.date, matchInfo.fixture, matchInfo.status);
             }).catch(function (err) {
                 console.warn("Homepage countdown failed:", err);
                 setFallback("Fixture update unavailable");
             });
         }
 
-        loadNextFixture(false);
+        loadRelevantFixture(false);
+    };
+
+    HCC.initHomepageMatchHero = function initHomepageMatchHero() {
+        var heroEl = document.getElementById("homeMatchHero");
+        if (!heroEl) return;
+
+        function escapeHtml(value) {
+            return HCC.escapeHtml(value || "");
+        }
+
+        function formatDateTime(date) {
+            if (!date) return "";
+            return date.toLocaleString("en-GB", {
+                weekday: "short",
+                day: "numeric",
+                month: "short",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+        }
+
+        function getFixtureStatusLabel(matchInfo) {
+            if (!matchInfo) return "Upcoming";
+            if (matchInfo.status === "in_progress") return "Live";
+            return "Upcoming";
+        }
+
+        function getFixtureTitle(fixture) {
+            if (!fixture) return "No fixture available";
+            return escapeHtml((fixture.home_club_name || "") + " v " + (fixture.away_club_name || ""));
+        }
+
+        function getFixtureMeta(fixture, date) {
+            var parts = [];
+            if (fixture && fixture.competition_name) parts.push(escapeHtml(fixture.competition_name));
+            if (date) parts.push(escapeHtml(formatDateTime(date)));
+            if (fixture && fixture.ground_name) parts.push(escapeHtml(fixture.ground_name));
+            return parts.join(" · ");
+        }
+
+        function getLiveScoreText(data, fixture) {
+            if (data && data.latestResult && data.latestResult.result_summary) {
+                return escapeHtml(data.latestResult.result_summary);
+            }
+            if (fixture && fixture.result_summary) {
+                return escapeHtml(fixture.result_summary);
+            }
+            if (fixture && fixture.status_text) {
+                return escapeHtml(fixture.status_text);
+            }
+            return "";
+        }
+
+        function renderHero(matchInfo, data) {
+            var fixture = matchInfo ? matchInfo.fixture : null;
+            var date = matchInfo ? matchInfo.date : null;
+            var status = getFixtureStatusLabel(matchInfo);
+            var statusClass = matchInfo && matchInfo.status === "in_progress" ? "match-hero-status live" : "match-hero-status";
+            var scoreText = matchInfo && matchInfo.status === "in_progress"
+                ? getLiveScoreText(data, fixture) || "Live score available in widget below"
+                : "Next fixture";
+
+            var scorecardUrl = fixture && fixture.match_url ? fixture.match_url : "https://honleycc.play-cricket.com/Matches";
+            var fixturesUrl = "https://honleycc.play-cricket.com/Matches?tab=Fixture";
+
+            heroEl.innerHTML =
+                '<div class="match-hero-top">' +
+                    '<span class="' + statusClass + '">' + escapeHtml(status) + '</span>' +
+                    '<span class="match-hero-competition">' +
+                        (fixture && fixture.competition_name ? escapeHtml(fixture.competition_name) : "") +
+                    '</span>' +
+                '</div>' +
+                '<h3 class="match-hero-title">' + getFixtureTitle(fixture) + '</h3>' +
+                '<p class="match-hero-score">' + scoreText + '</p>' +
+                '<p class="match-hero-meta">' + getFixtureMeta(fixture, date) + '</p>' +
+                '<div class="match-hero-actions">' +
+                    '<a class="btn btn-primary" href="' + scorecardUrl + '" target="_blank" rel="noopener">Match centre</a>' +
+                    '<a class="btn btn-primary" href="' + fixturesUrl + '" target="_blank" rel="noopener">Fixtures list</a>' +
+                '</div>';
+        }
+
+        HCC.loadClubData({ forceRefresh: false }).then(function (data) {
+            var matchInfo = HCC.getCurrentOrNextFirstXIFixture
+                ? HCC.getCurrentOrNextFirstXIFixture(data.fixtures)
+                : null;
+
+            if (!matchInfo) {
+                heroEl.innerHTML = '<p class="muted">No upcoming senior fixture found.</p>';
+                return;
+            }
+
+            renderHero(matchInfo, data);
+        }).catch(function () {
+            heroEl.innerHTML = '<p class="muted">Unable to load match centre right now.</p>';
+        });
     };
 
     function bootHome() {
@@ -178,6 +388,7 @@
         HCC.initHomeTicker();
         HCC.initLivestreamEmbed();
         HCC.initHomepageCountdown();
+        HCC.initHomepageMatchHero();
     }
 
     if (document.readyState === "loading") {
