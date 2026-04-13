@@ -1,7 +1,7 @@
 (function (window, document) {
     "use strict";
 
-    var HCC = window.HCC;
+    var HCC = window.HCC || {};
 
     HCC.initPlayCricketWidget = function initPlayCricketWidget() {
         var widgetLink = document.querySelector("a.lsw");
@@ -68,10 +68,14 @@
             });
     };
 
+    function escapeHtml(value) {
+        return HCC.escapeHtml ? HCC.escapeHtml(value || "") : String(value || "");
+    }
+
     function getMatchDurationMs(fixture) {
         var comp = (fixture && fixture.competition_name ? fixture.competition_name : "").toLowerCase();
 
-        if (comp.includes("t20") || comp.includes("twenty20")) {
+        if (comp.indexOf("t20") !== -1 || comp.indexOf("twenty20") !== -1) {
             return 3 * 60 * 60 * 1000;
         }
 
@@ -91,12 +95,48 @@
         };
     }
 
-    function getCurrentOrNextFirstXIFixture(fixtures) {
-        var now = new Date().getTime();
+    function getFixtureUrl(fixture) {
+        return (fixture && (fixture.match_url || fixture.scorecard_url || fixture.url)) ||
+            "https://honleycc.play-cricket.com/Matches";
+    }
 
-        var firstXIFixtures = (fixtures || [])
+    function formatDateTime(date) {
+        if (!date) return "";
+        return date.toLocaleString("en-GB", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+    }
+
+    function formatDateOnly(date) {
+        if (!date) return "";
+        return date.toLocaleDateString("en-GB", {
+            weekday: "short",
+            day: "numeric",
+            month: "short"
+        });
+    }
+
+    function getTeamFixtures(fixtures, teamLabels) {
+        var labels = Array.isArray(teamLabels) ? teamLabels : [teamLabels];
+
+        return (fixtures || [])
             .filter(function (item) {
-                return HCC.getHonleyTeamLabel(item) === "1st XI";
+                var label = HCC.getHonleyTeamLabel(item);
+                var competition = (item.competition_name || "").toLowerCase();
+
+                if (HCC.teamLabelMatches && HCC.teamLabelMatches(label, labels)) {
+                    return true;
+                }
+
+                if (labels.indexOf("Sunday XI") !== -1) {
+                    return label === "Sunday Section" || competition.indexOf("sunday") !== -1;
+                }
+
+                return false;
             })
             .map(function (item) {
                 return {
@@ -110,9 +150,14 @@
             .sort(function (a, b) {
                 return a.date.getTime() - b.date.getTime();
             });
+    }
 
-        for (var i = 0; i < firstXIFixtures.length; i++) {
-            var fixtureObj = firstXIFixtures[i];
+    function getCurrentOrNextTeamFixture(fixtures, teamLabels) {
+        var now = new Date().getTime();
+        var teamFixtures = getTeamFixtures(fixtures, teamLabels);
+
+        for (var i = 0; i < teamFixtures.length; i++) {
+            var fixtureObj = teamFixtures[i];
             var start = fixtureObj.date.getTime();
             var matchDurationMs = getMatchDurationMs(fixtureObj.fixture);
             var end = start + matchDurationMs;
@@ -137,7 +182,42 @@
         return null;
     }
 
+    function getNextUpcomingTeamFixture(fixtures, teamLabels, afterFixture) {
+        var teamFixtures = getTeamFixtures(fixtures, teamLabels);
+
+        if (!afterFixture) {
+            return teamFixtures.length ? teamFixtures[0] : null;
+        }
+
+        var afterId = afterFixture.id || afterFixture.fixture_id || afterFixture.match_url || null;
+        var foundCurrent = false;
+
+        for (var i = 0; i < teamFixtures.length; i++) {
+            var item = teamFixtures[i];
+            var itemId = item.fixture.id || item.fixture.fixture_id || item.fixture.match_url || null;
+
+            if (foundCurrent) {
+                return item;
+            }
+
+            if (afterId && itemId && afterId === itemId) {
+                foundCurrent = true;
+            }
+        }
+
+        return null;
+    }
+
+    function getCurrentOrNextFirstXIFixture(fixtures) {
+        return getCurrentOrNextTeamFixture(fixtures, "1st XI");
+    }
+
+    function getNextUpcomingFirstXIFixture(fixtures, afterFixture) {
+        return getNextUpcomingTeamFixture(fixtures, "1st XI", afterFixture);
+    }
+
     HCC.getCurrentOrNextFirstXIFixture = getCurrentOrNextFirstXIFixture;
+    HCC.getNextUpcomingFirstXIFixture = getNextUpcomingFirstXIFixture;
 
     HCC.initHomepageCountdown = function initHomepageCountdown() {
         var badgeTextEl = document.querySelector(".countdown-badge-text");
@@ -162,7 +242,7 @@
         }
 
         function setSimpleMessage(message) {
-            setBadgeHtml(HCC.escapeHtml(message));
+            setBadgeHtml(escapeHtml(message));
         }
 
         function setFallback(message) {
@@ -185,10 +265,10 @@
                 (ctx.venueIcon || "") +
                 '</span>' +
                 '<span class="countdown-main' + statusClass + '">' +
-                HCC.escapeHtml(text) +
+                escapeHtml(text) +
                 '</span>' +
                 (ctx.opponent
-                    ? '<span class="countdown-opponent"> v ' + HCC.escapeHtml(ctx.opponent) + '</span>'
+                    ? '<span class="countdown-opponent"> v ' + escapeHtml(ctx.opponent) + '</span>'
                     : '')
             );
         }
@@ -291,25 +371,10 @@
         var heroEl = document.getElementById("homeMatchHero");
         if (!heroEl) return;
 
-        function escapeHtml(value) {
-            return HCC.escapeHtml(value || "");
-        }
-
-        function formatDateTime(date) {
-            if (!date) return "";
-            return date.toLocaleString("en-GB", {
-                weekday: "short",
-                day: "numeric",
-                month: "short",
-                hour: "2-digit",
-                minute: "2-digit"
-            });
-        }
-
         function getFixtureStatusLabel(matchInfo) {
-            if (!matchInfo) return "Upcoming";
+            if (!matchInfo) return "Featured";
             if (matchInfo.status === "in_progress") return "Live";
-            return "Upcoming";
+            return "Upcoming ";
         }
 
         function getFixtureTitle(fixture) {
@@ -325,17 +390,9 @@
             return parts.join(" · ");
         }
 
-        function getLiveScoreText(data, fixture) {
-            if (data && data.latestResult && data.latestResult.result_summary) {
-                return escapeHtml(data.latestResult.result_summary);
-            }
-            if (fixture && fixture.result_summary) {
-                return escapeHtml(fixture.result_summary);
-            }
-            if (fixture && fixture.status_text) {
-                return escapeHtml(fixture.status_text);
-            }
-            return "";
+        function getLiveScoreText(data) {
+            var latestFirstXIResult = HCC.getLatestResultForTeamLabel(data.results, "1st XI");
+            return latestFirstXIResult ? HCC.getResultText(latestFirstXIResult) : "";
         }
 
         function renderHero(matchInfo, data) {
@@ -344,32 +401,30 @@
             var status = getFixtureStatusLabel(matchInfo);
             var statusClass = matchInfo && matchInfo.status === "in_progress" ? "match-hero-status live" : "match-hero-status";
             var scoreText = matchInfo && matchInfo.status === "in_progress"
-                ? getLiveScoreText(data, fixture) || "Live score available in widget below"
+                ? getLiveScoreText(data) || "Live score available in widget below"
                 : "Next fixture";
 
-            var scorecardUrl = fixture && fixture.match_url ? fixture.match_url : "https://honleycc.play-cricket.com/Matches";
+            var scorecardUrl = getFixtureUrl(fixture);
             var fixturesUrl = "https://honleycc.play-cricket.com/Matches?tab=Fixture";
 
             heroEl.innerHTML =
                 '<div class="match-hero-top">' +
-                    '<span class="' + statusClass + '">' + escapeHtml(status) + '</span>' +
-                    '<span class="match-hero-competition">' +
-                        (fixture && fixture.competition_name ? escapeHtml(fixture.competition_name) : "") +
-                    '</span>' +
+                '<span class="' + statusClass + '">' + escapeHtml(status) + '</span>' +
+                '<span class="match-hero-competition">' +
+                (fixture && fixture.competition_name ? escapeHtml(fixture.competition_name) : "") +
+                '</span>' +
                 '</div>' +
                 '<h3 class="match-hero-title">' + getFixtureTitle(fixture) + '</h3>' +
                 '<p class="match-hero-score">' + scoreText + '</p>' +
                 '<p class="match-hero-meta">' + getFixtureMeta(fixture, date) + '</p>' +
                 '<div class="match-hero-actions">' +
-                    '<a class="btn btn-primary" href="' + scorecardUrl + '" target="_blank" rel="noopener">Match centre</a>' +
-                    '<a class="btn btn-primary" href="' + fixturesUrl + '" target="_blank" rel="noopener">Fixtures list</a>' +
+                '<a class="btn btn-primary" href="' + getFixtureUrl(fixture) + '" target="_blank" rel="noopener">Match centre</a>' +
+                '<a class="btn btn-primary" href="' + fixturesUrl + '" target="_blank" rel="noopener">Fixtures list</a>' +
                 '</div>';
         }
 
         HCC.loadClubData({ forceRefresh: false }).then(function (data) {
-            var matchInfo = HCC.getCurrentOrNextFirstXIFixture
-                ? HCC.getCurrentOrNextFirstXIFixture(data.fixtures)
-                : null;
+            var matchInfo = getCurrentOrNextFirstXIFixture(data.fixtures);
 
             if (!matchInfo) {
                 heroEl.innerHTML = '<p class="muted">No upcoming senior fixture found.</p>';
@@ -382,10 +437,123 @@
         });
     };
 
+    HCC.initHomepageMatchSummary = function initHomepageMatchSummary() {
+        var latestResultEl = document.getElementById("latestMatchResult");
+        var secondXINextEl = document.getElementById("secondXINextMatch");
+        var sundayXINextEl = document.getElementById("sundayXINextMatch");
+        var womensNextEl = document.getElementById("womensNextMatch");
+
+        if (!latestResultEl && !secondXINextEl && !sundayXINextEl && !womensNextEl) return;
+
+        function renderMatchCard(targetEl, matchObj, emptyText, buttonLabel) {
+            if (!targetEl) return;
+
+            if (!matchObj || !matchObj.fixture) {
+                targetEl.innerHTML = '<p class="muted">' + escapeHtml(emptyText) + '</p>';
+                return;
+            }
+
+            var fixture = matchObj.fixture;
+            var url = getFixtureUrl(fixture);
+
+            targetEl.innerHTML =
+                '<h3 class="match-card-title">' + escapeHtml((fixture.home_club_name || "") + ' v ' + (fixture.away_club_name || "")) + '</h3>' +
+                '<p class="match-card-meta">' + escapeHtml(formatDateOnly(matchObj.date)) + '</p>' +
+                '<p class="match-card-meta">' +
+                escapeHtml((fixture.competition_name || fixture.league_name || fixture.competition_type || "")) +
+                (fixture.ground_name ? ' · ' + escapeHtml(fixture.ground_name) : '') +
+                '</p>' +
+                '<p class="match-card-actions">' +
+                '<a class="btn btn-primary" href="' + url + '" target="_blank" rel="noopener">' + escapeHtml(buttonLabel || "Match centre") + '</a>' +
+                '</p>';
+        }
+
+        function renderLatestResult(data) {
+            if (!latestResultEl) return;
+
+            var latest = HCC.getLatestResultForTeamLabel(data.results, "1st XI");
+
+            if (!latest) {
+                latestResultEl.innerHTML = '<p class="muted">No recent result available.</p>';
+                return;
+            }
+
+            latestResultEl.innerHTML = HCC.renderResultCard(latest, {
+                title: HCC.getMatchTitle(latest, "Latest result"),
+                link: latest.match_url || latest.url || "https://honleycc.play-cricket.com/Matches?tab=Result",
+                buttonText: "Scorecard"
+            });
+        }
+
+        HCC.loadClubData({ forceRefresh: false }).then(function (data) {
+            renderLatestResult(data);
+
+            renderMatchCard(secondXINextEl, getCurrentOrNextTeamFixture(data.fixtures, "2nd XI"), "No upcoming 2nd XI fixture available.", "Match centre");
+            renderMatchCard(sundayXINextEl, getCurrentOrNextTeamFixture(data.fixtures, ["Sunday XI", "Sunday Section"]), "No upcoming Sunday XI fixture available.", "Match centre");
+            renderMatchCard(womensNextEl, getCurrentOrNextTeamFixture(data.fixtures, ["Womens 1st XI", "Women's 1st XI", "Womens XI", "Women", "Hawks", "Hawks Women"]), "No upcoming women’s fixture available.", "Match centre");
+        }).catch(function (err) {
+            console.warn("Homepage match summary failed:", err);
+            if (latestResultEl) latestResultEl.innerHTML = '<p class="muted">Result summary unavailable.</p>';
+            if (secondXINextEl) secondXINextEl.innerHTML = '<p class="muted">2nd XI unavailable.</p>';
+            if (sundayXINextEl) sundayXINextEl.innerHTML = '<p class="muted">Sunday XI unavailable.</p>';
+            if (womensNextEl) womensNextEl.innerHTML = '<p class="muted">Women’s fixture unavailable.</p>';
+        });
+    };
+
+
+    HCC.initHomeTicker = function initHomeTicker() {
+        var trackEl = document.getElementById("heroTickerTrack");
+        if (!trackEl || typeof HCC.loadClubData !== "function") return;
+
+        Promise.all([
+            HCC.loadClubData({ forceRefresh: false }),
+            typeof HCC.loadNewsItems === "function" ? HCC.loadNewsItems() : Promise.resolve([])
+        ]).then(function (responses) {
+            var data = responses[0];
+            var newsItems = responses[1] || [];
+            var items = [];
+
+            var nextFirstXI = HCC.getNextFixtureForTeamLabel(data.fixtures, "1st XI");
+            var latestResult = HCC.getLatestResultForTeamLabel(data.results, "1st XI");
+            var nextSecondXI = HCC.getNextFixtureForTeamLabel(data.fixtures, "2nd XI");
+
+            if (nextFirstXI) {
+                items.push({
+                    icon: "bi-calendar-event-fill",
+                    text: "1st XI next: " + HCC.getMatchTitle(nextFirstXI) + " — " + HCC.formatDate(nextFirstXI.match_date || nextFirstXI.date)
+                });
+            }
+
+            if (latestResult) {
+                items.push({
+                    icon: "bi-trophy-fill",
+                    text: "Latest result: " + HCC.getResultText(latestResult)
+                });
+            }
+
+            if (nextSecondXI) {
+                items.push({
+                    icon: "bi-shield-fill",
+                    text: "2nd XI next: " + HCC.getMatchTitle(nextSecondXI) + " — " + HCC.formatDate(nextSecondXI.match_date || nextSecondXI.date)
+                });
+            }
+
+            items = (Array.isArray(newsItems) ? newsItems : []).concat(items);
+
+            HCC.renderTicker(trackEl, items, "Loading fixtures, results and news...");
+        }).catch(function () {
+            HCC.renderTicker(trackEl, [], "Unable to load fixtures, results and news.");
+        });
+    };
+
     function bootHome() {
         HCC.initPlayCricketWidget();
-        HCC.initHomepageMatchSummary();
-        HCC.initHomeTicker();
+        if (typeof HCC.initHomepageMatchSummary === "function") {
+            HCC.initHomepageMatchSummary();
+        }
+        if (typeof HCC.initHomeTicker === "function") {
+            HCC.initHomeTicker();
+        }
         HCC.initLivestreamEmbed();
         HCC.initHomepageCountdown();
         HCC.initHomepageMatchHero();
