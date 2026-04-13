@@ -127,6 +127,7 @@
     color: #fff;
 }
 
+/* Countdown structured styling */
 .countdown-prefix {
     margin-right: 6px;
     font-size: 0.9rem;
@@ -142,6 +143,7 @@
     opacity: 0.9;
 }
 
+/* LIVE styling */
 .countdown-live {
     color: #ff4d4d;
     font-weight: 800;
@@ -574,6 +576,31 @@
     color: var(--hcc-green-dark);
 }
 
+@media (max-width: 767.98px) {
+    .section-tag-crest {
+        gap: 8px;
+        padding: 5px 12px 5px 5px;
+    }
+    
+    .section-tag-crest-icon {
+        width: 34px;
+        height: 34px;
+    }
+    
+    .section-tag-crest-icon img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .section-tag-crest-label {
+        font-size: 0.62rem;
+    }
+    
+    .section-tag-crest-year {
+        font-size: 0.92rem;
+    }
+}
+
 .card-title {
     margin-top: 0;
     margin-bottom: 10px;
@@ -677,7 +704,7 @@
 .live-scores-section .feature-card {
     position: relative;
     overflow: hidden;
-    padding: 26px;
+    padding: 24px;
     border: 1px solid var(--hcc-border);
     border-radius: var(--hcc-radius-lg);
     background: #fff;
@@ -685,19 +712,12 @@
 }
 
 .live-scores-section .section-tag {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 
-.live-scores-header {
-    border-bottom: 1px solid var(--hcc-border);
-    padding-bottom: 14px;
-    margin-bottom: 18px;
-}
-
-/* Hero match card */
 .match-hero-card {
-    margin-bottom: 22px;
-    padding: 22px 24px;
+    margin-bottom: 18px;
+    padding: 18px 20px;
     border: 1px solid var(--hcc-border);
     border-radius: 16px;
     background: linear-gradient(135deg, #f8fbf9, #ffffff);
@@ -708,9 +728,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 12px;
     flex-wrap: wrap;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .match-hero-status {
@@ -750,28 +770,28 @@
 }
 
 .match-hero-title {
-    margin: 0 0 10px;
-    font-size: 30px;
+    margin: 0 0 8px;
+    font-size: 26px;
     line-height: 1.15;
     color: var(--hcc-green-dark);
 }
 
 .match-hero-score {
-    margin: 0 0 10px;
-    font-size: 24px;
-    line-height: 1.2;
-    font-weight: 800;
+    margin: 0 0 8px;
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 700;
     color: var(--hcc-text);
 }
 
 .match-hero-meta {
     margin: 0;
     color: var(--hcc-muted);
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .match-hero-actions {
-    margin-top: 16px;
+    margin-top: 14px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -781,24 +801,26 @@
     margin: 0;
 }
 
-/* Supporting cards */
-.match-support-grid {
+.match-summary-grid,
+.match-support-grid,
+.senior-other-teams-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px;
-    margin-bottom: 22px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 18px;
 }
 
 .match-centre-panel.compact-card {
-    min-height: 260px;
-    height: 100%;
+    min-height: 0;
+    margin-bottom: 0;
+    padding: 18px;
     display: flex;
     flex-direction: column;
 }
 
 .match-card-title {
-    margin: 0 0 10px;
-    font-size: 17px;
+    margin: 0 0 8px;
+    font-size: 16px;
     line-height: 1.35;
     color: var(--hcc-text);
 }
@@ -814,45 +836,46 @@
 }
 
 .match-card-meta {
-    margin: 0 0 8px;
+    margin: 0 0 6px;
     color: var(--hcc-muted);
-    line-height: 1.55;
+    line-height: 1.45;
+    font-size: 15px;
 }
 
 .match-card-actions {
     margin-top: auto;
-    padding-top: 8px;
+    padding-top: 10px;
 }
 
 .match-card-actions .btn {
-    margin: 0 8px 0 0;
+    margin: 0;
 }
 
-/* Embedded live widget */
 .match-live-widget-wrap {
-    margin-bottom: 18px;
-    padding: 18px;
+    margin-bottom: 16px;
+    padding: 16px 18px;
     border: 1px solid var(--hcc-border);
     border-radius: 16px;
     background: #fbfcfb;
 }
 
 .match-live-widget-wrap .section-tag {
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 
 .live-scores-widget {
-    min-height: 140px;
+    min-height: 120px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     width: 100%;
+    padding-top: 0;
 }
 
 .live-scores-fallback {
     margin: 0;
     font-size: 15px;
-    line-height: 1.55;
+    line-height: 1.5;
     color: var(--hcc-muted);
 }
 
@@ -869,66 +892,23 @@
 
 #lsw_container_home {
     width: 100%;
-    min-height: 120px;
+    min-height: 110px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
 
-/* Footer actions */
 .match-centre-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 18px;
+    margin-top: 16px;
     margin-bottom: 0;
 }
 
 .match-centre-actions .btn {
     margin: 0;
 }
-
-@media (max-width: 991.98px) {
-    .match-support-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .match-hero-title {
-        font-size: 24px;
-    }
-
-    .match-hero-score {
-        font-size: 21px;
-    }
-
-    .match-centre-panel.compact-card {
-        min-height: auto;
-    }
-
-    .live-scores-widget,
-    #lsw_container_home {
-        min-height: 120px;
-    }
-}
-
-@media (max-width: 767.98px) {
-    .match-hero-card {
-        padding: 18px;
-    }
-
-    .match-hero-title {
-        font-size: 22px;
-    }
-
-    .match-hero-score {
-        font-size: 19px;
-    }
-
-    .match-live-widget-wrap {
-        padding: 16px;
-    }
-}
-
 
 /* Embeds / map / feed */
 .embed-wrap {
@@ -1609,52 +1589,26 @@
         min-height: 460px;
     }
     
-    .live-scores-section .match-summary-row {
+    .match-summary-grid,
+    .match-support-grid,
+    .senior-other-teams-grid {
         grid-template-columns: 1fr;
-        gap: 18px;
     }
     
-    .live-scores-section .compact-card {
+    .match-hero-title {
+        font-size: 22px;
+    }
+    
+    .match-hero-score {
+        font-size: 17px;
+    }
+    
+    .match-centre-panel.compact-card {
         min-height: auto;
-    }
-    
-    .live-scores-widget,
-    #lsw_container_home {
-        min-height: 120px;
-    }
-    
-    #lsw_container_home .lsw_widget,
-    #lsw_container_home .lsw_fixture,
-    #lsw_container_home .lsw_match,
-    #lsw_container_home .lsw_tile {
-        max-width: 100%;
     }
 }
 
 @media (max-width: 767.98px) {
-    .section-tag-crest {
-        gap: 8px;
-        padding: 5px 12px 5px 5px;
-    }
-    
-    .section-tag-crest-icon {
-        width: 34px;
-        height: 34px;
-    }
-    
-    .section-tag-crest-icon img {
-        width: 24px;
-        height: 24px;
-    }
-    
-    .section-tag-crest-label {
-        font-size: 0.62rem;
-    }
-    
-    .section-tag-crest-year {
-        font-size: 0.92rem;
-    }
-    
     .hero-home,
     .hero-overlay {
         min-height: auto;
@@ -1750,7 +1704,7 @@
     }
     
     .live-scores-section .feature-card {
-        padding: 20px;
+        padding: 18px;
     }
     
     .live-scores-widget {
