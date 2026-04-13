@@ -47,21 +47,19 @@
                         Follow us
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li class="nav-item"><a class="dropdown-item" href="https://www.facebook.com/honleycc/"
-                                                rel="noopener"
-                                                target="_blank"><i class="bi bi-facebook"></i> </a></li>
-                        <li class="nav-item"><a class="dropdown-item"
-                                                href="https://www.instagram.com/honleycricketclub/" rel="noopener"
-                                                target="_blank"><i class="bi bi-instagram"></i> </a></li>
-                        <li class="nav-item"><a class="dropdown-item" href="https://www.youtube.com/@honleycc6945"
-                                                rel="noopener"
-                                                target="_blank"><i class="bi bi-youtube"></i> </a></li>
+                        <li><a class="dropdown-item" href="https://www.facebook.com/honleycc/" rel="noopener"
+                               target="_blank"><i class="bi bi-facebook"></i> Facebook</a></li>
+                        <li><a class="dropdown-item" href="https://www.instagram.com/honleycricketclub/" rel="noopener"
+                               target="_blank"><i class="bi bi-instagram"></i> Instagram</a></li>
+                        <li><a class="dropdown-item" href="https://www.youtube.com/@honleycc6945" rel="noopener"
+                               target="_blank"><i class="bi bi-youtube"></i> YouTube</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
 <header class="hero-home">
     <div class="hero-overlay">
         <div class="container hero-content">
@@ -84,7 +82,6 @@
                 </p>
             </div>
 
-            <!--div class="hero-actions-row d-flex flex-column flex-sm-row gap-4"-->
             <div class="hero-actions hero-actions-with-countdown">
                 <div class="hero-actions-left">
                     <a class="btn btn-primary" href="#latest-events">Events &amp; venue hire</a>
@@ -94,11 +91,11 @@
                 <div aria-live="polite" class="match-countdown-badge">
                     <span class="countdown-badge-label">1st XI</span>
                     <span class="countdown-badge-text">
-                            Next match in
-                            <strong id="countdown-inline-days">0d</strong>
-                            <strong id="countdown-inline-hours">00h</strong>
-                            <strong id="countdown-inline-minutes">00m</strong>
-                        </span>
+                        Next match in
+                        <strong id="countdown-inline-days">0d</strong>
+                        <strong id="countdown-inline-hours">00h</strong>
+                        <strong id="countdown-inline-minutes">00m</strong>
+                    </span>
                 </div>
             </div>
 
@@ -155,6 +152,7 @@
             </div>
         </div>
     </section>
+
     <section class="section-pad live-scores-section">
         <div class="container">
             <section aria-labelledby="live-scores-heading" class="content-card feature-card header-feed-card">
@@ -171,17 +169,7 @@
                     <p class="muted">Loading match centre…</p>
                 </div>
 
-                <div class="match-support-grid">
-                    <section class="content-card compact-card match-centre-panel">
-                        <div class="section-tag">
-                            <i aria-hidden="true" class="bi bi-calendar-event-fill"></i>
-                            <span>Next match</span>
-                        </div>
-                        <div id="nextMatch">
-                            <p class="muted">Loading fixture…</p>
-                        </div>
-                    </section>
-
+                <div class="match-summary-grid">
                     <section class="content-card compact-card match-centre-panel">
                         <div class="section-tag">
                             <i aria-hidden="true" class="bi bi-trophy-fill"></i>
@@ -189,6 +177,36 @@
                         </div>
                         <div id="latestMatchResult">
                             <p class="muted">Loading result…</p>
+                        </div>
+                    </section>
+
+                    <section class="content-card compact-card match-centre-panel">
+                        <div class="section-tag">
+                            <i aria-hidden="true" class="bi bi-shield-fill"></i>
+                            <span>2nd XI</span>
+                        </div>
+                        <div id="secondXINextMatch">
+                            <p class="muted">Loading 2nd XI fixture…</p>
+                        </div>
+                    </section>
+
+                    <section class="content-card compact-card match-centre-panel">
+                        <div class="section-tag">
+                            <i aria-hidden="true" class="bi bi-sun-fill"></i>
+                            <span>Sunday XI</span>
+                        </div>
+                        <div id="sundayXINextMatch">
+                            <p class="muted">Loading Sunday XI fixture…</p>
+                        </div>
+                    </section>
+
+                    <section class="content-card compact-card match-centre-panel">
+                        <div class="section-tag">
+                            <i aria-hidden="true" class="bi bi-people-fill"></i>
+                            <span>Women's XI</span>
+                        </div>
+                        <div id="womensNextMatch">
+                            <p class="muted">Loading women’s fixture…</p>
                         </div>
                     </section>
                 </div>
@@ -278,6 +296,7 @@
                         </div>
                     </section>
                 </div>
+
                 <div class="col-md-6">
                     <section aria-labelledby="kit-heading" class="content-card feature-card">
                         <div class="section-tag">
@@ -288,36 +307,14 @@
                         <p class="card-intro">
                             Junior players need a Honley CC Juniors Cream Playing Shirt:
                             <a href="https://uk.paladin.sport/products/honley-cc-juniors-cream-playing-shirt-s-s-kids"
-                               rel="noopener" target="_blank">short sleaved</a>
+                               rel="noopener" target="_blank">short sleeved</a>
                             (£20) or
                             <a href="https://uk.paladin.sport/products/honley-cc-juniors-cream-playing-shirt-l-s-kids"
-                               rel="noopener" target="_blank">long sleaved</a>
-                            (£21.50). They will also need Honley CC Juniors Coloured Cricket
-                            <a href="https://uk.paladin.sport/products/honley-cc-juniors-coloured-cricket-pant-kids"
-                               rel="noopener" target="_blank">pants</a>
-                            (£24.50).
+                               rel="noopener" target="_blank">long sleeved</a>
+                            (£21.50).
                         </p>
-                        <p class="card-actions">
-                            <a class="btn btn-primary"
-                               href="https://uk.paladin.sport/collections/honley-cricket-club-juniors" rel="noopener"
-                               target="_blank">
-                                Order junior kit
-                            </a>
-                            <a class="btn btn-primary" href="https://uk.paladin.sport/collections/honley-cc-womens"
-                               rel="noopener" target="_blank">
-                                Order women's kit
-                            </a>
-                        </p>
-                        <div class="kit-logo-wrap">
-                            <a href="https://uk.paladin.sport/collections/honley-cricket-club-juniors" rel="noopener"
-                               target="_blank">
-                                <img alt="Paladin Sports" class="kit-logo" src="img/paladin_sports_logo.jpg"/>
-                            </a>
-                        </div>
-                        <hr/>
-                        <p class="muted">
-                            Do you have junior cricket kit or equipment that has been outgrown? Let the coaches
-                            know so it can be made available to new players.
+                        <p class="card-intro">
+                            Order junior and club kit directly from the club supplier.
                         </p>
                     </section>
                 </div>
@@ -325,27 +322,23 @@
         </div>
     </section>
 
-    <section aria-label="Latest events" class="section-pad" id="latest-events">
+    <section class="section-pad section-light" id="latest-events">
         <div class="container">
             <div class="row feature-row">
                 <div class="col-md-6">
-                    <section aria-labelledby="latest-events-heading" class="content-card feature-card">
+                    <section aria-labelledby="events-heading" class="content-card feature-card">
                         <div class="section-tag">
-                            <i aria-hidden="true" class="bi bi-buildings-fill"></i>
-                            <span>Events</span>
+                            <i aria-hidden="true" class="bi bi-calendar2-event-fill"></i>
+                            <span>Events &amp; venue hire</span>
                         </div>
-                        <h2 class="card-title" id="latest-events-heading">Hire the club</h2>
-                        <p class="card-intro">Our clubhouse is a great spacious venue to hire for special occasions,
-                            children’s parties and wakes.</p>
-                        <ul class="card-intro">
-                            <li>Fully licensed bar and can comfortably accommodate 100 people, but we ask for a minimium
-                                of 50 adults.</li>
-                            <li>Hire from September to March, cricket fixtures dominate from April to mid-September,
-                                therefore we are unable to take bookings through this period.</li>
-                            <li>General club Hire cost £150 with reduction for members, includes the bar staffed and use
-                                of the kitchen.</li>
-                            <li>Kids parties £100, again reduction for members.</li>
-                            <li>We don’t take bookings for ages 13th to 21st birthday’s.</li>
+                        <h2 class="card-title" id="events-heading">Club events and private hire</h2>
+                        <p class="card-intro">
+                            Honley Cricket Club is available for events, parties and community use.
+                        </p>
+                        <ul class="list-clean">
+                            <li>Private parties and celebrations</li>
+                            <li>Community events and meetings</li>
+                            <li>Matchday hospitality and club functions</li>
                         </ul>
                         <p class="muted">To make enquiries contact us via email.</p>
                         <a class="email-button"
@@ -397,6 +390,7 @@
         </div>
     </section>
 </main>
+
 <footer class="site-footer">
     <div class="container">
         <div class="row g-4">
@@ -435,7 +429,9 @@
         <i class="bi bi-arrow-up"></i>
     </button>
 </footer>
-<script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+
+<script crossorigin="anonymous"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/site-core.js"></script>
 <script src="js/play-cricket.js"></script>
