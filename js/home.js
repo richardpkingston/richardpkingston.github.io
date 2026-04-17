@@ -120,6 +120,16 @@
         });
     }
 
+    function startOfDay(date) {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    }
+
+    function getDayDifference(fromDate, toDate) {
+        var fromDay = startOfDay(fromDate);
+        var toDay = startOfDay(toDate);
+        return Math.round((toDay.getTime() - fromDay.getTime()) / (1000 * 60 * 60 * 24));
+    }
+
     function getTeamFixtures(fixtures, teamLabels) {
         var labels = Array.isArray(teamLabels) ? teamLabels : [teamLabels];
 
@@ -281,13 +291,14 @@
             clearTimers();
 
             function updateCountdown() {
-                var now = new Date().getTime();
+                var now = new Date();
+                var nowMs = now.getTime();
                 var matchDurationMs = getMatchDurationMs(fixture);
                 var matchEnd = targetDate.getTime() + matchDurationMs;
-                var distance = targetDate.getTime() - now;
+                var distance = targetDate.getTime() - nowMs;
 
                 if (status === "in_progress") {
-                    if (now < matchEnd) {
+                    if (nowMs < matchEnd) {
                         setStructured("Match in progress", fixture, true);
                         return;
                     }
@@ -298,7 +309,7 @@
                 }
 
                 if (distance <= 0) {
-                    if (now < matchEnd) {
+                    if (nowMs < matchEnd) {
                         setStructured("Match in progress", fixture, true);
                         return;
                     }
@@ -318,19 +329,19 @@
                     return;
                 }
 
-                var currentDate = new Date(now);
-                var sameDay =
-                    currentDate.getFullYear() === targetDate.getFullYear() &&
-                    currentDate.getMonth() === targetDate.getMonth() &&
-                    currentDate.getDate() === targetDate.getDate();
+                var dayDiff = getDayDifference(now, targetDate);
+                var time = targetDate.toLocaleTimeString("en-GB", {
+                    hour: "numeric",
+                    minute: "2-digit"
+                });
 
-                if (sameDay || distance < 24 * 60 * 60 * 1000) {
-                    var time = targetDate.toLocaleTimeString("en-GB", {
-                        hour: "numeric",
-                        minute: "2-digit"
-                    });
-
+                if (dayDiff === 0) {
                     setStructured("Today " + time, fixture, false);
+                    return;
+                }
+
+                if (dayDiff === 1) {
+                    setStructured("Tomorrow " + time, fixture, false);
                     return;
                 }
 
@@ -418,7 +429,7 @@
                 '<p class="match-hero-score">' + scoreText + '</p>' +
                 '<p class="match-hero-meta">' + getFixtureMeta(fixture, date) + '</p>' +
                 '<div class="match-hero-actions">' +
-                '<a class="btn btn-primary" href="' + getFixtureUrl(fixture) + '" target="_blank" rel="noopener">Match centre</a>' +
+                '<a class="btn btn-primary" href="' + scorecardUrl + '" target="_blank" rel="noopener">Match centre</a>' +
                 '<a class="btn btn-primary" href="' + fixturesUrl + '" target="_blank" rel="noopener">Fixtures list</a>' +
                 '</div>';
         }
@@ -499,7 +510,6 @@
             if (womensNextEl) womensNextEl.innerHTML = '<p class="muted">Women’s fixture unavailable.</p>';
         });
     };
-
 
     HCC.initHomeTicker = function initHomeTicker() {
         var trackEl = document.getElementById("heroTickerTrack");
