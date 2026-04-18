@@ -3,83 +3,16 @@
 
     var HCC = window.HCC || {};
 
-    HCC.initPlayCricketWidget = function initPlayCricketWidget() {
-        var widgetLink = document.querySelector("a.lsw");
-        if (!widgetLink) return;
-
-        var cssHref = "https://www.play-cricket.com/live_scorer.css";
-        var jsHref = "https://www.play-cricket.com/live_scorer.js";
-
-        var alreadyLoaded = Array.prototype.some.call(document.styleSheets, function (sheet) {
-            return sheet.href === cssHref;
-        });
-
-        if (!alreadyLoaded) {
-            var link = document.createElement("link");
-            link.rel = "stylesheet";
-            link.href = cssHref;
-            document.head.appendChild(link);
+    function byId(id) {
+        if (HCC.byId && typeof HCC.byId === "function") {
+            return HCC.byId(id);
         }
+        return document.getElementById(id);
+    }
 
-        if (!document.getElementById("lsw-wjs")) {
-            var js = document.createElement("script");
-            js.id = "lsw-wjs";
-            js.src = jsHref;
-            document.body.appendChild(js);
-        }
-    };
-
-    HCC.initLivestreamEmbed = function initLivestreamEmbed() {
-        var liveContainer = HCC.byId("live-container");
-        var API_KEY = "AIzaSyDolr65SXnr_7tp1EVQl3R7Yyr_fH0cCdM";
-        var CHANNEL_ID = "UCEY81pC3tG4_0OaV-svjkwA";
-
-        if (!liveContainer || !API_KEY || API_KEY === "YOUR_API_KEY") return;
-
-        var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" +
-            encodeURIComponent(CHANNEL_ID) +
-            "&eventType=live&type=video&maxResults=1&key=" +
-            encodeURIComponent(API_KEY);
-
-        fetch(url)
-            .then(function (res) {
-                if (!res.ok) throw new Error("YouTube API request failed: " + res.status);
-                return res.json();
-            })
-            .then(function (data) {
-                if (!data.items || !data.items.length || !data.items[0].id || !data.items[0].id.videoId) {
-                    return;
-                }
-
-                var videoId = data.items[0].id.videoId;
-
-                liveContainer.innerHTML =
-                    '<div class="live-embed">' +
-                    '  <div class="ratio ratio-16x9">' +
-                    '    <iframe ' +
-                    '      src="https://www.youtube.com/embed/' + videoId + '?rel=0" ' +
-                    '      title="Honley CC livestream" ' +
-                    '      loading="lazy" ' +
-                    '      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
-                    '      referrerpolicy="strict-origin-when-cross-origin" ' +
-                    '      allowfullscreen>' +
-                    '    </iframe>' +
-                    '  </div>' +
-                    '</div>';
-
-                if (window.location.hash === "#watch-live") {
-                    setTimeout(function () {
-                        var el = document.getElementById("watch-live");
-                        if (el) {
-                            el.scrollIntoView({ behavior: "smooth", block: "start" });
-                        }
-                    }, 300);
-                }
-            })
-            .catch(function (err) {
-                console.warn("Livestream check failed:", err);
-            });
-    };
+    function escapeHtml(value) {
+        return HCC.escapeHtml ? HCC.escapeHtml(value || "") : String(value || "");
+    }
 
     function getMatchDurationMs(fixture) {
         var comp = (fixture && fixture.competition_name ? fixture.competition_name : "").toLowerCase();
@@ -138,7 +71,6 @@
             return totalMinutes + "m";
         }
 
-        // ✅ Add leading zero to minutes
         var minsFormatted = String(minutes).padStart(2, "0");
 
         if (minutes === 0) {
@@ -256,6 +188,110 @@
 
     HCC.getCurrentOrNextFirstXIFixture = getCurrentOrNextFirstXIFixture;
     HCC.getNextUpcomingFirstXIFixture = getNextUpcomingFirstXIFixture;
+
+    HCC.initPlayCricketWidget = function initPlayCricketWidget() {
+        var widgetLink = document.querySelector("a.lsw");
+        if (!widgetLink) return;
+
+        var cssHref = "https://www.play-cricket.com/live_scorer.css";
+        var jsHref = "https://www.play-cricket.com/live_scorer.js";
+
+        var alreadyLoaded = Array.prototype.some.call(document.styleSheets, function (sheet) {
+            return sheet.href === cssHref;
+        });
+
+        if (!alreadyLoaded) {
+            var link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.href = cssHref;
+            document.head.appendChild(link);
+        }
+
+        if (!document.getElementById("lsw-wjs")) {
+            var js = document.createElement("script");
+            js.id = "lsw-wjs";
+            js.src = jsHref;
+            document.body.appendChild(js);
+        }
+    };
+
+    HCC.scrollToWatchLive = function scrollToWatchLive(delayMs) {
+        var delay = typeof delayMs === "number" ? delayMs : 300;
+        var section = document.getElementById("watch-live");
+
+        if (!section) return;
+
+        window.setTimeout(function () {
+            section.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }, delay);
+    };
+
+    HCC.initWatchLiveAnchorFix = function initWatchLiveAnchorFix() {
+        if (window.location.hash === "#watch-live") {
+            HCC.scrollToWatchLive(250);
+        }
+
+        document.addEventListener("click", function (e) {
+            var link = e.target.closest('a[href="#watch-live"], a[href="index.html#watch-live"], a[href$="#watch-live"]');
+            if (!link) return;
+
+            HCC.scrollToWatchLive(250);
+        });
+    };
+
+    HCC.initLivestreamEmbed = function initLivestreamEmbed() {
+        var liveContainer = byId("live-container");
+        var API_KEY = "AIzaSyDolr65SXnr_7tp1EVQl3R7Yyr_fH0cCdM";
+        var CHANNEL_ID = "UCEY81pC3tG4_0OaV-svjkwA";
+
+        if (!liveContainer || !API_KEY || API_KEY === "YOUR_API_KEY" || API_KEY === "PASTE_YOUR_REAL_API_KEY_HERE") {
+            return;
+        }
+
+        var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" +
+            encodeURIComponent(CHANNEL_ID) +
+            "&eventType=live&type=video&maxResults=1&key=" +
+            encodeURIComponent(API_KEY);
+
+        fetch(url)
+            .then(function (res) {
+                if (!res.ok) {
+                    throw new Error("YouTube API request failed: " + res.status);
+                }
+                return res.json();
+            })
+            .then(function (data) {
+                if (!data.items || !data.items.length || !data.items[0].id || !data.items[0].id.videoId) {
+                    return;
+                }
+
+                var videoId = data.items[0].id.videoId;
+
+                liveContainer.innerHTML =
+                    '<div class="live-embed">' +
+                    '    <div class="ratio ratio-16x9">' +
+                    '        <iframe ' +
+                    '            src="https://www.youtube.com/embed/' + videoId + '?rel=0" ' +
+                    '            title="Honley CC livestream" ' +
+                    '            loading="lazy" ' +
+                    '            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+                    '            referrerpolicy="strict-origin-when-cross-origin" ' +
+                    '            allowfullscreen>' +
+                    '        </iframe>' +
+                    '    </div>' +
+                    '</div>';
+
+                if (window.location.hash === "#watch-live") {
+                    HCC.scrollToWatchLive(350);
+                }
+            })
+            .catch(function (err) {
+                console.warn("Livestream check failed:", err);
+            });
+    };
 
     HCC.initHomepageCountdown = function initHomepageCountdown() {
         var badgeTextEl = document.querySelector(".countdown-badge-text");
@@ -387,7 +423,7 @@
         }
 
         function loadRelevantFixture(forceRefresh) {
-            HCC.loadClubData({forceRefresh: !!forceRefresh}).then(function (data) {
+            HCC.loadClubData({ forceRefresh: !!forceRefresh }).then(function (data) {
                 var matchInfo = getCurrentOrNextFirstXIFixture(data.fixtures);
 
                 if (!matchInfo || !matchInfo.date) {
@@ -412,7 +448,7 @@
         function getFixtureStatusLabel(matchInfo) {
             if (!matchInfo) return "Featured";
             if (matchInfo.status === "in_progress") return "Live";
-            return "Upcoming ";
+            return "Upcoming";
         }
 
         function getFixtureTitle(fixture) {
@@ -461,7 +497,7 @@
                 '</div>';
         }
 
-        HCC.loadClubData({forceRefresh: false}).then(function (data) {
+        HCC.loadClubData({ forceRefresh: false }).then(function (data) {
             var matchInfo = getCurrentOrNextFirstXIFixture(data.fixtures);
 
             if (!matchInfo) {
@@ -523,12 +559,29 @@
             });
         }
 
-        HCC.loadClubData({forceRefresh: false}).then(function (data) {
+        HCC.loadClubData({ forceRefresh: false }).then(function (data) {
             renderLatestResult(data);
 
-            renderMatchCard(secondXINextEl, getCurrentOrNextTeamFixture(data.fixtures, "2nd XI"), "No upcoming 2nd XI fixture available.", "Match centre");
-            renderMatchCard(sundayXINextEl, getCurrentOrNextTeamFixture(data.fixtures, ["Sunday XI", "Sunday Section"]), "No upcoming Sunday XI fixture available.", "Match centre");
-            renderMatchCard(womensNextEl, getCurrentOrNextTeamFixture(data.fixtures, ["Womens 1st XI", "Women's 1st XI", "Womens XI", "Women", "Hawks", "Hawks Women"]), "No upcoming women’s fixture available.", "Match centre");
+            renderMatchCard(
+                secondXINextEl,
+                getCurrentOrNextTeamFixture(data.fixtures, "2nd XI"),
+                "No upcoming 2nd XI fixture available.",
+                "Match centre"
+            );
+
+            renderMatchCard(
+                sundayXINextEl,
+                getCurrentOrNextTeamFixture(data.fixtures, ["Sunday XI", "Sunday Section"]),
+                "No upcoming Sunday XI fixture available.",
+                "Match centre"
+            );
+
+            renderMatchCard(
+                womensNextEl,
+                getCurrentOrNextTeamFixture(data.fixtures, ["Womens 1st XI", "Women's 1st XI", "Womens XI", "Women", "Hawks", "Hawks Women"]),
+                "No upcoming women’s fixture available.",
+                "Match centre"
+            );
         }).catch(function (err) {
             console.warn("Homepage match summary failed:", err);
             if (latestResultEl) latestResultEl.innerHTML = '<p class="muted">Result summary unavailable.</p>';
@@ -543,7 +596,7 @@
         if (!trackEl || typeof HCC.loadClubData !== "function") return;
 
         Promise.all([
-            HCC.loadClubData({forceRefresh: false}),
+            HCC.loadClubData({ forceRefresh: false }),
             typeof HCC.loadNewsItems === "function" ? HCC.loadNewsItems() : Promise.resolve([])
         ]).then(function (responses) {
             var data = responses[0];
@@ -585,15 +638,30 @@
 
     function bootHome() {
         HCC.initPlayCricketWidget();
+
         if (typeof HCC.initHomepageMatchSummary === "function") {
             HCC.initHomepageMatchSummary();
         }
+
         if (typeof HCC.initHomeTicker === "function") {
             HCC.initHomeTicker();
         }
-        HCC.initLivestreamEmbed();
-        HCC.initHomepageCountdown();
-        HCC.initHomepageMatchHero();
+
+        if (typeof HCC.initWatchLiveAnchorFix === "function") {
+            HCC.initWatchLiveAnchorFix();
+        }
+
+        if (typeof HCC.initLivestreamEmbed === "function") {
+            HCC.initLivestreamEmbed();
+        }
+
+        if (typeof HCC.initHomepageCountdown === "function") {
+            HCC.initHomepageCountdown();
+        }
+
+        if (typeof HCC.initHomepageMatchHero === "function") {
+            HCC.initHomepageMatchHero();
+        }
     }
 
     if (document.readyState === "loading") {
@@ -601,4 +669,6 @@
     } else {
         bootHome();
     }
+
+    window.HCC = HCC;
 })(window, document);
