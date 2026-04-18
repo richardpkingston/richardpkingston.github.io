@@ -2,66 +2,86 @@
     "use strict";
 
     var HCC = window.HCC;
+    if (!HCC) return;
 
     HCC.initMembershipPage = function initMembershipPage() {
         var buttons = Array.prototype.slice.call(document.querySelectorAll(".membership-type-button"));
         var accordion = HCC.byId("accordion");
+        var navbar = document.querySelector(".site-nav");
 
         if (!buttons.length || !accordion || !window.bootstrap) return;
 
+        function getScrollOffset() {
+            var navHeight = navbar ? navbar.offsetHeight : 0;
+            return navHeight + 20;
+        }
+
         function setActiveButton(targetId) {
             buttons.forEach(function (button) {
-                button.classList.toggle("active", button.getAttribute("href") === "#" + targetId);
+                var href = button.getAttribute("href") || "";
+                button.classList.toggle("active", href === "#" + targetId);
+            });
+        }
+
+        function clearActiveButtons() {
+            buttons.forEach(function (button) {
+                button.classList.remove("active");
             });
         }
 
         function scrollToGroup(targetId) {
             var target = HCC.byId(targetId);
             if (!target) return;
-            window.scrollTo({
-                top: target.getBoundingClientRect().top + window.pageYOffset - 110,
-                behavior: "smooth"
-            });
-        }
 
-        function hideOpenItems(exceptId) {
-            accordion.querySelectorAll(".accordion-collapse.show").forEach(function (item) {
-                if (item.id !== exceptId) {
-                    window.bootstrap.Collapse.getOrCreateInstance(item).hide();
-                }
+            var targetTop = target.getBoundingClientRect().top + window.pageYOffset;
+            var offset = getScrollOffset();
+
+            window.scrollTo({
+                top: Math.max(targetTop - offset, 0),
+                behavior: "smooth"
             });
         }
 
         buttons.forEach(function (button) {
             button.addEventListener("click", function (event) {
                 event.preventDefault();
-                var targetId = (button.getAttribute("href") || "").replace("#", "");
-                var collapseId = button.getAttribute("data-target-collapse");
+
+                var targetId = ((button.getAttribute("href") || "").replace("#", "")).trim();
                 if (!targetId) return;
 
                 setActiveButton(targetId);
-                hideOpenItems(collapseId);
-
-                if (collapseId) {
-                    var collapseEl = HCC.byId(collapseId);
-                    if (collapseEl) {
-                        window.bootstrap.Collapse.getOrCreateInstance(collapseEl).show();
-                    }
-                }
-
-                window.setTimeout(function () {
-                    scrollToGroup(targetId);
-                }, 220);
+                scrollToGroup(targetId);
             });
         });
 
         accordion.addEventListener("show.bs.collapse", function (event) {
-            hideOpenItems(event.target.id);
             var group = event.target.closest(".membership-group");
             if (group && group.id) {
                 setActiveButton(group.id);
             }
         });
+
+        accordion.addEventListener("hidden.bs.collapse", function () {
+            var openItem = accordion.querySelector(".accordion-collapse.show");
+            if (!openItem) {
+                // Keep current active button if user navigated via sidebar.
+                // Do nothing here unless you want all highlights removed when all panels are shut.
+            }
+        });
+
+        if (window.location.hash) {
+            var initialTargetId = window.location.hash.replace("#", "");
+            var matchingButton = buttons.find(function (button) {
+                return (button.getAttribute("href") || "") === "#" + initialTargetId;
+            });
+
+            if (matchingButton) {
+                window.setTimeout(function () {
+                    setActiveButton(initialTargetId);
+                    scrollToGroup(initialTargetId);
+                }, 150);
+            }
+        }
     };
 
     HCC.initMembershipClubPay = function initMembershipClubPay() {
@@ -81,18 +101,16 @@
             document.body.appendChild(script);
         }
 
-        accordionPanels.forEach(function (panel) {
+        Array.prototype.forEach.call(accordionPanels, function (panel) {
             panel.addEventListener("shown.bs.collapse", function () {
                 loadClubPayScript();
             });
         });
 
-        // Load once on page ready in case any form section is visible by default.
         loadClubPayScript();
     };
 
     function bootMembership() {
-        if (!HCC) return;
         HCC.initMembershipPage();
         HCC.initMembershipClubPay();
     }
