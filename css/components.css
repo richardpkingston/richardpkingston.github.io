@@ -1047,6 +1047,10 @@
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
 }
 
+#watch-live {
+    scroll-margin-top: 100px;
+}
+
 /* Kit */
 .kit-logo-wrap {
     text-align: center;
