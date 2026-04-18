@@ -8,24 +8,31 @@
     <meta content="Richard Kingston" name="author"/>
     <title>Honley Cricket Club - Membership</title>
     <link href="favicon.png" rel="shortcut icon" type="image/x-icon"/>
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link crossorigin="anonymous"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+          rel="stylesheet"/>
     <link href="css/base.css" rel="stylesheet"/>
     <link href="css/layout.css" rel="stylesheet"/>
     <link href="css/components.css" rel="stylesheet"/>
+    <link href="css/hawks.css" rel="stylesheet"/>
 </head>
 <body class="membership-page">
+
 <nav aria-label="Main navigation" class="navbar navbar-expand-sm fixed-top site-nav" role="navigation">
     <div class="container">
         <a aria-label="Honley Cricket Club home" class="navbar-brand brand-wrap" href="./">
             <img alt="Honley Cricket Club logo" class="brand-logo" src="img/logo.jpg"/>
             <span class="brand-text">Honley Cricket Club</span>
         </a>
-        <button aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
-                data-bs-target="#main-nav" data-bs-toggle="collapse" type="button">
+
+        <button aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler" data-bs-target="#main-nav" data-bs-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="main-nav">
             <ul class="navbar-nav me-auto mb-2 mb-xl-0">
                 <li class="nav-item"><a class="nav-link" href="./">Home</a></li>
@@ -37,6 +44,7 @@
                 <li class="nav-item"><a class="nav-link" href="index.html#watch-live">Watch Matches</a></li>
                 <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
             </ul>
+
             <ul class="navbar-nav ms-sm-3">
                 <li class="nav-item dropdown">
                     <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
@@ -44,25 +52,40 @@
                         Follow us
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="https://www.facebook.com/honleycc/" rel="noopener"
-                               target="_blank"><i class="bi bi-facebook"></i> Facebook</a></li>
-                        <li><a class="dropdown-item" href="https://www.instagram.com/honleycricketclub/" rel="noopener"
-                               target="_blank"><i class="bi bi-instagram"></i> Instagram</a></li>
-                        <li><a class="dropdown-item" href="https://www.youtube.com/@honleycc6945" rel="noopener"
-                               target="_blank"><i class="bi bi-youtube"></i> YouTube</a></li>
+                        <li>
+                            <a class="dropdown-item" href="https://www.facebook.com/honleycc/" rel="noopener"
+                               target="_blank">
+                                <i class="bi bi-facebook"></i> Facebook
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="https://www.instagram.com/honleycricketclub/" rel="noopener"
+                               target="_blank">
+                                <i class="bi bi-instagram"></i> Instagram
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="https://www.youtube.com/@honleycc6945" rel="noopener"
+                               target="_blank">
+                                <i class="bi bi-youtube"></i> YouTube
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
 <main class="content-shell content-shell-compact">
     <div class="container">
         <div class="page-header-intro">
             <h1>Membership</h1>
-            <p class="page-subtitle">Join Honley Cricket Club and find the right option for players, families and
-                supporters.</p>
+            <p class="page-subtitle">
+                Join Honley Cricket Club and find the right option for players, families and supporters.
+            </p>
         </div>
+
         <div class="row page-header-content">
             <div class="col-md-4 membership-sidebar-sticky">
                 <div class="info-card compact-info-card join-card-prominent">
@@ -72,14 +95,19 @@
                         Junior, senior, women’s and family membership options are available.
                     </p>
                     <p class="membership-label">Choose a membership type:</p>
+
                     <div class="membership-type-buttons">
                         <a class="membership-type-button" data-target-collapse="collapsePM-Junior"
                            href="#junior-memberships">
                             Junior player memberships
                         </a>
-                        <a class="membership-type-button" data-target-collapse="collapseWomen"
+                        <a class="membership-type-button btn-hawks-primary" data-target-collapse="collapsePM-JuniorGirls"
+                           href="#junior-memberships-girls">
+                            U11 girls player memberships
+                        </a>
+                        <a class="membership-type-button btn-hawks-primary" data-target-collapse="collapseWomen"
                            href="#womens-membership">
-                            Women's player membership
+                            Women’s player membership
                         </a>
                         <a class="membership-type-button" data-target-collapse="collapsePM-Senior"
                            href="#senior-memberships">
@@ -91,14 +119,15 @@
                         </a>
                         <a class="membership-type-button" data-target-collapse="collapse-Social"
                            href="#social-memberships">
-                            Social memberships
+                            Social membership options
                         </a>
                         <a class="membership-type-button" data-target-collapse="collapse-Family-Life"
                            href="#life-nonplayer-memberships">
-                            Life memberships (non-players)
+                            Life memberships options (non-players)
                         </a>
                     </div>
                 </div>
+
                 <div class="info-card compact-info-card">
                     <i aria-hidden="true" class="bi bi-credit-card-fill"></i>
                     <h3>Payment &amp; registration</h3>
@@ -108,6 +137,7 @@
                         has been received.
                     </p>
                 </div>
+
                 <div class="info-card compact-info-card">
                     <i aria-hidden="true" class="bi bi-envelope-fill"></i>
                     <h3>Need help?</h3>
@@ -147,27 +177,31 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-8">
-                <section aria-labelledby="membership-heading" class="content-card feature-card header-feed-card"
+                <section aria-labelledby="membership-heading"
+                         class="content-card feature-card header-feed-card"
                          id="membership-options">
                     <div class="section-tag">
                         <i aria-hidden="true" class="bi bi-people-fill"></i>
                         <span>Membership</span>
                     </div>
+
                     <h3 class="card-title" id="membership-heading">
                         Please select your membership type, fill in your details and pay online.
                     </h3>
+
                     <p class="card-intro">
                         Once registered and payment is received you will get an emailed copy of your membership details.
                     </p>
+
                     <p class="membership-help-note">
                         Select a membership type below to open the registration form.
                     </p>
-                    <!--p class="lead text-hcc-red"><i aria-hidden="true" class="bi bi-megaphone-fill"></i> The payment
-                        portal will open in the next week or so.</p-->
 
                     <div class="membership-accordion-wrap">
                         <div class="accordion membership-accordion" id="accordion">
+
                             <div class="membership-group" id="junior-memberships">
                                 <h3 class="membership-group-title">Junior player memberships</h3>
                                 <div class="accordion-item membership-accordion-item">
@@ -176,16 +210,22 @@
                                         <h4 class="accordion-title-wrap">
                                             <button aria-controls="collapsePM-Junior" aria-expanded="false"
                                                     class="accordion-button collapsed membership-accordion-button"
-                                                    data-bs-target="#collapsePM-Junior" data-bs-toggle="collapse"
-                                                    type="button">Junior Playing Members £60 (boys &amp; girls)
+                                                    data-bs-target="#collapsePM-Junior"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Junior Playing Members £60 (boys &amp; girls)
                                             </button>
                                         </h4>
                                     </div>
-                                    <div aria-labelledby="headingOne" class="accordion-collapse collapse"
-                                         data-bs-parent="#accordion" id="collapsePM-Junior" role="tabpanel">
+                                    <div aria-labelledby="headingOne"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapsePM-Junior"
+                                         role="tabpanel">
                                         <div class="accordion-body membership-accordion-body">
                                             <div class="clubpay-frame">
-                                                <iframe class="clubpay-iframe" height="2984"
+                                                <iframe class="clubpay-iframe"
+                                                        height="2984"
                                                         src="https://www.clubpay.co.uk/forms/embed.php?id=1535014"
                                                         style="border:0; display:block;"
                                                         title="Junior Playing Member"
@@ -195,37 +235,79 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="membership-group" id="junior-memberships-girls">
+                                <h3 class="membership-group-title hawks-title-text">U11 girls player memberships</h3>
+                                <div class="accordion-item membership-accordion-item">
+                                    <div class="accordion-header membership-accordion-header" id="headingGirls"
+                                         role="tab">
+                                        <h4 class="accordion-title-wrap">
+                                            <button aria-controls="collapsePM-JuniorGirls" aria-expanded="false"
+                                                    class="accordion-button collapsed membership-accordion-button"
+                                                    data-bs-target="#collapsePM-JuniorGirls"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Junior Playing Members (U11 girls only)
+                                            </button>
+                                        </h4>
+                                    </div>
+                                    <div aria-labelledby="headingGirls"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapsePM-JuniorGirls"
+                                         role="tabpanel">
+                                        <div class="accordion-body membership-accordion-body">
+                                            <div class="clubpay-frame">
+                                                <iframe class="clubpay-iframe"
+                                                        height="2984"
+                                                        src="https://www.clubpay.co.uk/forms/embed.php?id=1747409"
+                                                        style="border:0; display:block;"
+                                                        title="Girls U11 Playing Memberships (years 5 and 6)"
+                                                        width="100%"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="membership-group" id="womens-membership">
-                                <h3 class="membership-group-title">Women's player membership</h3>
+                                <h3 class="membership-group-title hawks-title-text">Women’s player membership</h3>
                                 <div class="accordion-item membership-accordion-item">
                                     <div class="accordion-header membership-accordion-header" id="headingWomen"
                                          role="tab">
                                         <h4 class="accordion-title-wrap">
                                             <button aria-controls="collapseWomen" aria-expanded="false"
                                                     class="accordion-button collapsed membership-accordion-button"
-                                                    data-bs-target="#collapseWomen" data-bs-toggle="collapse"
-                                                    type="button">Women's player membership - free (but you need to
-                                                still register)<br>
+                                                    data-bs-target="#collapseWomen"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Women’s player membership - free (but you still need to register)<br>
                                                 <span class="text-hcc-red">
                                                     <i aria-hidden="true" class="bi bi-exclamation-circle-fill"></i>
-                                                players under 18 register as junior members</span>
+                                                    Players under 18 register as junior members
+                                                </span>
                                             </button>
                                         </h4>
                                     </div>
-                                    <div aria-labelledby="headingWomen" class="accordion-collapse collapse"
-                                         data-bs-parent="#accordion" id="collapseWomen" role="tabpanel">
+                                    <div aria-labelledby="headingWomen"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapseWomen"
+                                         role="tabpanel">
                                         <div class="accordion-body membership-accordion-body">
-
-                                            <div data-formheight="1652"
-                                                 data-formtitle="Women's Senior Playing Membership"
-                                                 data-formurl="//www.clubpay.co.uk/forms/embed.php?id=1742409"
-                                                 data-paddingbottom="10"
-                                                 id="mf_placeholder">
+                                            <div class="clubpay-frame">
+                                                <iframe class="clubpay-iframe"
+                                                        height="1652"
+                                                        src="https://www.clubpay.co.uk/forms/embed.php?id=1742409"
+                                                        style="border:0; display:block;"
+                                                        title="Women's Senior Playing Membership"
+                                                        width="100%"></iframe>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="membership-group" id="senior-memberships">
                                 <h3 class="membership-group-title">Senior player memberships</h3>
                                 <div class="accordion-item membership-accordion-item">
@@ -234,46 +316,59 @@
                                         <h4 class="accordion-title-wrap">
                                             <button aria-controls="collapsePM-Senior" aria-expanded="false"
                                                     class="accordion-button collapsed membership-accordion-button"
-                                                    data-bs-target="#collapsePM-Senior" data-bs-toggle="collapse"
-                                                    type="button">Senior Player Membership - £175 all in (<span
-                                                    class="text-hcc-red">early bird discount until end of May</span>)
+                                                    data-bs-target="#collapsePM-Senior"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Senior Player Membership - £175 all in
+                                                (<span class="text-hcc-red">early bird discount until end of May</span>)
                                                 then £50 + £6 per game.
                                             </button>
                                         </h4>
                                     </div>
-                                    <div aria-labelledby="headingThree" class="accordion-collapse collapse"
-                                         data-bs-parent="#accordion" id="collapsePM-Senior" role="tabpanel">
+                                    <div aria-labelledby="headingThree"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapsePM-Senior"
+                                         role="tabpanel">
                                         <div class="accordion-body membership-accordion-body">
                                             <div class="clubpay-frame">
-                                                <iframe class="clubpay-iframe" height="2036"
+                                                <iframe class="clubpay-iframe"
+                                                        height="2036"
                                                         src="https://www.clubpay.co.uk/forms/embed.php?id=564259"
                                                         style="border:0; display:block;"
-                                                        title="Senior Playing Membership" width="100%"></iframe>
+                                                        title="Senior Playing Membership"
+                                                        width="100%"></iframe>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="membership-group" id="life-player-memberships">
-                                <h3 class="membership-group-title">Life Player memberships</h3>
+                                <h3 class="membership-group-title">Life player memberships</h3>
                                 <div class="accordion-item membership-accordion-item">
                                     <div class="accordion-header membership-accordion-header" id="headingFour"
                                          role="tab">
                                         <h4 class="accordion-title-wrap">
                                             <button aria-controls="collapse-PM-Life" aria-expanded="false"
                                                     class="accordion-button collapsed membership-accordion-button"
-                                                    data-bs-target="#collapse-PM-Life" data-bs-toggle="collapse"
-                                                    type="button">Player Life Member (match fees only) XI Senior - £105
-                                                / Junior - £52.50
+                                                    data-bs-target="#collapse-PM-Life"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Player Life Member (match fees only) XI Senior - £105 / Junior - £52.50
                                                 | XII Senior - £95 / Junior - £47.50
                                             </button>
                                         </h4>
                                     </div>
-                                    <div aria-labelledby="headingFour" class="accordion-collapse collapse"
-                                         data-bs-parent="#accordion" id="collapse-PM-Life" role="tabpanel">
+                                    <div aria-labelledby="headingFour"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapse-PM-Life"
+                                         role="tabpanel">
                                         <div class="accordion-body membership-accordion-body">
                                             <div class="clubpay-frame">
-                                                <iframe class="clubpay-iframe" height="1763"
+                                                <iframe class="clubpay-iframe"
+                                                        height="1763"
                                                         src="https://www.clubpay.co.uk/forms/embed.php?id=631276"
                                                         style="border:0; display:block;"
                                                         title="Player Life Membership (fees only)"
@@ -283,24 +378,32 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="membership-group" id="social-memberships">
                                 <h3 class="membership-group-title">Social memberships</h3>
+
                                 <div class="accordion-item membership-accordion-item">
                                     <div class="accordion-header membership-accordion-header" id="headingFive"
                                          role="tab">
                                         <h4 class="accordion-title-wrap">
                                             <button aria-controls="collapse-Social" aria-expanded="false"
                                                     class="accordion-button collapsed membership-accordion-button"
-                                                    data-bs-target="#collapse-Social" data-bs-toggle="collapse"
-                                                    type="button">Social Membership Single (non-player) - £25
+                                                    data-bs-target="#collapse-Social"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Social Membership Single (non-player) - £25
                                             </button>
                                         </h4>
                                     </div>
-                                    <div aria-labelledby="headingFive" class="accordion-collapse collapse"
-                                         data-bs-parent="#accordion" id="collapse-Social" role="tabpanel">
+                                    <div aria-labelledby="headingFive"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapse-Social"
+                                         role="tabpanel">
                                         <div class="accordion-body membership-accordion-body">
                                             <div class="clubpay-frame">
-                                                <iframe class="clubpay-iframe" height="1458"
+                                                <iframe class="clubpay-iframe"
+                                                        height="1458"
                                                         src="https://www.clubpay.co.uk/forms/embed.php?id=567197"
                                                         style="border:0; display:block;"
                                                         title="Social Membership Single (non-player)"
@@ -309,22 +412,29 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="accordion-item membership-accordion-item">
                                     <div class="accordion-header membership-accordion-header" id="headingSix"
                                          role="tab">
                                         <h4 class="accordion-title-wrap">
                                             <button aria-controls="collapse-Senior" aria-expanded="false"
                                                     class="accordion-button collapsed membership-accordion-button"
-                                                    data-bs-target="#collapse-Senior" data-bs-toggle="collapse"
-                                                    type="button">Senior Citizen Membership - £20
+                                                    data-bs-target="#collapse-Senior"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Senior Citizen Membership - £20
                                             </button>
                                         </h4>
                                     </div>
-                                    <div aria-labelledby="headingSix" class="accordion-collapse collapse"
-                                         data-bs-parent="#accordion" id="collapse-Senior" role="tabpanel">
+                                    <div aria-labelledby="headingSix"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapse-Senior"
+                                         role="tabpanel">
                                         <div class="accordion-body membership-accordion-body">
                                             <div class="clubpay-frame">
-                                                <iframe class="clubpay-iframe" height="1458"
+                                                <iframe class="clubpay-iframe"
+                                                        height="1458"
                                                         src="https://www.clubpay.co.uk/forms/embed.php?id=568054"
                                                         style="border:0; display:block;"
                                                         title="Senior Citizen Membership Single (non-player)"
@@ -334,47 +444,63 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="membership-group" id="life-nonplayer-memberships">
                                 <h3 class="membership-group-title">Life memberships (non-players)</h3>
+
                                 <div class="accordion-item membership-accordion-item">
                                     <div class="accordion-header membership-accordion-header" id="headingSeven"
                                          role="tab">
                                         <h4 class="accordion-title-wrap">
                                             <button aria-controls="collapse-Family-Life" aria-expanded="false"
                                                     class="accordion-button collapsed membership-accordion-button"
-                                                    data-bs-target="#collapse-Family-Life" data-bs-toggle="collapse"
-                                                    type="button">Family Life Membership - £550
+                                                    data-bs-target="#collapse-Family-Life"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Family Life Membership - £550
                                             </button>
                                         </h4>
                                     </div>
-                                    <div aria-labelledby="headingSeven" class="accordion-collapse collapse"
-                                         data-bs-parent="#accordion" id="collapse-Family-Life" role="tabpanel">
+                                    <div aria-labelledby="headingSeven"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapse-Family-Life"
+                                         role="tabpanel">
                                         <div class="accordion-body membership-accordion-body">
                                             <div class="clubpay-frame">
-                                                <iframe class="clubpay-iframe" height="3250"
+                                                <iframe class="clubpay-iframe"
+                                                        height="3250"
                                                         src="https://www.clubpay.co.uk/forms/embed.php?id=571585"
-                                                        style="border:0; display:block;" title="Family Life Membership"
+                                                        style="border:0; display:block;"
+                                                        title="Family Life Membership"
                                                         width="100%"></iframe>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="accordion-item membership-accordion-item">
                                     <div class="accordion-header membership-accordion-header" id="headingEight"
                                          role="tab">
                                         <h4 class="accordion-title-wrap">
                                             <button aria-controls="collapse-Single-Life" aria-expanded="false"
                                                     class="accordion-button collapsed membership-accordion-button"
-                                                    data-bs-target="#collapse-Single-Life" data-bs-toggle="collapse"
-                                                    type="button">Single Life Membership - £300
+                                                    data-bs-target="#collapse-Single-Life"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Single Life Membership - £300
                                             </button>
                                         </h4>
                                     </div>
-                                    <div aria-labelledby="headingEight" class="accordion-collapse collapse"
-                                         data-bs-parent="#accordion" id="collapse-Single-Life" role="tabpanel">
+                                    <div aria-labelledby="headingEight"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapse-Single-Life"
+                                         role="tabpanel">
                                         <div class="accordion-body membership-accordion-body">
                                             <div class="clubpay-frame">
-                                                <iframe class="clubpay-iframe" height="1300"
+                                                <iframe class="clubpay-iframe"
+                                                        height="1300"
                                                         src="https://www.clubpay.co.uk/forms/embed.php?id=570586"
                                                         style="border:0; display:block;"
                                                         title="Single Life Membership (player / non-player)"
@@ -383,22 +509,29 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="accordion-item membership-accordion-item">
                                     <div class="accordion-header membership-accordion-header" id="headingNine"
                                          role="tab">
                                         <h4 class="accordion-title-wrap">
                                             <button aria-controls="collapse-Senior-Life" aria-expanded="false"
                                                     class="accordion-button collapsed membership-accordion-button"
-                                                    data-bs-target="#collapse-Senior-Life" data-bs-toggle="collapse"
-                                                    type="button">Senior Citizen Life Membership - £175
+                                                    data-bs-target="#collapse-Senior-Life"
+                                                    data-bs-toggle="collapse"
+                                                    type="button">
+                                                Senior Citizen Life Membership - £175
                                             </button>
                                         </h4>
                                     </div>
-                                    <div aria-labelledby="headingNine" class="accordion-collapse collapse"
-                                         data-bs-parent="#accordion" id="collapse-Senior-Life" role="tabpanel">
+                                    <div aria-labelledby="headingNine"
+                                         class="accordion-collapse collapse"
+                                         data-bs-parent="#accordion"
+                                         id="collapse-Senior-Life"
+                                         role="tabpanel">
                                         <div class="accordion-body membership-accordion-body">
                                             <div class="clubpay-frame">
-                                                <iframe class="clubpay-iframe" height="1216"
+                                                <iframe class="clubpay-iframe"
+                                                        height="1216"
                                                         src="https://www.clubpay.co.uk/forms/embed.php?id=568963"
                                                         style="border:0; display:block;"
                                                         title="Senior Citizen Life Membership (non-player)"
@@ -408,6 +541,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </section>
@@ -415,6 +549,7 @@
         </div>
     </div>
 </main>
+
 <footer class="site-footer">
     <div class="container">
         <div class="row g-4">
@@ -449,13 +584,17 @@
             </div>
         </div>
     </div>
+
     <button aria-label="Back to top" class="back-to-top" id="backToTop">
         <i class="bi bi-arrow-up"></i>
     </button>
 </footer>
-<script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+
+<script crossorigin="anonymous"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/site-core.js"></script>
 <script src="js/join.js"></script>
+
 </body>
 </html>
