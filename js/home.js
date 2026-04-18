@@ -31,46 +31,46 @@
 
     HCC.initLivestreamEmbed = function initLivestreamEmbed() {
         var liveContainer = HCC.byId("live-container");
-        var API_KEY = "YOUR_API_KEY";
+        var API_KEY = "AIzaSyDolr65SXnr_7tp1EVQl3R7Yyr_fH0cCdM";
         var CHANNEL_ID = "UCEY81pC3tG4_0OaV-svjkwA";
 
         if (!liveContainer || !API_KEY || API_KEY === "YOUR_API_KEY") return;
 
         var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" +
-            CHANNEL_ID +
-            "&eventType=live&type=video&key=" +
-            API_KEY;
+            encodeURIComponent(CHANNEL_ID) +
+            "&eventType=live&type=video&maxResults=1&key=" +
+            encodeURIComponent(API_KEY);
 
         fetch(url)
             .then(function (res) {
-                if (!res.ok) throw new Error("YouTube API request failed");
+                if (!res.ok) throw new Error("YouTube API request failed: " + res.status);
                 return res.json();
             })
             .then(function (data) {
-                if (!data.items || !data.items.length) return;
+                if (!data.items || !data.items.length || !data.items[0].id || !data.items[0].id.videoId) {
+                    return;
+                }
 
                 var videoId = data.items[0].id.videoId;
 
-                liveContainer.innerHTML = '' +
+                liveContainer.innerHTML =
                     '<div class="live-embed">' +
-                    '    <div class="ratio ratio-16x9">' +
-                    '        <iframe ' +
-                    '                src="https://www.youtube.com/embed/' + videoId + '" ' +
-                    '                title="Honley CC livestream" ' +
-                    '                allowfullscreen ' +
-                    '                loading="lazy">' +
-                    '        </iframe>' +
-                    '    </div>' +
+                    '  <div class="ratio ratio-16x9">' +
+                    '    <iframe ' +
+                    '      src="https://www.youtube.com/embed/' + videoId + '?rel=0" ' +
+                    '      title="Honley CC livestream" ' +
+                    '      loading="lazy" ' +
+                    '      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+                    '      referrerpolicy="strict-origin-when-cross-origin" ' +
+                    '      allowfullscreen>' +
+                    '    </iframe>' +
+                    '  </div>' +
                     '</div>';
             })
             .catch(function (err) {
                 console.warn("Livestream check failed:", err);
             });
     };
-
-    function escapeHtml(value) {
-        return HCC.escapeHtml ? HCC.escapeHtml(value || "") : String(value || "");
-    }
 
     function getMatchDurationMs(fixture) {
         var comp = (fixture && fixture.competition_name ? fixture.competition_name : "").toLowerCase();
