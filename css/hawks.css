@@ -98,6 +98,12 @@
     margin-bottom: 18px;
 }
 
+.hawks-title-text {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--hawks-pink-dark);
+}
+
 .btn-hawks-primary {
     background: var(--hawks-pink);
     border-color: var(--hawks-pink);
