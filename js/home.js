@@ -120,6 +120,25 @@
         });
     }
 
+    function formatCountdownHoursMinutes(distanceMs) {
+        var totalMinutes = Math.max(1, Math.ceil(distanceMs / (1000 * 60)));
+        var hours = Math.floor(totalMinutes / 60);
+        var minutes = totalMinutes % 60;
+
+        if (hours <= 0) {
+            return totalMinutes + "m";
+        }
+
+        // ✅ Add leading zero to minutes
+        var minsFormatted = String(minutes).padStart(2, "0");
+
+        if (minutes === 0) {
+            return hours + "h";
+        }
+
+        return hours + "h " + minsFormatted + "m";
+    }
+
     function startOfDay(date) {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate());
     }
@@ -278,7 +297,7 @@
                 escapeHtml(text) +
                 '</span>' +
                 (ctx.opponent
-                    ? '<span class="countdown-opponent"> v ' + escapeHtml(ctx.opponent) + '</span>'
+                    ? '<span class="countdown-opponent">v ' + escapeHtml(ctx.opponent) + '</span>'
                     : '')
             );
         }
@@ -324,8 +343,7 @@
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
                 if (distance < 2 * 60 * 60 * 1000) {
-                    var mins = Math.max(1, Math.ceil(distance / (1000 * 60)));
-                    setStructured("Starts in " + mins + "m", fixture, false);
+                    setStructured("Starts in " + formatCountdownHoursMinutes(distance), fixture, false);
                     return;
                 }
 
@@ -360,7 +378,7 @@
         }
 
         function loadRelevantFixture(forceRefresh) {
-            HCC.loadClubData({ forceRefresh: !!forceRefresh }).then(function (data) {
+            HCC.loadClubData({forceRefresh: !!forceRefresh}).then(function (data) {
                 var matchInfo = getCurrentOrNextFirstXIFixture(data.fixtures);
 
                 if (!matchInfo || !matchInfo.date) {
@@ -434,7 +452,7 @@
                 '</div>';
         }
 
-        HCC.loadClubData({ forceRefresh: false }).then(function (data) {
+        HCC.loadClubData({forceRefresh: false}).then(function (data) {
             var matchInfo = getCurrentOrNextFirstXIFixture(data.fixtures);
 
             if (!matchInfo) {
@@ -496,7 +514,7 @@
             });
         }
 
-        HCC.loadClubData({ forceRefresh: false }).then(function (data) {
+        HCC.loadClubData({forceRefresh: false}).then(function (data) {
             renderLatestResult(data);
 
             renderMatchCard(secondXINextEl, getCurrentOrNextTeamFixture(data.fixtures, "2nd XI"), "No upcoming 2nd XI fixture available.", "Match centre");
@@ -516,7 +534,7 @@
         if (!trackEl || typeof HCC.loadClubData !== "function") return;
 
         Promise.all([
-            HCC.loadClubData({ forceRefresh: false }),
+            HCC.loadClubData({forceRefresh: false}),
             typeof HCC.loadNewsItems === "function" ? HCC.loadNewsItems() : Promise.resolve([])
         ]).then(function (responses) {
             var data = responses[0];
