@@ -129,18 +129,20 @@
 
 /* Countdown structured styling */
 .countdown-prefix {
-    margin-right: 6px;
+    margin-right: 2px;
     font-size: 0.9rem;
     flex: 0 0 auto;
 }
 
 .countdown-main {
+    margin-right: 2px;
     font-weight: 700;
 }
 
 .countdown-opponent {
-    margin-left: 6px;
+    margin-left: 0;
     opacity: 0.9;
+    font-weight: 600;
 }
 
 /* LIVE styling */
@@ -1650,8 +1652,9 @@
     }
     
     .countdown-badge-text {
-        white-space: normal;
-        line-height: 1.25;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px; /* controls ALL spacing cleanly */
     }
     
     .hero-news-ticker {
