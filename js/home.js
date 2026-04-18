@@ -66,6 +66,15 @@
                     '    </iframe>' +
                     '  </div>' +
                     '</div>';
+
+                if (window.location.hash === "#watch-live") {
+                    setTimeout(function () {
+                        var el = document.getElementById("watch-live");
+                        if (el) {
+                            el.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                    }, 300);
+                }
             })
             .catch(function (err) {
                 console.warn("Livestream check failed:", err);
