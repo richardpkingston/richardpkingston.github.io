@@ -234,26 +234,49 @@
     };
 
     HCC.initWatchLiveAnchorFix = function initWatchLiveAnchorFix() {
-        function jumpIfNeeded(delayMs) {
-            if (window.location.hash === "#watch-live") {
-                HCC.scrollToWatchLive(delayMs);
-            }
+        function jumpToWatchLive(delayMs) {
+            HCC.scrollToWatchLive(delayMs || 0);
         }
 
-        jumpIfNeeded(0);
-        window.addEventListener("load", function () {
-            jumpIfNeeded(100);
-        });
-        window.addEventListener("pageshow", function () {
-            jumpIfNeeded(100);
-        });
+        function isHomePage() {
+            var path = (window.location.pathname || "").toLowerCase();
+            return path === "/" || path.endsWith("/index.html") || path.endsWith("/");
+        }
+
+        function isWatchLiveLink(link) {
+            if (!link) return false;
+            var href = link.getAttribute("href") || "";
+            return href === "#watch-live" ||
+                href === "index.html#watch-live" ||
+                href.endsWith("#watch-live");
+        }
+
+        if (window.location.hash === "#watch-live") {
+            jumpToWatchLive(0);
+            window.addEventListener("load", function () {
+                jumpToWatchLive(80);
+            });
+            window.addEventListener("pageshow", function () {
+                jumpToWatchLive(80);
+            });
+        }
 
         document.addEventListener("click", function (e) {
-            var link = e.target.closest('a[href="#watch-live"], a[href="index.html#watch-live"], a[href$="#watch-live"]');
-            if (!link) return;
+            var link = e.target.closest("a");
+            if (!isWatchLiveLink(link)) return;
 
-            HCC.scrollToWatchLive(50);
-            HCC.scrollToWatchLive(250);
+            if (isHomePage()) {
+                e.preventDefault();
+
+                if (window.location.hash !== "#watch-live") {
+                    history.pushState(null, "", "#watch-live");
+                }
+
+                jumpToWatchLive(0);
+                jumpToWatchLive(120);
+                jumpToWatchLive(260);
+                return;
+            }
         });
     };
 
