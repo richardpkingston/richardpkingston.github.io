@@ -16,39 +16,50 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install yt-dlp
-        run: python -m pip install --upgrade yt-dlp
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          python -m pip install --upgrade yt-dlp
+
+      - name: Ensure data folder exists
+        run: mkdir -p data
 
       - name: Detect current live stream
         shell: bash
         run: |
-          mkdir -p data
+          LIVE_JSON=$(yt-dlp -J "https://www.youtube.com/@honleycc6945/live" 2>/dev/null || true)
 
-          LIVE_URL=$(yt-dlp --skip-download --print "%(webpage_url)s" "https://www.youtube.com/@honleycc6945/live" 2>/dev/null | head -n 1 || true)
-          TITLE=$(yt-dlp --skip-download --print "%(title)s" "https://www.youtube.com/@honleycc6945/live" 2>/dev/null | head -n 1 || true)
-          STATUS=$(yt-dlp --skip-download --print "%(live_status)s" "https://www.youtube.com/@honleycc6945/live" 2>/dev/null | head -n 1 || true)
-
-          VIDEO_ID=""
-          LIVE_FLAG="false"
-
-          if [[ "$STATUS" == "is_live" && "$LIVE_URL" == *"watch?v="* ]]; then
-            VIDEO_ID="${LIVE_URL##*watch?v=}"
-            VIDEO_ID="${VIDEO_ID%%&*}"
-            LIVE_FLAG="true"
-          fi
+          VIDEO_ID=$(echo "$LIVE_JSON" | jq -r '.id // empty')
+          IS_LIVE=$(echo "$LIVE_JSON" | jq -r '.is_live // false')
+          TITLE=$(echo "$LIVE_JSON" | jq -r '.title // empty')
 
           UPDATED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-          cat > data/live-stream.json <<EOF
+          if [[ "$IS_LIVE" == "true" && -n "$VIDEO_ID" ]]; then
+            cat > data/live-stream.json <<EOF
           {
-            "live": $LIVE_FLAG,
+            "live": true,
             "videoId": "$VIDEO_ID",
-            "title": "$(printf '%s' "$TITLE" | sed 's/"/\\"/g')",
+            "title": $(jq -Rn --arg v "$TITLE" '$v'),
             "updated": "$UPDATED"
           }
           EOF
+          else
+            cat > data/live-stream.json <<EOF
+          {
+            "live": false,
+            "videoId": "",
+            "title": "",
+            "updated": "$UPDATED"
+          }
+          EOF
+          fi
 
-      - name: Commit JSON if changed
+          echo "Generated data/live-stream.json:"
+          cat data/live-stream.json
+
+      - name: Commit updated JSON
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
