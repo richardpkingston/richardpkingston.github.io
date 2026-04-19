@@ -216,28 +216,43 @@
     };
 
     HCC.scrollToWatchLive = function scrollToWatchLive(delayMs) {
-        var delay = typeof delayMs === "number" ? delayMs : 300;
+        var delay = typeof delayMs === "number" ? delayMs : 0;
         var section = document.getElementById("watch-live");
 
         if (!section) return;
 
         window.setTimeout(function () {
-            section.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
+            window.requestAnimationFrame(function () {
+                window.requestAnimationFrame(function () {
+                    section.scrollIntoView({
+                        behavior: "auto",
+                        block: "start"
+                    });
+                });
             });
         }, delay);
     };
 
     HCC.initWatchLiveAnchorFix = function initWatchLiveAnchorFix() {
-        if (window.location.hash === "#watch-live") {
-            HCC.scrollToWatchLive(250);
+        function jumpIfNeeded(delayMs) {
+            if (window.location.hash === "#watch-live") {
+                HCC.scrollToWatchLive(delayMs);
+            }
         }
+
+        jumpIfNeeded(0);
+        window.addEventListener("load", function () {
+            jumpIfNeeded(100);
+        });
+        window.addEventListener("pageshow", function () {
+            jumpIfNeeded(100);
+        });
 
         document.addEventListener("click", function (e) {
             var link = e.target.closest('a[href="#watch-live"], a[href="index.html#watch-live"], a[href$="#watch-live"]');
             if (!link) return;
 
+            HCC.scrollToWatchLive(50);
             HCC.scrollToWatchLive(250);
         });
     };
@@ -250,8 +265,14 @@
 
         if (!frame || !embedWrap || !fallbackCard) return;
 
+        function resnap(delayMs) {
+            if (window.location.hash === "#watch-live") {
+                HCC.scrollToWatchLive(delayMs);
+            }
+        }
+
         function showFallback() {
-            frame.src = "";
+            frame.removeAttribute("src");
             embedWrap.hidden = true;
             fallbackCard.hidden = false;
 
@@ -259,9 +280,8 @@
                 statusPill.hidden = true;
             }
 
-            if (window.location.hash === "#watch-live") {
-                HCC.scrollToWatchLive(250);
-            }
+            resnap(50);
+            resnap(250);
         }
 
         function showLive(videoId) {
@@ -269,6 +289,11 @@
                 showFallback();
                 return;
             }
+
+            frame.onload = function () {
+                resnap(50);
+                resnap(250);
+            };
 
             frame.src = "https://www.youtube.com/embed/" +
                 encodeURIComponent(videoId) +
@@ -281,9 +306,8 @@
                 statusPill.hidden = false;
             }
 
-            if (window.location.hash === "#watch-live") {
-                HCC.scrollToWatchLive(350);
-            }
+            resnap(50);
+            resnap(300);
         }
 
         fetch("data/live-stream.json?ts=" + Date.now(), { cache: "no-store" })
