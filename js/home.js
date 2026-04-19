@@ -243,53 +243,67 @@
     };
 
     HCC.initLivestreamEmbed = function initLivestreamEmbed() {
-        var liveContainer = byId("live-container");
-        var API_KEY = "AIzaSyDolr65SXnr_7tp1EVQl3R7Yyr_fH0cCdM";
-        var CHANNEL_ID = "UCEY81pC3tG4_0OaV-svjkwA";
+        var frame = document.getElementById("liveStreamFrame");
+        var embedWrap = document.getElementById("liveEmbedWrap");
+        var fallbackCard = document.getElementById("liveFallbackCard");
+        var statusPill = document.getElementById("liveStatusPill");
 
-        if (!liveContainer || !API_KEY || API_KEY === "YOUR_API_KEY" || API_KEY === "PASTE_YOUR_REAL_API_KEY_HERE") {
-            return;
+        if (!frame || !embedWrap || !fallbackCard) return;
+
+        function showFallback() {
+            frame.src = "";
+            embedWrap.hidden = true;
+            fallbackCard.hidden = false;
+
+            if (statusPill) {
+                statusPill.hidden = true;
+            }
+
+            if (window.location.hash === "#watch-live") {
+                HCC.scrollToWatchLive(250);
+            }
         }
 
-        var url = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=" +
-            encodeURIComponent(CHANNEL_ID) +
-            "&eventType=live&type=video&maxResults=1&key=" +
-            encodeURIComponent(API_KEY);
+        function showLive(videoId) {
+            if (!videoId) {
+                showFallback();
+                return;
+            }
 
-        fetch(url)
+            frame.src = "https://www.youtube.com/embed/" +
+                encodeURIComponent(videoId) +
+                "?rel=0";
+
+            embedWrap.hidden = false;
+            fallbackCard.hidden = true;
+
+            if (statusPill) {
+                statusPill.hidden = false;
+            }
+
+            if (window.location.hash === "#watch-live") {
+                HCC.scrollToWatchLive(350);
+            }
+        }
+
+        fetch("data/live-stream.json?ts=" + Date.now(), { cache: "no-store" })
             .then(function (res) {
                 if (!res.ok) {
-                    throw new Error("YouTube API request failed: " + res.status);
+                    throw new Error("Live stream JSON not available: " + res.status);
                 }
                 return res.json();
             })
             .then(function (data) {
-                if (!data.items || !data.items.length || !data.items[0].id || !data.items[0].id.videoId) {
+                if (data && data.live === true && data.videoId) {
+                    showLive(data.videoId);
                     return;
                 }
 
-                var videoId = data.items[0].id.videoId;
-
-                liveContainer.innerHTML =
-                    '<div class="live-embed">' +
-                    '    <div class="ratio ratio-16x9">' +
-                    '        <iframe ' +
-                    '            src="https://www.youtube.com/embed/' + videoId + '?rel=0" ' +
-                    '            title="Honley CC livestream" ' +
-                    '            loading="lazy" ' +
-                    '            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
-                    '            referrerpolicy="strict-origin-when-cross-origin" ' +
-                    '            allowfullscreen>' +
-                    '        </iframe>' +
-                    '    </div>' +
-                    '</div>';
-
-                if (window.location.hash === "#watch-live") {
-                    HCC.scrollToWatchLive(350);
-                }
+                showFallback();
             })
             .catch(function (err) {
-                console.warn("Livestream check failed:", err);
+                console.warn("Live stream JSON check failed:", err);
+                showFallback();
             });
     };
 
